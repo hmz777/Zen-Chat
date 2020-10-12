@@ -1,5 +1,70 @@
 ﻿@page
+@using MVCBlazorChatApp.Server.Models
 @model MVCBlazorChatApp.Server.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewBag.Title = "User registration";
 }
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<div class="wide-wrapper wide-wrapper--row">
+    <div class="register-portal">
+        <div class="register-banner">
+            <img src="~/media/imgassets/login-banner.jpg" alt="Login banner" />
+            <div class="overlay">
+                <h1>Z-Chat<br />User Registration</h1>
+                <p>Register an account to save your chat history<br /> and gain more features.</p>
+            </div>
+        </div>
+        <form method="post">
+            <h2>Register</h2>
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.RegisterDTO.Username" class="icon"><i class="las la-user"></i></label>
+                        <input type="text" asp-for="@Model.RegisterDTO.Username" placeholder="Username" />
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.RegisterDTO.Username"></span>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.RegisterDTO.Email" class="icon"><i class="las la-envelope"></i></label>
+                        <input type="email" asp-for="@Model.RegisterDTO.Email" placeholder="Email address" />
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.RegisterDTO.Email"></span>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.RegisterDTO.Password" class="icon"><i class="las la-key"></i></label>
+                        <input type="password" asp-for="@Model.RegisterDTO.Password" placeholder="Password" />
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.RegisterDTO.Password"></span>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.RegisterDTO.Gender" class="icon"><i class="las la-circle"></i></label>
+                        <select asp-for="@Model.RegisterDTO.Gender" asp-items="@Html.GetEnumSelectList<Gender>()">
+                            <option value="" selected disabled>Select an option</option>
+                        </select>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.RegisterDTO.Gender"></span>
+            </div>
+            <div class="input-wrapper input-wrapper--row justify-content-between">
+                <div class="flex-row flex-1">
+                    <label asp-for="@Model.RegisterDTO.PrivacyPolicy"></label>
+                    <input type="checkbox" asp-for="@Model.RegisterDTO.PrivacyPolicy" />
+                </div>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>

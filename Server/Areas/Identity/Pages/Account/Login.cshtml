@@ -23,7 +23,7 @@
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label asp-for="@Model.LoginDto.UsernameOrEmail" class="icon"><i class="las la-user"></i></label>
-                        <input type="text" asp-for="@Model.LoginDto.UsernameOrEmail" />
+                        <input type="text" asp-for="@Model.LoginDto.UsernameOrEmail" placeholder="Username or email" />
                     </div>
                 </div>
                 <span asp-validation-for="@Model.LoginDto.UsernameOrEmail"></span>
@@ -32,7 +32,7 @@
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label asp-for="@Model.LoginDto.Password" class="icon"><i class="las la-key"></i></label>
-                        <input type="password" asp-for="@Model.LoginDto.Password" />
+                        <input type="password" asp-for="@Model.LoginDto.Password" placeholder="Password" />
                     </div>
                 </div>
                 <span asp-validation-for="@Model.LoginDto.Password"></span>
