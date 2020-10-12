@@ -1,1 +1,16 @@
-﻿$la-font-path : "../lib/line-awesome/dist/line-awesome/fonts";
+﻿$la-font-path: "../../wwwroot/lib/line-awesome/dist/line-awesome/fonts";
+$font-family: 'Poppins', sans-serif;
+
+
+/* Colors
+   ===================================
+*/
+
+$color1: #009688;
+$color2: white;
+
+/* Easings
+   ===================================
+*/
+
+$main-easing: cubic-bezier(0.65, 0, 0.35, 1);

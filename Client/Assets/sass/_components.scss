@@ -1,1 +1,151 @@
-﻿
+﻿.wide-wrapper {
+    display: flex;
+    width: 100%;
+    padding: 2em 4em;
+
+    &--row {
+        flex-flow: row wrap;
+    }
+
+    &--column {
+        flex-flow: column wrap;
+    }
+}
+
+form {
+    display: flex;
+    flex-flow: column wrap;
+
+    .input-wrapper {
+        display: flex;
+        position: relative;
+        padding: .5em 0;
+        width: 100%;
+
+        &--row {
+            flex-flow: row wrap;
+        }
+
+        &--column {
+            flex-flow: column wrap;
+        }
+
+        input, textarea {
+            background: none;
+            border: none;
+            outline: none;
+            padding: .5em 0;
+            font-size: 1.1em;
+
+            &[type='checkbox'] {
+                margin: auto 0 auto .4em;
+            }
+        }
+
+        .input {
+            display: flex;
+            flex-flow: row;            
+
+            .icon {
+                display: flex;
+                align-items: center;
+                color: $color1;
+                margin-right: .3em;
+                font-size: 1.5em;
+            }
+        }
+
+        &--text {
+            -webkit-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
+            -moz-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
+            box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
+
+            &:after {
+                position: absolute;
+                content: "";
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: .15em;
+                background: $color1;
+                transition: transform .3s $main-easing;
+                transform: scaleX(0);
+            }
+
+            &.focused {
+                &:after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+
+    button {
+        align-self: flex-end;
+        border-radius: 5em;
+        padding: .7em 3em;
+        color: white;
+        background: $color1;
+        transition: box-shadow .3s $main-easing;
+        -webkit-box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
+        -moz-box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
+        box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
+
+        &:hover {
+            -webkit-box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
+            -moz-box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
+            box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
+        }
+    }
+}
+
+.login-portal {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    width: 70%;
+    height: 30em;
+    margin: auto;
+    -webkit-box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
+
+    .login-banner {
+        position: relative;
+        width: 50%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba($color1, .7);
+            word-break: break-word;
+            padding: 4em 2em;
+            color: white;
+
+            h1 {
+                font-size: 3em;
+            }
+        }
+    }
+
+    form {
+        width: 50%;
+        padding: 4em 2em;
+    }
+}
+
+a {
+    font-weight: 500;
+    color: $color1;
+}

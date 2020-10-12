@@ -1,1 +1,61 @@
-﻿
+﻿.navbar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    padding: 0 4em;
+    background: $color2;
+    width: 100%;
+    height: 4em;
+    position: static;
+    position: -webkit-sticky;
+    top: 0;
+    font-size: 1.2em;
+    font-weight: 500;
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .3em;
+
+        i {
+            margin: 0 .2em;
+            font-size: 2em;
+        }
+
+        a {
+            color: $color1;
+        }
+    }
+
+    nav {
+        margin-left: auto;
+
+        ul {
+            list-style: none;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: stretch;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+
+            li {
+                display: flex;
+                margin: 0 1em;
+                transition: box-shadow .3s $main-easing;
+
+                a {
+                    color: $color1;
+                    margin: auto;
+                }
+
+                &:hover {
+                    -webkit-box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
+                    -moz-box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
+                    box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
+                }
+            }
+        }
+    }
+}
