@@ -1,5 +1,46 @@
-﻿@page
+﻿@page "/Login/{handler?}"
 @model MVCBlazorChatApp.Server.Areas.Identity.Pages.Account.LoginModel
 @{
-
+    ViewBag.Title = "User Login";
 }
+
+<div class="wide-wrapper wide-wrapper--row">
+    <div class="login-portal">
+        <div class="login-banner">
+            <img src="~/media/imgassets/login-banner.jpg" alt="Login banner" />
+            <div class="overlay">
+                <h1>Z-Chat<br />Login Portal</h1>
+                <p>Login to manage your account and chat rooms.</p>
+            </div>
+        </div>
+        <form method="post">
+            <h2>Login</h2>
+            <div class="mb-1">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.LoginDto.UsernameOrEmail" class="icon"><i class="las la-user"></i></label>
+                        <input type="text" asp-for="@Model.LoginDto.UsernameOrEmail" />
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.LoginDto.UsernameOrEmail"></span>
+            </div>
+            <div class="mb-1">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label asp-for="@Model.LoginDto.Password" class="icon"><i class="las la-key"></i></label>
+                        <input type="password" asp-for="@Model.LoginDto.Password" />
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.LoginDto.Password"></span>
+            </div>
+            <div class="input-wrapper input-wrapper--row justify-content-between mb-1">
+                <div class="flex-row flex-1">
+                    <label asp-for="@Model.LoginDto.RememberMe"></label>
+                    <input type="checkbox" asp-for="@Model.LoginDto.RememberMe" />
+                </div>
+                <a asp-area="Identity" asp-page="ForgotPassword">Forgot Password?</a>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
