@@ -1579,6 +1579,13 @@
         "dist/line-awesome/scss/_stacked.scss",
         "dist/line-awesome/scss/_variables.scss"
       ]
+    },
+    {
+      "library": "jquery@latest",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "dist/jquery.min.js"
+      ]
     }
   ]
 }
