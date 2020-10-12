@@ -5036,6 +5036,9 @@ h6 {
 form {
   display: flex;
   flex-flow: column wrap; }
+  form .form-group {
+    position: relative;
+    margin-bottom: 1em; }
   form .input-wrapper {
     display: flex;
     position: relative;
@@ -5078,6 +5081,40 @@ form {
         transform: scaleX(0); }
       form .input-wrapper--text.focused:after {
         transform: scaleX(1); }
+  form span[class^='field-validation'] {
+    position: absolute;
+    right: 1em;
+    bottom: 50%;
+    background: #d0021b;
+    border: 2px solid #c2c2c2;
+    padding: .7em;
+    color: white;
+    font-size: .8em;
+    z-index: 2;
+    border-radius: .5em;
+    animation: fadeIn .3s ease-in-out;
+    display: none; }
+    form span[class^='field-validation'].field-validation-error {
+      display: block; }
+    form span[class^='field-validation']:after, form span[class^='field-validation']:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none; }
+    form span[class^='field-validation']:after {
+      border-color: transparent;
+      border-top-color: #d0021b;
+      border-width: 8px;
+      margin-left: -8px; }
+    form span[class^='field-validation']:before {
+      border-color: transparent;
+      border-top-color: #c2c2c2;
+      border-width: 11px;
+      margin-left: -11px; }
   form button {
     align-self: flex-end;
     border-radius: 5em;
@@ -5131,6 +5168,12 @@ form {
 a {
   font-weight: 500;
   color: #009688; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
 .navbar {
   display: flex;

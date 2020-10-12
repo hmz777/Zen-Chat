@@ -16,6 +16,11 @@ form {
     display: flex;
     flex-flow: column wrap;
 
+    .form-group {
+        position: relative;
+        margin-bottom: 1em;
+    }
+
     .input-wrapper {
         display: flex;
         position: relative;
@@ -44,7 +49,7 @@ form {
 
         .input {
             display: flex;
-            flex-flow: row;            
+            flex-flow: row;
 
             .icon {
                 display: flex;
@@ -77,6 +82,50 @@ form {
                     transform: scaleX(1);
                 }
             }
+        }
+    }
+
+    span[class^='field-validation'] {
+        position: absolute;
+        right: 1em;
+        bottom: 50%;
+        background: #d0021b;
+        border: 2px solid #c2c2c2;
+        padding: .7em;
+        color: white;
+        font-size: .8em;
+        z-index: 2;
+        border-radius: .5em;
+        animation: fadeIn .3s ease-in-out;
+        display: none;
+
+        &.field-validation-error {
+            display: block;
+        }
+
+        &:after, &:before {
+            top: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: transparent;
+            border-top-color: #d0021b;
+            border-width: 8px;
+            margin-left: -8px;
+        }
+
+        &:before {
+            border-color: transparent;
+            border-top-color: #c2c2c2;
+            border-width: 11px;
+            margin-left: -11px;
         }
     }
 
