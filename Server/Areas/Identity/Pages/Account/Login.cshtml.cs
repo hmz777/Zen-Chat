@@ -24,11 +24,11 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 
     public class LoginDto
     {
-        [Required]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Username or email")]
         public string UsernameOrEmail { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "User Login";
 }
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}
 
 <div class="wide-wrapper wide-wrapper--row">
     <div class="login-portal">
@@ -15,7 +19,7 @@
         </div>
         <form method="post">
             <h2>Login</h2>
-            <div class="mb-1">
+            <div class="form-group">
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label asp-for="@Model.LoginDto.UsernameOrEmail" class="icon"><i class="las la-user"></i></label>
@@ -24,7 +28,7 @@
                 </div>
                 <span asp-validation-for="@Model.LoginDto.UsernameOrEmail"></span>
             </div>
-            <div class="mb-1">
+            <div class="form-group">
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label asp-for="@Model.LoginDto.Password" class="icon"><i class="las la-key"></i></label>
