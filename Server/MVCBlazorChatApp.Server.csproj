@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Chat\" />
+    <Folder Include="Helpers\Attributes\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
