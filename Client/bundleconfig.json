@@ -1,0 +1,9 @@
+[
+  {
+    "outputFileName": "wwwroot/css/main.min.css",
+    "inputFiles": [
+      "Assets/sass/main.scss"      
+    ],
+    "minify": { "enabled": true }
+  }
+]
