@@ -5048,14 +5048,16 @@ form {
       flex-flow: row wrap; }
     form .input-wrapper--column {
       flex-flow: column wrap; }
-    form .input-wrapper input, form .input-wrapper textarea {
+    form .input-wrapper input, form .input-wrapper textarea, form .input-wrapper select {
       background: none;
       border: none;
       outline: none;
       padding: .5em 0;
-      font-size: 1.1em; }
-      form .input-wrapper input[type='checkbox'], form .input-wrapper textarea[type='checkbox'] {
-        margin: auto 0 auto .4em; }
+      font-size: 1.1em;
+      width: 100%; }
+      form .input-wrapper input[type='checkbox'], form .input-wrapper textarea[type='checkbox'], form .input-wrapper select[type='checkbox'] {
+        margin: auto 0 auto .4em;
+        width: initial; }
     form .input-wrapper .input {
       display: flex;
       flex-flow: row; }
@@ -5083,8 +5085,8 @@ form {
         transform: scaleX(1); }
   form span[class^='field-validation'] {
     position: absolute;
-    right: 1em;
-    bottom: 50%;
+    right: -2em;
+    bottom: 67%;
     background: #d0021b;
     border: 2px solid #c2c2c2;
     padding: .7em;
@@ -5130,7 +5132,7 @@ form {
       -moz-box-shadow: 0px 10px 30px -3px rgba(0, 150, 136, 0.75);
       box-shadow: 0px 10px 30px -3px rgba(0, 150, 136, 0.75); }
 
-.login-portal {
+.login-portal, .register-portal {
   display: flex;
   flex-flow: row wrap;
   align-items: stretch;
@@ -5140,15 +5142,15 @@ form {
   -webkit-box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75); }
-  .login-portal .login-banner {
+  .login-portal .login-banner, .login-portal .register-banner, .register-portal .login-banner, .register-portal .register-banner {
     position: relative;
     width: 50%;
     height: 100%; }
-    .login-portal .login-banner img {
+    .login-portal .login-banner img, .login-portal .register-banner img, .register-portal .login-banner img, .register-portal .register-banner img {
       width: 100%;
       object-fit: cover;
       height: 100%; }
-    .login-portal .login-banner .overlay {
+    .login-portal .login-banner .overlay, .login-portal .register-banner .overlay, .register-portal .login-banner .overlay, .register-portal .register-banner .overlay {
       position: absolute;
       content: "";
       top: 0;
@@ -5159,11 +5161,16 @@ form {
       word-break: break-word;
       padding: 4em 2em;
       color: white; }
-      .login-portal .login-banner .overlay h1 {
+      .login-portal .login-banner .overlay h1, .login-portal .register-banner .overlay h1, .register-portal .login-banner .overlay h1, .register-portal .register-banner .overlay h1 {
         font-size: 3em; }
-  .login-portal form {
-    width: 50%;
-    padding: 4em 2em; }
+
+.login-portal form {
+  width: 50%;
+  padding: 4em 2em; }
+
+.register-portal form {
+  width: 50%;
+  padding: .5em 2em; }
 
 a {
   font-weight: 500;
