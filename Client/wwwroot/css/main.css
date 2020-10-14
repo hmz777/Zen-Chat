@@ -29,6 +29,15 @@ button {
 a {
   text-decoration: none; }
 
+html {
+  min-height: 100%; }
+
+body {
+  min-height: 100%; }
+
+main {
+  min-height: 100%; }
+
 /* My Styles
    ==========================================================================
 */
@@ -536,6 +545,7 @@ template {
 
 .lar,
 .las,
+.footer .flex-column a:not(.logo-link):before,
 .lab {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -577,7 +587,7 @@ template {
   src: url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.eot");
   src: url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.eot?#iefix") format("embedded-opentype"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.woff2") format("woff2"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.woff") format("woff"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.ttf") format("truetype"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.svg#lineawesome") format("svg"); }
 
-.las {
+.las, .footer .flex-column a:not(.logo-link):before {
   font-family: Line Awesome Free;
   font-weight: 900; }
 
@@ -674,6 +684,7 @@ template {
 
 .la.la-pull-left,
 .las.la-pull-left,
+.footer .flex-column a.la-pull-left:not(.logo-link):before,
 .lar.la-pull-left,
 .lal.la-pull-left,
 .lab.la-pull-left {
@@ -681,6 +692,7 @@ template {
 
 .la.la-pull-right,
 .las.la-pull-right,
+.footer .flex-column a.la-pull-right:not(.logo-link):before,
 .lar.la-pull-right,
 .lal.la-pull-right,
 .lab.la-pull-right {
@@ -5013,6 +5025,12 @@ h6 {
 .mb-2 {
   margin-bottom: 2em; }
 
+.mt-1 {
+  margin-top: 1em; }
+
+.mt-2 {
+  margin-top: 2em; }
+
 .flex-row {
   display: flex;
   flex-flow: row wrap; }
@@ -5023,6 +5041,16 @@ h6 {
 
 .flex-1 {
   flex: 1; }
+
+.display {
+  font-weight: bold;
+  word-break: break-word; }
+
+.display-1 {
+  font-size: 6em; }
+
+.display-2 {
+  font-size: 4em; }
 
 .wide-wrapper {
   display: flex;
@@ -5176,6 +5204,37 @@ a {
   font-weight: 500;
   color: #009688; }
 
+code {
+  background-color: white;
+  color: #009688;
+  padding: 0 .4em; }
+
+.show-text {
+  background: #009688;
+  color: white;
+  padding: 1.5em;
+  margin: 1em 0;
+  font-size: 1.5em;
+  margin: 2em 0;
+  position: relative;
+  -webkit-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75); }
+  .show-text .title {
+    position: absolute;
+    left: .2em;
+    top: -.6em;
+    content: "";
+    font-weight: bold;
+    font-size: 1.7em;
+    color: black; }
+
+.main-back {
+  background: url(/media/imgassets/pp.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center; }
+
 @keyframes fadeIn {
   from {
     opacity: 0; }
@@ -5226,3 +5285,47 @@ a {
           -webkit-box-shadow: inset 0px 7px 0px 0px rgba(0, 150, 136, 0.75);
           -moz-box-shadow: inset 0px 7px 0px 0px rgba(0, 150, 136, 0.75);
           box-shadow: inset 0px 7px 0px 0px rgba(0, 150, 136, 0.75); }
+
+.footer {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  background: #009688;
+  color: white;
+  justify-content: space-between;
+  min-height: 10em;
+  margin-top: 5em;
+  position: relative;
+  bottom: 0;
+  min-height: 15em;
+  color: white;
+  padding: 2em 0 0; }
+  .footer a {
+    color: white; }
+  .footer .flex-column {
+    flex-basis: 32%;
+    padding: 2em; }
+    .footer .flex-column a:not(.logo-link) {
+      margin-bottom: 1.5em;
+      position: relative;
+      font-size: 1.2em; }
+      .footer .flex-column a:not(.logo-link):before {
+        position: relative;
+        content: "\f054";
+        color: black;
+        left: -.5em;
+        opacity: 0;
+        transition: opacity .3s ease-in-out; }
+      .footer .flex-column a:not(.logo-link):hover:before {
+        opacity: 1; }
+  .footer .logo {
+    margin: 0 auto;
+    font-size: 1.8em; }
+    .footer .logo a i {
+      margin: 0 .1em;
+      font-size: 2.3em; }
+  .footer .flex-row {
+    width: 100%;
+    padding: 1em;
+    background: #00645A;
+    justify-content: center; }

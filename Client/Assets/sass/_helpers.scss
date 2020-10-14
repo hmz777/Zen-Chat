@@ -54,6 +54,14 @@ h6 {
     margin-bottom: 2em;
 }
 
+.mt-1 {
+    margin-top: 1em;
+}
+
+.mt-2 {
+    margin-top: 2em;
+}
+
 .flex-row {
     display: flex;
     flex-flow: row wrap;
@@ -66,4 +74,17 @@ h6 {
 
 .flex-1 {
     flex: 1;
+}
+
+.display {
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.display-1 {
+    font-size: 6em;
+}
+
+.display-2 {
+    font-size: 4em;
 }
