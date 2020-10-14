@@ -1,1 +1,66 @@
-﻿
+﻿.footer {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    background: $color1;
+    color: white;
+    justify-content: space-between;
+    min-height: 10em;
+    margin-top: 5em;
+    position: relative;
+    bottom: 0;
+    min-height: 15em;
+    color: white;
+    padding: 2em 0 0;
+
+    a {
+        color: white;
+    }
+
+    .flex-column {
+        flex-basis: 32%;
+        padding: 2em;
+
+        a:not(.logo-link) {
+            margin-bottom: 1.5em;
+            position: relative;
+            font-size: 1.2em;
+
+            &:before {
+                position: relative;
+                @extend .las;
+                content: la-content($la-chevron-right);
+                color: black;
+                left: -.5em;
+                opacity: 0;
+                transition: opacity .3s ease-in-out;
+            }
+
+            &:hover {
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .logo {
+        margin: 0 auto;
+        font-size: 1.8em;
+
+        a {
+
+            i {
+                margin: 0 .1em;
+                font-size: 2.3em;
+            }
+        }
+    }
+
+    .flex-row {
+        width: 100%;
+        padding: 1em;
+        background: $color2;
+        justify-content: center;
+    }
+}
