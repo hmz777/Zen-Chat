@@ -57,10 +57,22 @@
         }
     }
 
-    .flex-row {
+    .footer-bottom {
+        display: flex;
+        flex-flow: column wrap;
         width: 100%;
-        padding: 1em;
+        padding: 1em 1em 0;
         background: $color2;
+        align-items: center;
         justify-content: center;
+        text-align: center;
+
+        span:last-of-type {
+            background: white;
+            color: $color1;
+            padding: 1em;
+            border-radius: .5em .5em 0 0;
+            flex: 1;
+        }
     }
 }
