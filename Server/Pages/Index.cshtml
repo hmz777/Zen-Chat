@@ -1,0 +1,21 @@
+﻿@page
+@model MVCBlazorChatApp.Server.Pages.IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="wide-wrapper wide-wrapper--row main-back">
+    <h1 class="display display-2">Z-Chat<br />No registration<br />No chat history<br />Totally anonymous</h1>
+</div>
+<div class="wide-wrapper wide-wrapper--row">
+    <p class="show-text">
+        <span class="title">Start</span>
+        Create a chat room using this URL: <code>@string.Format("{0}://{1}/Chat", Request.Scheme, Request.Host)</code> followed by the room name.
+    </p>
+    <p class="show-text">
+        <span class="title">Example</span>
+        A room with the name <code>ChatRoom</code> would be accessed like this:<br /><br /><code>@string.Format("{0}://{1}/Chat/ChatRoom", Request.Scheme, Request.Host)</code>.
+    </p>
+</div>
+
+
