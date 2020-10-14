@@ -5324,8 +5324,18 @@ code {
     .footer .logo a i {
       margin: 0 .1em;
       font-size: 2.3em; }
-  .footer .flex-row {
+  .footer .footer-bottom {
+    display: flex;
+    flex-flow: column wrap;
     width: 100%;
-    padding: 1em;
+    padding: 1em 1em 0;
     background: #00645A;
-    justify-content: center; }
+    align-items: center;
+    justify-content: center;
+    text-align: center; }
+    .footer .footer-bottom span:last-of-type {
+      background: white;
+      color: #009688;
+      padding: 1em;
+      border-radius: .5em .5em 0 0;
+      flex: 1; }
