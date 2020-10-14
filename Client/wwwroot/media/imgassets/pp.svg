@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1930px" height="1090px" viewBox="0 0 1930 1090" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <path d="M0 0L1920 0L1920 1080L0 1080L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Paper_Plane_Vector" transform="translate(5 5)">
+    <path d="M0 0L1920 0L1920 1080L0 1080L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <path d="M0 167.5L570.1 0L156 226.8L0 167.5Z" transform="translate(1211.9 165)" id="Polygon" fill="#009688" fill-rule="evenodd" stroke="none" />
+      <path d="M414.1 0L0 226.8L66.5 368.5L414.1 0Z" transform="translate(1367.9 165)" id="Polygon" fill="#00645A" fill-rule="evenodd" stroke="none" />
+      <path d="M330.1 0L0 256.5L132.7 438.7L330.1 0Z" transform="translate(1451.9 165)" id="Polygon" fill="#009688" fill-rule="evenodd" stroke="none" />
+      <path d="M0 112L17.5 0L55.9 52.7L0 112Z" transform="translate(1434.4 421.5)" id="Polygon" fill="#00423C" fill-rule="evenodd" stroke="none" />
+      <g id="Group" transform="translate(9 459.0995)">
+        <g id="Group">
+          <path d="M7.19995 0C7.19995 0 4.69995 2.5 0 6.90002" transform="translate(1374.3 98.30054)" id="Shape" fill="none" fill-rule="evenodd" stroke="#00A99D" stroke-width="10" />
+          <path d="M1347.7 118.701C1285.1 173.8 1100.3 318.401 931.3 274.801C723.8 221.401 765 -0.399475 887.5 0.000549316C1010 0.400574 1084.9 213.901 1018.9 354.901C952.9 495.9 748.9 597.901 466.8 525.901C237.5 467.401 47.8 226.201 0 161" transform="translate(11.600037 0)" id="Shape" fill="none" fill-rule="evenodd" stroke="#009688" stroke-width="10" stroke-dasharray="20.1304 20.1304" />
+          <path d="M5.7 8.20001C1.9 2.90002 0 0 0 0" transform="translate(0 144.60052)" id="Shape" fill="none" fill-rule="evenodd" stroke="#00A99D" stroke-width="10" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
