@@ -44,6 +44,7 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
         public Gender Gender { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        [Display(Name = "Privacy Policy")]
         [MustBeTrue]
         public bool PrivacyPolicy { get; set; }
     }
