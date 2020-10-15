@@ -1600,6 +1600,14 @@
       "files": [
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "library": "notyf@latest",
+      "destination": "wwwroot/lib/notyf/",
+      "files": [
+        "notyf.min.css",
+        "notyf.min.js"
+      ]
     }
   ]
 }
