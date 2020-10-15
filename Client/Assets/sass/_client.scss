@@ -1,0 +1,30 @@
+﻿#ClientMain {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    height: 100%;
+
+    #NavSection {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        padding: 1em;
+        background: red;
+    }
+
+    #UserSection {
+        display: flex;
+        flex-flow: column wrap;
+        width: 40%;
+        padding: 1em;
+        background: yellow;
+    }
+
+    #ChatSection {
+        display: flex;
+        flex-flow: column wrap;
+        width: 60%;
+        padding: 1em;
+        background: blue;
+    }
+}
