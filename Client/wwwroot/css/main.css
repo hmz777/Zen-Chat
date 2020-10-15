@@ -545,6 +545,7 @@ template {
 
 .lar,
 .las,
+.btn-loader,
 .footer .flex-column a:not(.logo-link):before,
 .lab {
   -moz-osx-font-smoothing: grayscale;
@@ -587,7 +588,7 @@ template {
   src: url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.eot");
   src: url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.eot?#iefix") format("embedded-opentype"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.woff2") format("woff2"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.woff") format("woff"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.ttf") format("truetype"), url("../lib/line-awesome/dist/line-awesome/fonts/la-solid-900.svg#lineawesome") format("svg"); }
 
-.las, .footer .flex-column a:not(.logo-link):before {
+.las, .btn-loader, .footer .flex-column a:not(.logo-link):before {
   font-family: Line Awesome Free;
   font-weight: 900; }
 
@@ -684,6 +685,7 @@ template {
 
 .la.la-pull-left,
 .las.la-pull-left,
+.la-pull-left.btn-loader,
 .footer .flex-column a.la-pull-left:not(.logo-link):before,
 .lar.la-pull-left,
 .lal.la-pull-left,
@@ -692,13 +694,14 @@ template {
 
 .la.la-pull-right,
 .las.la-pull-right,
+.la-pull-right.btn-loader,
 .footer .flex-column a.la-pull-right:not(.logo-link):before,
 .lar.la-pull-right,
 .lal.la-pull-right,
 .lab.la-pull-right {
   margin-left: .3em; }
 
-.la-spin {
+.la-spin, .btn-loader {
   -webkit-animation: la-spin 2s infinite linear;
   animation: la-spin 2s infinite linear; }
 
@@ -5052,6 +5055,12 @@ h6 {
 .display-2 {
   font-size: 4em; }
 
+.d-none {
+  display: none; }
+
+.d-block {
+  display: block; }
+
 .wide-wrapper {
   display: flex;
   width: 100%;
@@ -5235,6 +5244,13 @@ code {
   background-size: 100% 100%;
   background-position: center; }
 
+.btn-loader {
+  content: "\f1ce";
+  margin: 0 .5em;
+  display: block; }
+  .btn-loader--off {
+    display: none; }
+
 @keyframes fadeIn {
   from {
     opacity: 0; }
@@ -5339,3 +5355,27 @@ code {
       padding: 1em;
       border-radius: .5em .5em 0 0;
       flex: 1; }
+
+#ClientMain {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  height: 100%; }
+  #ClientMain #NavSection {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    padding: 1em;
+    background: red; }
+  #ClientMain #UserSection {
+    display: flex;
+    flex-flow: column wrap;
+    width: 40%;
+    padding: 1em;
+    background: yellow; }
+  #ClientMain #ChatSection {
+    display: flex;
+    flex-flow: column wrap;
+    width: 60%;
+    padding: 1em;
+    background: blue; }

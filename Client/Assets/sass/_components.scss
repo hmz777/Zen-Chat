@@ -245,3 +245,15 @@ code {
     background-size: 100% 100%;
     background-position: center;
 }
+
+.btn-loader {
+    @extend .las;
+    @extend .la-spin;
+    content: la-content($la-circle-notch);
+    margin: 0 .5em;
+    display: block;
+
+    &--off {
+        display: none;
+    }
+}
