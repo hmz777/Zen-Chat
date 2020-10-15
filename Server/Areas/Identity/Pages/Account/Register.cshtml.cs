@@ -3,23 +3,48 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MDProject.Helpers.Attributes;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MVCBlazorChatApp.Server.Helpers.StatusMessages;
 using MVCBlazorChatApp.Server.Models;
 
 namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        public RegisterDTO RegisterDTO { get; set; }
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMapper mapper;
 
-        public void OnGet()
+        public RegisterModel(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
+            this.userManager = userManager;
+            this.mapper = mapper;
         }
 
-        public void OnPost()
+        public RegisterDTO RegisterDTO { get; set; }
+
+        public async Task<IActionResult> OnPost(RegisterDTO registerDTO)
         {
+            if (!ModelState.IsValid)
+                BadRequest(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
+
+            ApplicationUser NewUser = mapper.Map<ApplicationUser>(registerDTO);
+
+            IdentityResult Result = await userManager.CreateAsync(NewUser, registerDTO.Password);
+
+            if (Result.Succeeded)
+            {
+                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Success, Message = "Account registration successfull." });
+            }
+            else
+            {
+                string[] ErrorMessages = Result.Errors.Select(e => e.Description).ToArray();
+
+                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = ErrorMessages });
+            }
         }
     }
 
