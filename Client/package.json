@@ -10,6 +10,12 @@
     "gulp-htmlmin": "5.0.1",
     "gulp-terser": "1.4.0",
     "merge-stream": "2.0.0",
-    "gulp-clean-css": "4.3.0"
+    "gulp-clean-css": "4.3.0",
+    "node-sass": "4.14.1",
+    "gulp-sass": "4.1.0",
+    "postcss": "8.1.0",
+    "gulp-postcss": "9.0.0",
+    "autoprefixer": "10.0.1",
+    "gulp-wait": "0.0.2"
   }
 }

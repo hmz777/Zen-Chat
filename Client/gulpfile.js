@@ -3,12 +3,18 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     cssmin = require('gulp-cssmin'),
+    sass = require('gulp-sass'),
     cleancss = require('gulp-clean-css'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
     htmlmin = require('gulp-htmlmin'),
     terser = require('gulp-terser'),
     merge = require('merge-stream'),
     del = require('del'),
+    wait = require('gulp-wait'),
     bundleconfig = require('./bundleconfig.json');
+
+sass.compiler = require('node-sass');
 
 const regex = {
     css: /\.css$/,
@@ -28,7 +34,10 @@ gulp.task('min:js', async function () {
 gulp.task('min:css', async function () {
     merge(getBundles(regex.css).map(bundle => {
         return gulp.src(bundle.inputFiles, { base: '.' })
-            .pipe(concat(bundle.outputFileName))
+            .pipe(wait(200)) 
+            .pipe(sass({ outputStyle: "compressed" }))
+            .pipe(concat(bundle.outputFileName))                       
+            .pipe(postcss([autoprefixer()]))
             .pipe(cleancss({ compatibility: 'ie8' }))
             .pipe(gulp.dest('.'));
     }))
@@ -50,14 +59,14 @@ gulp.task('clean', () => {
 });
 
 gulp.task('watch', () => {
-    getBundles(regex.js).forEach(
-        bundle => gulp.watch(bundle.inputFiles, gulp.series(["min:js"])));
+    // getBundles(regex.js).forEach(
+    //     bundle => gulp.watch(bundle.inputFiles, gulp.series(["min:js"])));
 
     getBundles(regex.css).forEach(
         bundle => gulp.watch(bundle.inputFiles, gulp.series(["min:css"])));
 
-    getBundles(regex.html).forEach(
-        bundle => gulp.watch(bundle.inputFiles, gulp.series(['min:html'])));
+    // getBundles(regex.html).forEach(
+    //     bundle => gulp.watch(bundle.inputFiles, gulp.series(['min:html'])));
 });
 
 const getBundles = (regexPattern) => {
@@ -66,4 +75,4 @@ const getBundles = (regexPattern) => {
     });
 };
 
-gulp.task('default', gulp.series("min"));
+gulp.task('default', gulp.series("watch"));
