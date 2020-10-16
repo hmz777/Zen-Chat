@@ -7,6 +7,7 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 }
 
 <div class="wide-wrapper wide-wrapper--row">
@@ -18,7 +19,7 @@
                 <p>Register an account to save your chat history<br /> and gain more features.</p>
             </div>
         </div>
-        <form method="post">
+        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-begin="FormBeforeSubmit" data-ajax-success="FormAfterSubmit" data-ajax-failure="FormAfterSubmit">
             <h2>Register</h2>
             <div class="form-group">
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
@@ -64,7 +65,7 @@
                     <input type="checkbox" asp-for="@Model.RegisterDTO.PrivacyPolicy" />
                 </div>
             </div>
-            <button type="submit">Register <i class="btn-loader btn-loader--off"></i></button>           
+            <button type="submit">Register</button>
         </form>
     </div>
 </div>
