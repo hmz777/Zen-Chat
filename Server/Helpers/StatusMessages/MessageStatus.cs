@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace MVCBlazorChatApp.Server.Helpers.StatusMessages
 {
-    public enum MessageStatus
+    public enum MessageStatus : int
     {
-        Success,
-        Failure
+        Success = 1,
+        Failure = 0,
+        Warning = 2
     }
 }
