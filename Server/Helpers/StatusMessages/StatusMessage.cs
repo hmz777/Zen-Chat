@@ -9,5 +9,6 @@ namespace MVCBlazorChatApp.Server.Helpers.StatusMessages
     {
         public MessageStatus MessageStatus { get; set; }
         public object Message { get; set; }
+        public string Link { get; set; }
     }
 }
