@@ -1,51 +1,42 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
-
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
+    <Content Remove="compilerconfig.json"/>
   </ItemGroup>
-
   <ItemGroup>
-    <Content Include="Assets\sass\main.scss" />
-    <Content Include="Assets\sass\_animations.scss" />
-    <Content Include="Assets\sass\_boilerplate.scss" />
-    <Content Include="Assets\sass\_components.scss" />
-    <Content Include="Assets\sass\_footer.scss" />
-    <Content Include="Assets\sass\_helpers.scss" />
-    <Content Include="Assets\sass\_navbar.scss" />
-    <Content Include="Assets\sass\_normalize.scss" />
-    <Content Include="Assets\sass\_sidenav.scss" />
-    <Content Include="Assets\sass\_variables.scss" />
+    <Content Include="Assets\sass\main.scss"/>
+    <Content Include="Assets\sass\_animations.scss"/>
+    <Content Include="Assets\sass\_boilerplate.scss"/>
+    <Content Include="Assets\sass\_components.scss"/>
+    <Content Include="Assets\sass\_footer.scss"/>
+    <Content Include="Assets\sass\_helpers.scss"/>
+    <Content Include="Assets\sass\_navbar.scss"/>
+    <Content Include="Assets\sass\_normalize.scss"/>
+    <Content Include="Assets\sass\_sidenav.scss"/>
+    <Content Include="Assets\sass\_variables.scss"/>
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json"/>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="3.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.6" />
-    <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.1" PrivateAssets="all"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="3.2.1"/>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.6"/>
+    <PackageReference Include="System.Net.Http.Json" Version="3.2.0"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Shared\MVCBlazorChatApp.Shared.csproj" />
+    <ProjectReference Include="..\Shared\MVCBlazorChatApp.Shared.csproj"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\css\"/>
   </ItemGroup>
-
 </Project>
