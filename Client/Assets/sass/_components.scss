@@ -160,7 +160,7 @@ form {
             content: la-content($la-circle-notch);
             margin: 0 .5em;
             font-size: 1.2em;
-            display: none;            
+            display: none;
         }
 
         &.on {
@@ -172,6 +172,7 @@ form {
         &.disabled {
             cursor: not-allowed;
             background: rgba($color1, .5);
+            box-shadow: none;
         }
     }
 }
@@ -272,4 +273,13 @@ code {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+}
+
+.toast-custom-notyf {
+    max-width: 50em !important;
+
+    .notyf__ripple {
+        height: 50em;
+        width: 50em;
+    }
 }
