@@ -63,7 +63,7 @@ gulp.task('watch', () => {
     //     bundle => gulp.watch(bundle.inputFiles, gulp.series(["min:js"])));
 
     getBundles(regex.css).forEach(
-        bundle => gulp.watch(bundle.inputFiles, gulp.series(["min:css"])));
+        bundle => gulp.watch("Assets/sass/*.scss", gulp.series(["min:css"])));
 
     // getBundles(regex.html).forEach(
     //     bundle => gulp.watch(bundle.inputFiles, gulp.series(['min:html'])));
