@@ -24,7 +24,19 @@ namespace MVCBlazorChatApp.Client
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MVCBlazorChatApp.ServerAPI"));
 
-            builder.Services.AddApiAuthorization();
+            builder.Services.AddApiAuthorization(options => {
+
+                options.AuthenticationPaths.LogInPath = "Auth/login";
+                options.AuthenticationPaths.LogInCallbackPath = "Auth/login-callback";
+                options.AuthenticationPaths.LogInFailedPath = "Auth/login-failed";
+                options.AuthenticationPaths.LogOutPath = "Auth/logout";
+                options.AuthenticationPaths.LogOutCallbackPath = "Auth/logout-callback";
+                options.AuthenticationPaths.LogOutFailedPath = "Auth/logout-failed";
+                options.AuthenticationPaths.LogOutSucceededPath = "Auth/logged-out";
+                options.AuthenticationPaths.ProfilePath = "Auth/profile";
+                options.AuthenticationPaths.RegisterPath = "Auth/register";
+
+            });
 
             await builder.Build().RunAsync();
         }
