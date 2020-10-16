@@ -35,7 +35,9 @@ form {
             flex-flow: column wrap;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             background: none;
             border: none;
             outline: none;
@@ -63,9 +65,9 @@ form {
         }
 
         &--text {
-            -webkit-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
-            -moz-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
-            box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray,0.75);
+            -webkit-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
+            -moz-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
+            box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
 
             &:after {
                 position: absolute;
@@ -105,7 +107,8 @@ form {
             display: block;
         }
 
-        &:after, &:before {
+        &:after,
+        &:before {
             top: 100%;
             left: 50%;
             border: solid transparent;
@@ -132,36 +135,61 @@ form {
     }
 
     button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         align-self: flex-end;
         border-radius: 5em;
         padding: .7em 3em;
         color: white;
         background: $color1;
         transition: box-shadow .3s $main-easing;
-        -webkit-box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
-        -moz-box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
-        box-shadow: 0px 10px 30px -10px rgba($color1,0.75);
+        -webkit-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        -moz-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
 
         &:hover {
-            -webkit-box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
-            -moz-box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
-            box-shadow: 0px 10px 30px -3px rgba($color1,0.75);
+            -webkit-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            -moz-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+        }
+
+        &:after {
+            @extend .las;
+            @extend .la-spin;
+            content: la-content($la-circle-notch);
+            margin: 0 .5em;
+            font-size: 1.2em;
+            display: none;            
+        }
+
+        &.on {
+            &:after {
+                display: inline-block;
+            }
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+            background: rgba($color1, .5);
         }
     }
 }
 
-.login-portal, .register-portal {
+.login-portal,
+.register-portal {
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     width: 70%;
     height: 30em;
     margin: auto;
-    -webkit-box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
-    box-shadow: 0px 10px 50px -20px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
 
-    .login-banner, .register-banner {
+    .login-banner,
+    .register-banner {
         position: relative;
         width: 50%;
         height: 100%;
@@ -224,9 +252,9 @@ code {
     font-size: 1.5em;
     margin: 2em 0;
     position: relative;
-    -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
 
     .title {
         position: absolute;
@@ -244,16 +272,4 @@ code {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
-}
-
-.btn-loader {
-    @extend .las;
-    @extend .la-spin;
-    content: la-content($la-circle-notch);
-    margin: 0 .5em;
-    display: block;
-
-    &--off {
-        display: none;
-    }
 }
