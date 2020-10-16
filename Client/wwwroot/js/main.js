@@ -43,30 +43,42 @@ function ShowNotification(message, type, duration, position, dismissible) {
     if (notyf == null)
         notyf = new Notyf({ types: [{ type: "warning", background: 'darkorange' }] });
 
+    let ErrorMessage = "";
+    if (Array.isArray(message)) {
+        message.forEach(function (val, index, array) {
+            ErrorMessage += `- ${val} <br />`;
+        });
+    }
+    else
+        ErrorMessage = message;
+
     switch (type) {
-        case "Success":
+        case 1:
             notyf.success({
                 duration: duration,
                 position: position,
                 dismissible: dismissible,
-                message: message
+                message: ErrorMessage,
+                className: 'toast-custom-notyf',
             });
             break;
-        case "Failure":
+        case 0:
             notyf.error({
                 duration: duration,
                 position: position,
                 dismissible: dismissible,
-                message: message
+                message: ErrorMessage,
+                className: 'toast-custom-notyf',
             });
             break;
-        case "warning":
+        case 2:
             notyf.open({
                 type: "warning",
                 duration: duration,
                 position: position,
                 dismissible: dismissible,
-                message: message
+                message: ErrorMessage,
+                className: 'toast-custom-notyf',
             });
             break;
         default:
@@ -80,14 +92,25 @@ function FormBeforeSubmit() {
 }
 
 function FormAfterSubmit(response) {
+    let data = response.status == 500 || response.status == 400 ? response.responseJSON : response;
     let form = $(this);
     let SubmitButton = form.find('button:submit');
 
     ClearForm(form);
     ToggleSubmitLoader(SubmitButton);
-    ShowNotification(response.message, response.status, 7000, { x: 'center', y: 'top' }, true);
 
-    if (response.link != null) {
-        location.href = link;
+    if (data != null) {
+        ShowNotification(data.message, data.messageStatus, 7000, { x: 'center', y: 'top' }, true);
+
+        if (data.link != null) {
+            location.href = link;
+        }
+    }
+    else {
+        ShowNotification("Sorry, an error happened on our end. Try again later.",
+            0,
+            7000,
+            { x: 'center', y: 'top' },
+            true)
     }
 }
