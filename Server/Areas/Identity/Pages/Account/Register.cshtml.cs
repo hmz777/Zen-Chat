@@ -29,7 +29,7 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(RegisterDTO registerDTO)
         {
             if (!ModelState.IsValid)
-                BadRequest(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
+                return new BadRequestObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
 
             ApplicationUser NewUser = mapper.Map<ApplicationUser>(registerDTO);
 
@@ -68,9 +68,8 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
         [Required(ErrorMessage = "This field is required.")]
         public Gender Gender { get; set; }
 
-        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Privacy Policy")]
-        [MustBeTrue]
+        [MustBeTrue(ErrorMessage = "Please accept our privacy policy.")]
         public bool PrivacyPolicy { get; set; }
     }
 }

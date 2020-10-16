@@ -28,7 +28,7 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(LoginDto loginDto, string ReturnUrl)
         {
             if (!ModelState.IsValid)
-                BadRequest(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
+                return new BadRequestObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
 
             string UsernameOrEmail = null;
             if (loginDto.UsernameOrEmail.Contains('@'))
@@ -47,7 +47,7 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
                 }
                 catch
                 {
-                    return BadRequest(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid email." });
+                    return new BadRequestObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid email." });
                 }
             }
             else
