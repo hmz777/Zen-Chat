@@ -1,6 +1,13 @@
-﻿@page "/Chat/{Room}"
+﻿@page "/chat/{Room}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [AllowAnonymous]
+
+<NavSection />
+<ChatSection />
+<UserSection />
 
 
-    <InfoSection />
-    <ChatSection />
-    <UserSection />
+@code {
+
+    [Parameter] public string Room { get; set; }
+}
