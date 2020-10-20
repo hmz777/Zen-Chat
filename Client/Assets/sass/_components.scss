@@ -177,8 +177,7 @@ form {
     }
 }
 
-.login-portal,
-.register-portal {
+.large-content-card {
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
@@ -189,8 +188,7 @@ form {
     -moz-box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 10px 50px -20px rgba(0, 0, 0, 0.75);
 
-    .login-banner,
-    .register-banner {
+    .content-card-banner {
         position: relative;
         width: 50%;
         height: 100%;
@@ -218,6 +216,12 @@ form {
             }
         }
     }
+
+    .content-card-content {
+        display: flex;
+        width: 50%;
+        padding: 4em 2em;
+    }
 }
 
 .login-portal {
@@ -237,6 +241,26 @@ form {
 a {
     font-weight: 500;
     color: $color1;
+
+    &.link-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5em;
+        padding: .7em 3em;
+        color: white;
+        background: $color1;
+        transition: box-shadow .3s $main-easing;
+        -webkit-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        -moz-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+
+        &:hover {
+            -webkit-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            -moz-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+        }
+    }
 }
 
 code {
@@ -282,4 +306,26 @@ code {
         height: 50em;
         width: 50em;
     }
+}
+
+#color-switch {
+    display: flex;
+    border-radius: 50%;
+    padding: .15em;
+    font-size: 1.2em;
+    border: 2px solid $color1;
+    align-self: center;
+    background: none;
+    color: $color1;
+
+    i {
+        margin: auto;
+    }
+}
+
+.status-message {
+    position: fixed;
+    top: -100%;
+    width: 90%;
+
 }

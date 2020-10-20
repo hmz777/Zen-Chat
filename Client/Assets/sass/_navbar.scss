@@ -45,7 +45,7 @@
                 margin: 0 1em;
                 transition: box-shadow .3s $main-easing;
 
-                a {
+                a, button {
                     color: $color1;
                     margin: auto;
                 }
@@ -54,6 +54,14 @@
                     -webkit-box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
                     -moz-box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
                     box-shadow: inset 0px 7px 0px 0px rgba($color1,0.75);
+                }
+
+                button {
+                    background: none;
+                    border-radius: 0;
+                    padding: 0;
+                    border: 0;
+                    box-shadow: none;
                 }
             }
         }

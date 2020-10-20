@@ -26,6 +26,10 @@ h6 {
     justify-content: space-between;
 }
 
+.m-auto {
+    margin: auto;
+}
+
 .mx-1 {
     margin-left: 1em;
     margin-right: 1em;
@@ -95,4 +99,8 @@ h6 {
 
 .d-block {
     display: block;
+}
+
+.text-center {
+    text-align: center;
 }
