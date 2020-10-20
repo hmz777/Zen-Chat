@@ -1,6 +1,8 @@
 using AutoMapper;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCBlazorChatApp.Server.Data;
 using MVCBlazorChatApp.Server.Models;
+using System;
 
 namespace MVCBlazorChatApp.Server
 {
@@ -29,10 +32,33 @@ namespace MVCBlazorChatApp.Server
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/access-denied";
+                options.LoginPath = "/login";
+                options.LogoutPath = "/logout";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+            });
+
+            services.AddIdentityServer(opt =>
+            {
+                opt.UserInteraction.LoginUrl = "/login";
+                opt.UserInteraction.LogoutUrl = "/logout";
+            })
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
@@ -73,7 +99,7 @@ namespace MVCBlazorChatApp.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("Chat/{**Config}","index.html");
+                endpoints.MapFallbackToFile("chat/{**Config}", "index.html");
             });
         }
     }
