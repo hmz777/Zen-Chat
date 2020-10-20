@@ -1,0 +1,14 @@
+﻿@using MVCBlazorChatApp.Server.Helpers.StatusMessages
+
+@{
+    var Message = TempData.Get<StatusMessage>("Message");
+
+    if (Message != null)
+    {
+    <script>
+            $(function () {
+                ShowNotification("@Message.Message", @((int)Message.MessageStatus), 10000, { x: 'center', y: 'top' }, true);
+            });
+    </script>
+    }
+}
