@@ -103,7 +103,7 @@ function FormAfterSubmit(response) {
         ShowNotification(data.message, data.messageStatus, 7000, { x: 'center', y: 'top' }, true);
 
         if (data.link != null) {
-            location.href = link;
+            location.href = data.link;
         }
     }
     else {
