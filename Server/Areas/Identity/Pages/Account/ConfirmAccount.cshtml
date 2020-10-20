@@ -1,0 +1,25 @@
+﻿@page "/confirm-account/{handler?}"
+@model MVCBlazorChatApp.Server.Areas.Identity.Pages.Account.ConfirmAccountModel
+@{
+    ViewBag.Title = "Confirm Account";
+}
+
+<div class="wide-wrapper wide-wrapper--row">
+    <div class="large-content-card">
+        <div class="content-card-banner">
+            <img src="/media/imgassets/card-banner.jpg" alt="Confirm account banner" />
+            <div class="overlay">
+                <h1>Z-Chat<br />Confirm Account</h1>
+                <p>Confirm your account and start using Z Chat at its fullest potential.</p>
+            </div>
+        </div>
+        <div class="content-card-content">
+            <div class="m-auto text-center">
+                Click the button below to activate your account.
+                <a class="link-button mt-2" href="@Model.ActivationLink">
+                    Activate account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
