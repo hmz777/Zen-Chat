@@ -26,7 +26,7 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
                 return LocalRedirect(returnUrl);
 
             else
-                return RedirectToPage();
+                return RedirectToPage("/Index");
         }
     }
 }
