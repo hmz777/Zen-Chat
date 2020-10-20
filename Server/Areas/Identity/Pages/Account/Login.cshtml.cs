@@ -23,9 +23,14 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
             this.userManager = userManager;
         }
 
-        public LoginDto LoginDto { get; set; }
+        public LoginDto LoginDto { get; set; } = new LoginDto();
 
-        public async Task<IActionResult> OnPost(LoginDto loginDto, string ReturnUrl)
+        public void OnGet()
+        {
+            ViewData["Account"] = true;
+        }
+
+        public async Task<IActionResult> OnPost(LoginDto loginDto, string returnUrl = null)
         {
             if (!ModelState.IsValid)
                 return new BadRequestObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
@@ -60,11 +65,14 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 
             if (signInResult.Succeeded)
             {
-                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Success, Message = "Sign in successful." });
+                returnUrl = (string.IsNullOrWhiteSpace(returnUrl) || !Url.IsLocalUrl(returnUrl)) ? Url.PageLink("/Index") : returnUrl;
+
+                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Success, Message = "Sign in successful.", Link = returnUrl });
             }
             else if (signInResult.IsNotAllowed)
             {
-                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Sign in not allowed, account needs activation." });
+                TempData.Put<string>("Username", UsernameOrEmail);
+                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Sign in not allowed, account needs activation.", Link = Url.PageLink("ConfirmAccount") });
             }
             else if (signInResult.IsLockedOut)
             {
