@@ -26,6 +26,11 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 
         public RegisterDTO RegisterDTO { get; set; }
 
+        public void OnGet()
+        {
+            ViewData["Account"] = true;
+        }
+
         public async Task<IActionResult> OnPost(RegisterDTO registerDTO)
         {
             if (!ModelState.IsValid)
@@ -37,7 +42,14 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 
             if (Result.Succeeded)
             {
-                return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Success, Message = "Account registration successfull." });
+                TempData.Put<string>("Username", NewUser.UserName);
+
+                return new OkObjectResult(new StatusMessage
+                {
+                    MessageStatus = MessageStatus.Success,
+                    Message = "Account registration successfull.",
+                    Link = Url.PageLink("ConfirmAccount")
+                });
             }
             else
             {

@@ -11,9 +11,9 @@
 }
 
 <div class="wide-wrapper wide-wrapper--row">
-    <div class="register-portal">
-        <div class="register-banner">
-            <img src="~/media/imgassets/login-banner.jpg" alt="Login banner" />
+    <div class="large-content-card register-portal">
+        <div class="content-card-banner">
+            <img src="~/media/imgassets/card-banner.jpg" alt="Register banner" />
             <div class="overlay">
                 <h1>Z-Chat<br />User Registration</h1>
                 <p>Register an account to save your chat history<br /> and gain more features.</p>
@@ -63,6 +63,7 @@
                 <div class="flex-row flex-1">
                     <label asp-for="@Model.RegisterDTO.PrivacyPolicy"></label>
                     <input type="checkbox" asp-for="@Model.RegisterDTO.PrivacyPolicy" />
+                    <span asp-validation-for="@Model.RegisterDTO.PrivacyPolicy"></span>
                 </div>
             </div>
             <button type="submit">Register</button>
