@@ -5,6 +5,7 @@
 
 # Custom rules
 **/lib/
+*.css
 
 
 # User-specific files
