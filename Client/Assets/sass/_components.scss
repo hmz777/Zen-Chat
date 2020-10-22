@@ -89,7 +89,8 @@ form {
         }
     }
 
-    span[class^='field-validation'] {
+    span[class^='field-validation'],
+    .validation-message {
         position: absolute;
         right: -2em;
         bottom: 67%;
