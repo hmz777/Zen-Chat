@@ -51,7 +51,7 @@
             "command": "gulp",
             "type": "shell",
             "args": [
-                "--no-color"
+                "--no-color",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/Client"
