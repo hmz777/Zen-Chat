@@ -1,0 +1,71 @@
+@using MVCBlazorChatApp.Client.Models
+
+<div class="@PromptState" id="UsernamePrompt">
+    <div id="Prompt">
+        Enter your name
+        <span class="error-message"></span>
+        <EditForm EditContext="@editContext" OnValidSubmit="@ValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label class="icon"><i class="las la-user"></i></label>
+                        <InputText type="text" @bind-Value="@UsernameModel.Username" placeholder="Name" />
+                    </div>
+                </div>
+                <ValidationMessage For="@(() => UsernameModel.Username)" />
+            </div>
+            <div class="btn-group">
+                <a href="/">Cancel</a>
+                <button type="submit">Submit</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> IndexCallback { get; set; }
+    [Inject] private IJSRuntime JSRuntime { get; set; }
+    private string PromptState { get; set; } = "d-none";
+    private bool UserSet { get; set; }
+    private UsernameModel UsernameModel { get; set; } = new UsernameModel();
+    private EditContext editContext;
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(UsernameModel);
+    }
+
+    //protected async override Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //if (firstRender)
+    //{
+    //await JSRuntime.InvokeVoidAsync("FocusElement", "#UsernameInput");
+    //}
+    //}
+
+    public void Show()
+    {
+        PromptState = "";
+        StateHasChanged();
+    }
+
+    public async Task Close()
+    {
+        await IndexCallback.InvokeAsync(UsernameModel.Username);
+        UserSet = true;
+        PromptState = "d-none";
+        StateHasChanged();
+    }
+
+    public async Task ValidSubmit()
+    {
+        if (!UserSet)
+        {
+            await Close();
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("ShowNotification", "Username already set.", 0);
+        }
+    }
+}

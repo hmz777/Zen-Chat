@@ -2,12 +2,32 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [AllowAnonymous]
 
-<NavSection />
-<ChatSection />
-<UserSection />
+<div id="client-main">
+    <NavSection />
+    <ChatSection />
+    <UserSection Room="@Room" Username="@Username" />
+</div>
+
+<UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" />
+
 
 
 @code {
-
     [Parameter] public string Room { get; set; }
+    private UsernamePrompt UsernamePrompt { get; set; }
+    private string Username { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            UsernamePrompt.Show();
+        }
+    }
+
+    public void SetUsername(string Username)
+    {
+        this.Username = Username;
+    }
+
 }
