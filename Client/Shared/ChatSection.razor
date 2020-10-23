@@ -1,7 +1,145 @@
-﻿<div id="ChatSection">
+﻿@using MVCBlazorChatApp.Client.Models
 
+<div id="ChatSection">
+    <div id="ChatContent">
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+            </p>
+        </div>
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit
+                anim id est laborum.
+            </p>
+        </div>
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                laborum.
+            </p>
+        </div>
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Cursus metus aliquam
+                eleifend mi in nulla. Aenean sed adipiscing diam donec adipiscing. Ac turpis egestas maecenas pharetra
+                convallis posuere morbi leo. In tellus integer feugiat scelerisque varius. Molestie ac feugiat sed
+                lectus
+                vestibulum mattis ullamcorper. Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Est sit amet
+                facilisis magna. In nulla posuere sollicitudin aliquam ultrices sagittis orci a. Dignissim sodales ut eu
+                sem
+                integer vitae justo eget magna. At varius vel pharetra vel turpis nunc. Ornare quam viverra orci
+                sagittis
+                eu.
+            </p>
+        </div>
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                laborum.
+            </p>
+        </div>
+        <div class="message-box">
+            <div class="message-header">
+                <div class="name" title="HMZ">
+                    HMZ
+                </div>
+                <span class="date">@DateTime.Now</span>
+            </div>
+            <p class="message">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Cursus metus aliquam
+                eleifend mi in nulla. Aenean sed adipiscing diam donec adipiscing. Ac turpis egestas maecenas pharetra
+                convallis posuere morbi leo. In tellus integer feugiat scelerisque varius. Molestie ac feugiat sed
+                lectus
+                vestibulum mattis ullamcorper. Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Est sit amet
+                facilisis magna. In nulla posuere sollicitudin aliquam ultrices sagittis orci a. Dignissim sodales ut eu
+                sem
+                integer vitae justo eget magna. At varius vel pharetra vel turpis nunc. Ornare quam viverra orci
+                sagittis
+                eu.
+            </p>
+        </div>
+    </div>
+    <div id="ChatFooter">
+        <EditForm EditContext="@editContext" class="flex-row">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <div class="input-wrapper input-wrapper--column">
+                    <div class="input">
+                        <label class="icon"><i class="las la-comment-medical"></i></label>
+                        <InputText type="text" @bind-Value="@MessageModel.Message" placeholder="Write a message..." />
+                    </div>
+                </div>
+                <ValidationMessage For="@(() => MessageModel.Message)" />
+            </div>
+            <div>
+                <button type="submit">Send <i class="las la-paper-plane"></i></button>
+            </div>
+        </EditForm>
+    </div>
 </div>
 
 @code {
-
+    [Inject] private IJSRuntime JSRuntime { get; set; }
+    [Parameter] public string UIMode { get; set; }
+    private EditContext editContext;
+    private MessageModel MessageModel { get; set; } = new MessageModel();
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(MessageModel);
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (UIMode == "W-Mode")
+        {
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "ChatContent", "os-theme-dark", "chat");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "ChatContent", "os-theme-light", "chat");
+        }
+    }
 }
