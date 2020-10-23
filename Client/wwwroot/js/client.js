@@ -1,4 +1,4 @@
-var notyf, overlayScrollbarsInstance;
+var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance;
 
 $(document).ready(function () {
     $(document).click(function (e) {
@@ -62,20 +62,38 @@ function FocusElement(selector) {
     document.querySelector(selector).focus();
 }
 
-function InitializeOS(id, mode = "os-theme-dark") {
+function InitializeOS(id, mode = "os-theme-dark", section) {
 
-    overlayScrollbarsInstance = OverlayScrollbars(document.getElementById(id), {
-        className: mode,
-        scrollbars: {
-            autoHide: "leave"
-        },
-        overflowBehavior: {
-            x: "hidden"
-        }
-    });
+    if (section == "user") {
+        overlayScrollbarsUserInstance = OverlayScrollbars(document.getElementById(id), {
+            className: mode,
+            scrollbars: {
+                autoHide: "leave"
+            },
+            overflowBehavior: {
+                x: "hidden"
+            }
+        });
+    }
+    else {
+        overlayScrollbarsChatInstance = OverlayScrollbars(document.getElementById(id), {
+            className: mode,
+            scrollbars: {
+                autoHide: "leave"
+            },
+            overflowBehavior: {
+                x: "hidden"
+            }
+        });
+    }
 }
 
-function DestroyOS() {
-    if (overlayScrollbarsInstance != null)
-        overlayScrollbarsInstance.destroy();
+function DestroyOS(section) {
+    if (section == "user") {
+        if (overlayScrollbarsUserInstance != null)
+            overlayScrollbarsUserInstance.destroy();
+    } else {
+        if (overlayScrollbarsChatInstance != null)
+            overlayScrollbarsChatInstance.destroy();
+    }
 }
