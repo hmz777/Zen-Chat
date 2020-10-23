@@ -1,6 +1,9 @@
-﻿<div id="UserSection">
+﻿@implements IDisposable
+
+<div id="UserSection">
     <div id="UserHeader">
-        <h1>@Room</h1>
+        <i class="las la-comments"></i>
+        <p title="@Room">@Room</p>
     </div>
     <div id="UserContent">
         <h2>@Username</h2>
@@ -31,6 +34,30 @@
                 <li>Somuser</li>
                 <li>e user</li>
                 <li>Souser</li>
+                <li>Some x user</li>
+                <li>Some zz user</li>
+                <li>Some bbb1 user</li>
+                <li>Some ser</li>
+                <li>Some usr</li>
+                <li>Some u</li>
+                <li>Some ur</li>
+                <li>Some</li>
+                <li>Someuser</li>
+                <li>Somuser</li>
+                <li>e user</li>
+                <li>Souser</li>
+                <li>Some x user</li>
+                <li>Some zz user</li>
+                <li>Some bbb1 user</li>
+                <li>Some ser</li>
+                <li>Some usr</li>
+                <li>Some u</li>
+                <li>Some ur</li>
+                <li>Some</li>
+                <li>Someuser</li>
+                <li>Somuser</li>
+                <li>e user</li>
+                <li>Souser</li>
             </ul>
         </div>
     </div>
@@ -41,5 +68,24 @@
 
 @code {
     [Parameter] public string Room { get; set; }
-    [Parameter] public string Username { get; set; } = "";
+    [Parameter] public string Username { get; set; }
+    [Parameter] public string UIMode { get; set; }
+    [Inject] private IJSRuntime JSRuntime { get; set; }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (UIMode == "W-Mode")
+        {
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent", "os-theme-light");
+        }
+    }
+
+    public void Dispose()
+    {
+        JSRuntime.InvokeVoidAsync("DestroyOS");
+    }
 }

@@ -1,5 +1,18 @@
 ﻿<div id="NavSection">
     <a href="authentication/login"><i class="las la-sign-in-alt"></i></a>
     <a href="authentication/register"><i class="las la-user-plus"></i></a>
+    <button type="button" @onclick="@ToggleDarkMode"><i class="las la-@UIModeButton"></i></button>
     <a href="/"><i class="las la-comment-dots"></i></a>
 </div>
+
+@code {
+    [Parameter] public EventCallback DarkModeToggleCallback { get; set; }
+    private string UIModeButton { get; set; } = "sun";
+    public async Task ToggleDarkMode()
+    {
+        UIModeButton = UIModeButton == "sun" ? "moon" : "sun";
+
+        await DarkModeToggleCallback.InvokeAsync(true);
+        StateHasChanged();
+    }
+}

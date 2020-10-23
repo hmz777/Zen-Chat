@@ -1,4 +1,4 @@
-var notyf;
+var notyf, overlayScrollbarsInstance;
 
 $(document).ready(function () {
     $(document).click(function (e) {
@@ -8,6 +8,7 @@ $(document).ready(function () {
             target.parents(".input-wrapper--text").eq(0).addClass("focused");
         }
     });
+
 });
 
 function ShowNotification(message, type, duration = 5000, position = { x: 'center', y: 'top' }, dismissible = true) {
@@ -59,4 +60,22 @@ function ShowNotification(message, type, duration = 5000, position = { x: 'cente
 
 function FocusElement(selector) {
     document.querySelector(selector).focus();
+}
+
+function InitializeOS(id, mode = "os-theme-dark") {
+
+    overlayScrollbarsInstance = OverlayScrollbars(document.getElementById(id), {
+        className: mode,
+        scrollbars: {
+            autoHide: "leave"
+        },
+        overflowBehavior: {
+            x: "hidden"
+        }
+    });
+}
+
+function DestroyOS() {
+    if (overlayScrollbarsInstance != null)
+        overlayScrollbarsInstance.destroy();
 }

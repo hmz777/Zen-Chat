@@ -2,20 +2,19 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [AllowAnonymous]
 
-<div id="client-main">
-    <NavSection />
+<div class="@UIMode" id="client-main">
+    <NavSection DarkModeToggleCallback="@ToggleDarkMode" />
     <ChatSection />
-    <UserSection Room="@Room" Username="@Username" />
+    <UserSection Room="@Room" Username="@Username" UIMode="@UIMode" />
 </div>
 
 <UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" />
-
-
 
 @code {
     [Parameter] public string Room { get; set; }
     private UsernamePrompt UsernamePrompt { get; set; }
     private string Username { get; set; }
+    private string UIMode { get; set; } = "W-Mode";
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -28,6 +27,13 @@
     public void SetUsername(string Username)
     {
         this.Username = Username;
+    }
+
+    public void ToggleDarkMode(object arg)
+    {
+        UIMode = UIMode == "W-Mode" ? "D-Mode" : "W-Mode";
+
+        StateHasChanged();
     }
 
 }
