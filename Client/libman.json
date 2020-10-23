@@ -1616,6 +1616,14 @@
       "files": [
         "jquery.unobtrusive-ajax.min.js"
       ]
+    },
+    {
+      "library": "overlayscrollbars@latest",
+      "destination": "wwwroot/lib/overlayscrollbars/",
+      "files": [
+        "css/OverlayScrollbars.min.css",
+        "js/jquery.overlayScrollbars.min.js"
+      ]
     }
   ]
 }
