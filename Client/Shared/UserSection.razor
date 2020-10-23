@@ -6,7 +6,7 @@
         <p title="@Room">@Room</p>
     </div>
     <div id="UserContent">
-        <h2>@Username</h2>
+        <h2 title="@Username">@Username</h2>
         <div id="Users">
             <h3>Users</h3>
             <ul>
@@ -76,11 +76,11 @@
     {
         if (UIMode == "W-Mode")
         {
-            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent");
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent", "os-theme-dark", "user");
         }
         else
         {
-            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent", "os-theme-light");
+            await JSRuntime.InvokeVoidAsync("InitializeOS", "UserContent", "os-theme-light", "user");
         }
     }
 
