@@ -3,7 +3,6 @@
 <div class="@PromptState" id="UsernamePrompt">
     <div id="Prompt">
         Enter your name
-        <span class="error-message"></span>
         <EditForm EditContext="@editContext" OnValidSubmit="@ValidSubmit">
             <DataAnnotationsValidator />
             <div class="form-group">
@@ -34,15 +33,6 @@
     {
         editContext = new EditContext(UsernameModel);
     }
-
-    //protected async override Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //if (firstRender)
-    //{
-    //await JSRuntime.InvokeVoidAsync("FocusElement", "#UsernameInput");
-    //}
-    //}
-
     public void Show()
     {
         PromptState = "";
