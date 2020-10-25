@@ -9,10 +9,10 @@
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label class="icon"><i class="las la-user"></i></label>
-                        <InputText type="text" @bind-Value="@UsernameModel.Username" placeholder="Name" />
+                        <InputText type="text" @bind-Value="@UserModel.Username" placeholder="Name" />
                     </div>
                 </div>
-                <ValidationMessage For="@(() => UsernameModel.Username)" />
+                <ValidationMessage For="@(() => UserModel.Username)" />
             </div>
             <div class="btn-group">
                 <a href="/">Cancel</a>
@@ -27,11 +27,11 @@
     [Inject] private IJSRuntime JSRuntime { get; set; }
     private string PromptState { get; set; } = "d-none";
     private bool UserSet { get; set; }
-    private UsernameModel UsernameModel { get; set; } = new UsernameModel();
+    private UserModel UserModel { get; set; } = new UserModel();
     private EditContext editContext;
     protected override void OnInitialized()
     {
-        editContext = new EditContext(UsernameModel);
+        editContext = new EditContext(UserModel);
     }
     public void Show()
     {
@@ -41,7 +41,7 @@
 
     public async Task Close()
     {
-        await IndexCallback.InvokeAsync(UsernameModel.Username);
+        await IndexCallback.InvokeAsync(UserModel.Username);
         UserSet = true;
         PromptState = "d-none";
         StateHasChanged();
