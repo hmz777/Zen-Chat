@@ -7,6 +7,7 @@ using MVCBlazorChatApp.Server.Models;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MVCBlazorChatApp.Shared.Models;
 
 namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 {

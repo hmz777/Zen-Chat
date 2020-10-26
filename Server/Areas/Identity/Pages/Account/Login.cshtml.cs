@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MVCBlazorChatApp.Server.Helpers.StatusMessages;
 using MVCBlazorChatApp.Server.Models;
+using MVCBlazorChatApp.Shared.Models;
 
 namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 {
