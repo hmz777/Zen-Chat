@@ -10,6 +10,7 @@ namespace MVCBlazorChatApp.Shared.Models
         Success = 1,
         Failure = 0,
         Warning = 2,
-        Information = 3
+        Information = 3,
+        None = -1
     }
 }
