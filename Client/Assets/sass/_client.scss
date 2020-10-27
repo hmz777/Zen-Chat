@@ -110,18 +110,14 @@
                     padding: 0;
 
                     li {
+                        @include Truncate(1);
+                        max-width: 12em;
                         position: relative;
-                        padding: .5em;
+                        padding: .2em .5em;
                         background: $color1;
                         color: white;
                         margin: 0 .2em .2em 0;
-
-                        &:before {
-                            position: relative;
-                            @extend .las;
-                            content: la-content($la-dot-circle);
-                            margin-right: .1em;
-                        }
+                        border-radius: .3em;
                     }
                 }
             }
@@ -156,7 +152,7 @@
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: space-between;
-                padding: .5em;
+                padding: .3em;
 
                 .message-header {
                     display: flex;
@@ -168,15 +164,13 @@
 
                     .name {
                         position: relative;
+                        padding: .2em .5em;
+                        border-radius: .3em;
+                        color: white;
 
-
-                        &:before {
-                            position: relative;
-                            @extend .las;
-                            content: la-content($la-user-circle);
+                        i {
+                            margin: 0 .3em;
                             color: $color1;
-                            margin-right: .3em;
-                            font-size: 1.1em;
                         }
                     }
 
@@ -203,12 +197,14 @@
                     border-radius: .5em;
                     color: $color5;
                     position: relative;
+                    min-width: 30%;
+                    word-break: break-all;
 
                     &:after {
                         content: '';
                         position: absolute;
                         top: 0;
-                        left: 2%;
+                        left: 2em;
                         width: 0;
                         height: 0;
                         border: 0.563em solid transparent;
@@ -216,6 +212,22 @@
                         border-top: 0;
                         margin-left: -0.562em;
                         margin-top: -0.562em;
+                    }
+
+                    &--success {
+                        background: darkgreen;
+                    }
+
+                    &--failure {
+                        background: darkred;
+                    }
+
+                    &--warning {
+                        background: darkorange;
+                    }
+
+                    &--information {
+                        background: darkblue;
                     }
                 }
             }
@@ -242,6 +254,10 @@
 
                         input {
                             padding: 0;
+
+                            #emoji {
+                                padding: .5em !important;
+                            }
                         }
                     }
 
