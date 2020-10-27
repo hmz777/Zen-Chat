@@ -4,7 +4,7 @@
 
 <div class="@UIMode" id="client-main">
     <NavSection DarkModeToggleCallback="@ToggleDarkMode" />
-    <ChatSection UIMode="@UIMode" Username="@Username" Room="@Room" />
+    <ChatSection @ref="@ChatSection" UIMode="@UIMode" Room="@Room" />
     <UserSection Room="@Room" Username="@Username" UIMode="@UIMode" />
 </div>
 
@@ -15,6 +15,7 @@
     private UsernamePrompt UsernamePrompt { get; set; }
     private string Username { get; set; }
     private string UIMode { get; set; } = "W-Mode";
+    private ChatSection ChatSection { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -24,9 +25,11 @@
         }
     }
 
-    public void SetUsername(string Username)
+    public async Task SetUsername(string Username)
     {
         this.Username = Username;
+
+        await ChatSection.InitializeSignalR(Username);
     }
 
     public void ToggleDarkMode(object arg)
