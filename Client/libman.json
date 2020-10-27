@@ -1624,6 +1624,13 @@
         "css/OverlayScrollbars.min.css",
         "js/jquery.overlayScrollbars.min.js"
       ]
+    },
+    {
+      "library": "@joeattardi/emoji-button@latest",
+      "destination": "wwwroot/lib/joeattardi/emoji-button/",
+      "files": [
+        "dist/index.js"
+      ]
     }
   ]
 }
