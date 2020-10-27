@@ -97,3 +97,13 @@ function DestroyOS(section) {
             overlayScrollbarsChatInstance.destroy();
     }
 }
+
+function AddMessage(message) {
+    $("#ChatContent .os-content").append(message);
+}
+
+function AddUser(User) {
+    $("#UserList").append(User);
+}
+
+}
