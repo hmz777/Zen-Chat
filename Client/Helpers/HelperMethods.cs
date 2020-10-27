@@ -9,9 +9,9 @@ namespace MVCBlazorChatApp.Server.Helpers
     {
         public static string GenerateRandomColor()
         {
-            var RandBase = new Random(0);
+            var RandBase = new Random();
 
-            int h = RandBase.Next(0, 360), s = RandBase.Next(0, 100), l = 55;
+            int h = RandBase.Next(0, 360), s = RandBase.Next(0, 100), l = RandBase.Next(0, 55);
 
             return HSLToHex(h, s, l);
         }
@@ -23,12 +23,12 @@ namespace MVCBlazorChatApp.Server.Helpers
         /// <param name="s"></param>
         /// <param name="l"></param>
         /// <returns></returns>
-        public static string HSLToHex(int h, int s, int l)
+        public static string HSLToHex(double h, double s, double l)
         {
             s /= 100;
             l /= 100;
 
-            int c = (1 - Math.Abs(2 * l - 1)) * s,
+            double c = (1 - Math.Abs(2 * l - 1)) * s,
                 x = c * (1 - Math.Abs((h / 60) % 2 - 1)),
                 m = l - c / 2,
                 r = 0,
@@ -61,9 +61,9 @@ namespace MVCBlazorChatApp.Server.Helpers
             }
 
             // Having obtained RGB, convert channels to hex
-            string rr = Math.Round((r + m) * 255d).ToString("X16");
-            string gg = Math.Round((g + m) * 255d).ToString("X16");
-            string bb = Math.Round((b + m) * 255d).ToString("X16");
+            var rr = ((int)Math.Round((r + m) * 255)).ToString("X");
+            var gg = ((int)Math.Round((g + m) * 255)).ToString("X");
+            var bb = ((int)Math.Round((b + m) * 255)).ToString("X");
 
             // Prepend 0s, if necessary
             if (rr.Length == 1)
