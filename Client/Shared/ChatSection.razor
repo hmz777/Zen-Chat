@@ -13,8 +13,8 @@
                 <div class="input-wrapper input-wrapper--column">
                     <div class="input">
                         <label class="icon"><i class="las la-comment-medical"></i></label>
-                        <InputText type="text" @bind-Value="@MessageModel.Message" placeholder="Write a message..." />
-                        <button id="emoji" type="button"><i class="las la-smile"></i></button>
+                        <textarea rows="1" @bind="@MessageModel.Message" id="MessageTextArea" placeholder="Type a message..."></textarea>
+                        <button id="emoji" type="button"></button>
                     </div>
                 </div>
                 <ValidationMessage For="@(() => MessageModel.Message)" />
@@ -56,13 +56,13 @@
         if (UIMode == "W-Mode")
         {
             await JSRuntime.InvokeVoidAsync("InitializeOS", "ChatContent", "os-theme-dark", "chat");
-            await JSRuntime.InvokeVoidAsync("SetupEmojiButton");
         }
         else
         {
             await JSRuntime.InvokeVoidAsync("InitializeOS", "ChatContent", "os-theme-light", "chat");
-            await JSRuntime.InvokeVoidAsync("SetupEmojiButton");
         }
+
+        await JSRuntime.InvokeVoidAsync("InitializeEmojis", "emoji");
     }
 
     private async Task ValidSubmit()
@@ -71,7 +71,6 @@
             await ShowNotificationAsync(
                 MessageStatus.Failure,
                 "We're having trouble connecting you to our server. Try refreshing the page or wait for a reconnect.");
-
 
         await Send();
 
