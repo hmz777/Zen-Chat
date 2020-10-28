@@ -23,7 +23,9 @@
             }
 
             #ChatFooter {
-                input {
+
+                input,
+                textarea {
                     color: white;
                 }
             }
@@ -136,7 +138,7 @@
 
     #ChatSection {
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 65%;
         height: 100vh;
 
@@ -198,7 +200,17 @@
                     color: $color5;
                     position: relative;
                     min-width: 30%;
-                    word-break: break-all;
+                    white-space: pre-wrap;
+                    /* Since CSS 2.1 */
+                    white-space: -moz-pre-wrap;
+                    /* Mozilla, since 1999 */
+                    white-space: -pre-wrap;
+                    /* Opera 4-6 */
+                    white-space: -o-pre-wrap;
+                    /* Opera 7 */
+                    word-wrap: break-word;
+                    word-break: break-word;
+                    font-family: $font-family;
 
                     &:after {
                         content: '';
@@ -234,8 +246,8 @@
         }
 
         #ChatFooter {
-            padding: .5em 1.5em;
-            height: 10%;
+            padding: 0em 1em;
+            min-height: 10%;
             border-top: 1px solid $color1;
 
             form {
@@ -252,11 +264,19 @@
                         border-radius: 5em;
                         box-shadow: none;
 
-                        input {
+                        .input {
                             padding: 0;
 
                             #emoji {
                                 padding: .5em !important;
+                            }
+
+                            textarea {
+                                resize: none;
+                            }
+
+                            .emojionearea-standalone {
+                                border-radius: 5em;
                             }
                         }
                     }
