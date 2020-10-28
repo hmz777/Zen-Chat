@@ -221,7 +221,7 @@
     {
         if (MessageStatus == MessageStatus.None && Color != null)
         {
-            return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message\">{Message}</p></div>";
+            return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><pre class=\"message\">{Message}</pre></div>";
         }
         else
         {
