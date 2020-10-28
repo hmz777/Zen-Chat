@@ -1626,10 +1626,11 @@
       ]
     },
     {
-      "library": "@joeattardi/emoji-button@latest",
-      "destination": "wwwroot/lib/joeattardi/emoji-button/",
+      "library": "emojionearea@latest",
+      "destination": "wwwroot/lib/emojionearea/",
       "files": [
-        "dist/index.js"
+        "dist/emojionearea.min.css",
+        "dist/emojionearea.min.js"
       ]
     }
   ]

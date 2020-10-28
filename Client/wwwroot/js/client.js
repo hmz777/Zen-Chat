@@ -1,4 +1,4 @@
-var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance;
+var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference,emojione = window.emojione;
 
 $(document).ready(function () {
     $(document).click(function (e) {
@@ -106,4 +106,24 @@ function AddUser(User) {
     $("#UserList").append(User);
 }
 
+function InitializeEmojis(id) {
+
+    emojiArea = $(`#${id}`).emojioneArea({
+        standalone: true,
+        search: false,
+        autocomplete: false,
+        attributes: {
+            spellcheck: false,
+            autocomplete: "off",
+            shortnames: false,
+            saveEmojisAs: "unicode"
+        },
+        events: {
+            emojibtn_click: function (button, event) {
+                let tArea = $("#MessageTextArea");
+                tArea.val(tArea.val() + emojione.shortnameToUnicode(button.data("name")));
+                // tArea.trigger('change');
+            }
+        }
+    });
 }
