@@ -23,6 +23,7 @@
             }
 
             #ChatFooter {
+                background: $color5;
 
                 input,
                 textarea {
@@ -61,6 +62,7 @@
         display: flex;
         flex-flow: column wrap;
         width: 30%;
+        border-left: 1px solid $color1;
 
         #UserHeader {
             display: flex;
@@ -141,6 +143,7 @@
         flex-flow: column;
         width: 65%;
         height: 100vh;
+        position: relative;
 
         #ChatContent {
             display: flex;
@@ -148,7 +151,6 @@
             height: 90%;
             max-width: 100%;
             padding: 1em;
-            border-right: 1px solid $color1;
 
             .message-box {
                 display: flex;
@@ -246,9 +248,15 @@
         }
 
         #ChatFooter {
-            padding: 0em 1em;
-            min-height: 10%;
+            padding: 1em;
+            min-height: 1em;
             border-top: 1px solid $color1;
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
 
             form {
                 height: 100%;
@@ -309,6 +317,7 @@
     bottom: 0;
     background: rgba(black, .4);
     display: flex;
+    z-index: 3;
 
     #Prompt {
         margin: auto;
