@@ -17,5 +17,7 @@ namespace MVCBlazorChatApp.Client.Models
         public string Username { get; set; }
 
         public string Room { get; set; }
+
+        public string ConnectionId { get; set; }
     }
 }
