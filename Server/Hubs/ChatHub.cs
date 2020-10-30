@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MVCBlazorChatApp.Client.Models;
 using MVCBlazorChatApp.Server.Data;
@@ -12,36 +12,85 @@ namespace MVCBlazorChatApp.Server.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(UserModel User, string Message)
+        public static HashSet<UserModel> ConnectedUsers { get; set; } = new HashSet<UserModel>();
+
+        #region Connect/Disconnect
+
+        public async Task<IEnumerable<UserModel>> RegisterUser(UserModel User, string GroupName)
         {
-            await Clients.All.SendAsync("ReceiveMessage", User, Message);
+            if (ConnectedUsers.Any(u => u.Username == User.Username))
+            {
+                await SendCallerNotification(MessageStatus.Failure, $"\"{User.Username}\" is already taken.");
+                return Enumerable.Empty<UserModel>();
+            }
+
+
+            ConnectedUsers.Add(User);
+            await AddToGroup(User, GroupName);
+            await AddUserToList(User);
+            await SendGroupNotification(User, MessageStatus.Information, $"{User.Username} connected.");
+
+            return ConnectedUsers.Where(u => u.Room == User.Room && u.ConnectionId != User.ConnectionId).ToList();
         }
+        public async override Task OnDisconnectedAsync(Exception exception)
+        {
+            var User = ConnectedUsers.Where(user => user.ConnectionId == Context.ConnectionId).FirstOrDefault();
+
+            if (User == null)
+                return;
+
+            ConnectedUsers.Remove(User);
+            await RemoveFromGroup(User, User.Room);
+            await RemoveUserFromList(User);
+            await SendGroupNotification(User, MessageStatus.Information, $"{User.Username} disconnected.");
+        }
+
+        #endregion
+
+        #region Group Methods
 
         public async Task SendGroupMessage(UserModel User, string Message)
         {
             await Clients.Group(User.Room).SendAsync("ReceiveMessage", User, Message);
         }
 
+        public async Task SendGroupNotification(UserModel User, MessageStatus MessageStatus, string Message)
+        {
+            await Clients.Group(User.Room).SendAsync("ReceiveNotification", MessageStatus, Message);
+        }
+
         public async Task AddToGroup(UserModel User, string GroupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, GroupName);
-            await AddUserToList(User);
-
-            await SendGroupNotification(User, $"{User.Username} connected.");
         }
 
         public async Task RemoveFromGroup(UserModel User, string GroupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, GroupName);
-            await RemoveUserFromList(User);
-
-            await SendGroupNotification(User, $"{User.Username} disconnected.");
         }
 
-        public async Task SendGroupNotification(UserModel User, string Message)
+        #endregion
+
+        #region Mass Methods
+
+        public async Task SendMessage(UserModel User, string Message)
         {
-            await Clients.Group(User.Room).SendAsync("ReceiveNotification", MessageStatus.Information, Message);
+            await Clients.All.SendAsync("ReceiveMessage", User, Message);
         }
+
+        public async Task SendCallerMessage(string Message)
+        {
+            await Clients.Caller.SendAsync("ReceiveMessage", Message);
+        }
+
+        public async Task SendCallerNotification(MessageStatus MessageStatus, string Message)
+        {
+            await Clients.Caller.SendAsync("ReceiveNotification", MessageStatus, Message);
+        }
+
+        #endregion
+
+        #region User Section Methods
 
         public async Task AddUserToList(UserModel User)
         {
@@ -52,5 +101,7 @@ namespace MVCBlazorChatApp.Server.Hubs
         {
             await Clients.Group(User.Room).SendAsync("RemoveUser", User);
         }
+
+        #endregion
     }
 }
