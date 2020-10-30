@@ -1,4 +1,4 @@
-var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference,emojione = window.emojione;
+var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione;
 
 $(document).ready(function () {
     $(document).click(function (e) {
@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function ShowNotification(message, type, duration = 5000, position = { x: 'center', y: 'top' }, dismissible = true) {
     if (notyf == null)
-        notyf = new Notyf({ types: [{ type: "warning", background: 'darkorange' }] });
+        notyf = new Notyf({ types: [{ type: "warning", background: 'darkorange' }, { type: "information", background: 'dodgerblue' }] });
 
     let ErrorMessage = "";
     if (Array.isArray(message)) {
@@ -46,6 +46,15 @@ function ShowNotification(message, type, duration = 5000, position = { x: 'cente
         case 2:
             notyf.open({
                 type: "warning",
+                duration: duration,
+                position: position,
+                dismissible: dismissible,
+                message: ErrorMessage,
+                className: 'toast-custom-notyf',
+            });
+        case 3:
+            notyf.open({
+                type: "information",
                 duration: duration,
                 position: position,
                 dismissible: dismissible,
@@ -102,11 +111,22 @@ function AddMessage(message) {
     $("#ChatContent .os-content").append(message);
 }
 
-function AddUser(User) {
-    $("#UserList").append(User);
+function AddUser(user) {
+    $("#UserList").append(user);
 }
 
-function InitializeEmojis(id) {
+function AddUserList(list) {
+    $("#UserList").append(list);
+}
+
+function RemoveUser(username) {
+    $("#UserList").children(`[data-name='${username}']`).eq(0).remove();
+}
+
+function InitializeEmojis(id, chatRef) {
+
+    if (chatSectionReference == null)
+        chatSectionReference = chatRef;
 
     emojiArea = $(`#${id}`).emojioneArea({
         standalone: true,
@@ -121,8 +141,9 @@ function InitializeEmojis(id) {
         events: {
             emojibtn_click: function (button, event) {
                 let tArea = $("#MessageTextArea");
-                tArea.val(tArea.val() + emojione.shortnameToUnicode(button.data("name")));
-                // tArea.trigger('change');
+                let emoji = emojione.shortnameToUnicode(button.data("name"));
+                tArea.val(tArea.val() + emoji);
+                chatSectionReference.invokeMethodAsync("AddEmoji", emoji)
             }
         }
     });
