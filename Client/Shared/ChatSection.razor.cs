@@ -142,7 +142,10 @@ namespace MVCBlazorChatApp.Client.Shared
         /// <returns></returns>
         private async Task ReceiveMessageAsync(UserModel UserModel, string Message)
         {
-            await JSRuntime.InvokeVoidAsync("AddMessage", RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
+            await JSRuntime.InvokeVoidAsync("AddMessage",
+             RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
+
+            await ScrollChatIntoView();
         }
 
         /// <summary>
@@ -171,6 +174,11 @@ namespace MVCBlazorChatApp.Client.Shared
         public async Task RemoveUserAsync(UserModel UserModel)
         {
             await JSRuntime.InvokeVoidAsync("RemoveUser", UserModel.Username);
+        }
+
+        public async Task ScrollChatIntoView()
+        {
+            await JSRuntime.InvokeVoidAsync("ScrollChatSec", "ChatContent");
         }
 
         #endregion
