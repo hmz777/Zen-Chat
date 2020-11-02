@@ -23,6 +23,18 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("keyup", "#MessageTextArea", function () {
+        if ($(this).val().length == 0) {
+            $(this).css("height", "0px");
+        }
+
+        if ($(this).height() >= 150)
+            return;
+
+        $(this).css("height", "0px");
+        $(this).css("height", `${$(this)[0].scrollHeight}px`);
+    });
+
 });
 
 function ShowNotification(message, type, duration = 5000, position = { x: 'center', y: 'top' }, dismissible = true) {
