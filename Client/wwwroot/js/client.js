@@ -1,5 +1,19 @@
 var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione;
 
+$.extend($.easing,
+    {
+        easeInCubic: function (x, t, b, c, d) {
+            return c * (t /= d) * t * t + b;
+        },
+        easeOutCubic: function (x, t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        },
+        easeInOutCubic: function (x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        }
+    });
+
 $(document).ready(function () {
     $(document).click(function (e) {
         $(".input-wrapper--text").removeClass("focused");
@@ -147,4 +161,9 @@ function InitializeEmojis(id, chatRef) {
             }
         }
     });
+
+function ScrollChatSec(id) {
+    overlayScrollbarsChatInstance.scroll({ y: "100%" }, 300, { y: "easeOutCubic" })
+}
+
 }
