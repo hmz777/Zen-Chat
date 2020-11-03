@@ -146,6 +146,8 @@ namespace MVCBlazorChatApp.Client.Shared
              RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
 
             await ScrollChatIntoView();
+
+            await UpdateTitle();
         }
 
         /// <summary>
@@ -179,6 +181,11 @@ namespace MVCBlazorChatApp.Client.Shared
         public async Task ScrollChatIntoView()
         {
             await JSRuntime.InvokeVoidAsync("ScrollChatSec", "ChatContent");
+        }
+
+        public async Task UpdateTitle(string Title = null)
+        {
+            await JSRuntime.InvokeVoidAsync("SetTitle", Title);
         }
 
         #endregion

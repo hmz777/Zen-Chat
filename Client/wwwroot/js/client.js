@@ -1,4 +1,4 @@
-var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione;
+var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione, newMessageCount = 0;
 
 $.extend($.easing,
     {
@@ -33,6 +33,10 @@ $(document).ready(function () {
 
         $(this).css("height", "0px");
         $(this).css("height", `${$(this)[0].scrollHeight}px`);
+    });
+
+    $(document).on("focus", "#MessageTextArea", function () {
+        SetTitle("Z-Chat");
     });
 
 });
@@ -173,9 +177,22 @@ function InitializeEmojis(id, chatRef) {
             }
         }
     });
+}
 
 function ScrollChatSec(id) {
     overlayScrollbarsChatInstance.scroll({ y: "100%" }, 300, { y: "easeOutCubic" })
 }
 
+function SetTitle(title) {
+    newMessageCount = ++newMessageCount;
+    if (title == null) {
+        if (!document.hasFocus()) {
+            document.title = `(${newMessageCount}) New message`;
+            return false;
+        }
+    }
+    else {
+        document.title = title;
+    }
+    newMessageCount = 0;
 }
