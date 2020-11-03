@@ -1,4 +1,4 @@
-var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione, newMessageCount = 0;
+var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione, newMessageCount = 0, canSendNotifications = false;
 
 $.extend($.easing,
     {
@@ -195,4 +195,45 @@ function SetTitle(title) {
         document.title = title;
     }
     newMessageCount = 0;
+}
+
+function SubscribeToNotifications() {
+    if (!('Notification' in window)) {
+        alert("This browser does not support notifications.");
+    } else {
+        if (checkNotificationPromise()) {
+            Notification.requestPermission()
+                .then((permission) => {
+                    handlePermission(permission);
+                })
+        } else {
+            Notification.requestPermission(function (permission) {
+                handlePermission(permission);
+            });
+        }
+
+        return canSendNotifications;
+    }
+
+    function handlePermission(permission) {
+        if (!('permission' in Notification)) {
+            Notification.permission = permission;
+        }
+
+        if (Notification.permission === 'denied' || Notification.permission === 'default') {
+            canSendNotifications = false;
+        } else {
+            canSendNotifications = true;
+        }
+    }
+
+    function checkNotificationPromise() {
+        try {
+            Notification.requestPermission().then();
+        } catch (e) {
+            return false;
+        }
+
+        return true;
+    }
 }

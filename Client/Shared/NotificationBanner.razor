@@ -1,0 +1,22 @@
+<div class="@State" id="Notification-Banner">
+    <div class="content">
+        <button type="button" @onclick="@Close" class="close-btn"><i class="las la-times-circle la-2x"></i></button>
+        <p>Would you like to allow the use of notifications so we can send notifications to your desktop?</p>
+    </div>
+    <button @onclick="@Subscribe" type="button" id="Sub-Btn">Subscribe</button>
+</div>
+
+@code {
+    [Inject] public IJSRuntime JSRuntime { get; set; }
+    private string State { get; set; } = "";
+
+    private async Task Subscribe()
+    {
+        await JSRuntime.InvokeAsync<bool>("SubscribeToNotifications");
+        Close();
+    }
+    private void Close()
+    {
+        State = "slideUp";
+    }
+}

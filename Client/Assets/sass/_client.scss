@@ -257,6 +257,9 @@
             left: 0;
             width: 100%;
             background: white;
+            -webkit-box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
 
             form {
                 height: 100%;
@@ -360,6 +363,56 @@
 
         .validation-message {
             display: block;
+        }
+    }
+}
+
+#Notification-Banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1em 8em;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    background: white;
+    color: black;
+    justify-content: space-between;
+    border-bottom: 2px solid $color1;
+    z-index: 3;
+    -webkit-box-shadow: 0px 0px 30px -14px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 30px -14px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 30px -14px rgba(0, 0, 0, 0.75);
+
+    .content {
+        display: flex;
+        align-items: center;
+        flex-flow: row;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    button:not(.close-btn) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        align-self: flex-end;
+        border-radius: 5em;
+        padding: .7em 3em;
+        color: white;
+        background: $color1;
+        transition: box-shadow .3s $main-easing;
+        -webkit-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        -moz-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+        box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+
+        &:hover {
+            -webkit-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            -moz-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+            box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
         }
     }
 }
