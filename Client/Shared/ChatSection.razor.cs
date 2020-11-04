@@ -148,6 +148,8 @@ namespace MVCBlazorChatApp.Client.Shared
             await ScrollChatIntoView();
 
             await UpdateTitle();
+
+            await CheckPermissionAndTryPublishNotification(Message);
         }
 
         /// <summary>
@@ -188,6 +190,11 @@ namespace MVCBlazorChatApp.Client.Shared
             await JSRuntime.InvokeVoidAsync("SetTitle", Title);
         }
 
+        public async Task CheckPermissionAndTryPublishNotification(string Message)
+        {
+            await JSRuntime.InvokeVoidAsync("SendNotification", Message);
+        }
+
         #endregion
 
         #region Admin Tools
@@ -225,7 +232,6 @@ namespace MVCBlazorChatApp.Client.Shared
         #endregion
 
         #region Markup Methods
-
         public string RenderMessage(string Username, string Message, string Color = null, MessageStatus MessageStatus = MessageStatus.None)
         {
             if (MessageStatus == MessageStatus.None && Color != null)

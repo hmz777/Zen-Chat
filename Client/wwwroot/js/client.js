@@ -1,4 +1,12 @@
-var notyf, overlayScrollbarsUserInstance, overlayScrollbarsChatInstance, emojiArea, chatSectionReference, emojione = window.emojione, newMessageCount = 0, canSendNotifications = false;
+var notyf,
+    overlayScrollbarsUserInstance,
+    overlayScrollbarsChatInstance,
+    emojiArea,
+    chatSectionReference,
+    emojione = window.emojione,
+    newMessageCount = 0,
+    canSendNotifications = false,
+    newMessageNotificationCount = 1;
 
 $.extend($.easing,
     {
@@ -184,7 +192,7 @@ function ScrollChatSec(id) {
 }
 
 function SetTitle(title) {
-    newMessageCount = ++newMessageCount;
+    ++newMessageCount;
     if (title == null) {
         if (!document.hasFocus()) {
             document.title = `(${newMessageCount}) New message`;
@@ -235,5 +243,15 @@ function SubscribeToNotifications() {
         }
 
         return true;
+    }
+}
+
+function SendNotification(message) {
+    if (canSendNotifications && !document.hasFocus()) {
+        let notification = new Notification("New Message", { body: message, tag: `newMessage${newMessageNotificationCount}` });
+        ++newMessageNotificationCount;
+
+        if (newMessageNotificationCount > 3)
+            newMessageNotificationCount = 1;
     }
 }
