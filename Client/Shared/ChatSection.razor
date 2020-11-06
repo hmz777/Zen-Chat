@@ -4,13 +4,14 @@
     <div id="ChatContent">
     </div>
     <div id="ChatFooter">
-        <EditForm EditContext="@editContext" OnValidSubmit="@ValidSubmit" class="flex-row">
+        <EditForm EditContext="@editContext" OnValidSubmit="@ValidSubmit">
             <DataAnnotationsValidator />
             <div class="form-group">
                 <div class="input-wrapper input-wrapper--column">
                     <div class="input">
                         <label class="icon"><i class="las la-comment-medical"></i></label>
-                        <textarea rows="1" @bind="@MessageModel.Message" id="MessageTextArea" placeholder="Type a message..."></textarea>
+                        <InputTextArea rows="1" @bind-Value="@MessageModel.Message" id="MessageTextArea"
+                            placeholder="Type a message..."></InputTextArea>
                         <button id="emoji" type="button"></button>
                     </div>
                 </div>

@@ -5,6 +5,10 @@
     width: 100%;
     min-height: 100vh;
 
+    @include breakpoint(max-width $mobileBreakpoint) {
+        flex-flow: column wrap;
+    }
+
     &.D-Mode {
         color: white;
         background: $color5;
@@ -43,17 +47,35 @@
 
         a,
         button {
+            display: flex;
             color: white;
             font-size: 2em;
             text-align: center;
-            padding: .5em;
-            max-width: 100%;
+            width: 100%;
+            height: 2em;
             transition: background .3s ease-in-out;
             border: none;
             background: none;
 
             &:hover {
                 background: rgba(white, .2);
+            }
+
+            i {
+                margin: auto;
+            }
+        }
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            flex-flow: row wrap;
+            justify-content: space-between;
+            width: 100%;
+            height: 10vh;
+
+            a,
+            button {
+                width: 2em;
+                height: 100%;
             }
         }
     }
@@ -63,6 +85,12 @@
         flex-flow: column wrap;
         width: 30%;
         border-left: 1px solid $color1;
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            width: 100%;
+            border-left: none;
+            border-top: 1px solid $color1;
+        }
 
         #UserHeader {
             display: flex;
@@ -144,6 +172,11 @@
         width: 65%;
         height: 100vh;
         position: relative;
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            width: 100%;
+            height: 90vh;
+        }
 
         #ChatContent {
             display: flex;
@@ -262,6 +295,8 @@
             box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
 
             form {
+                display: flex;
+                flex-flow: row wrap;
                 height: 100%;
                 align-items: center;
 
@@ -300,7 +335,7 @@
                     .validation-message {
                         display: block;
                         right: auto;
-                        left: -2em;
+                        left: 0;
                         bottom: 100%;
                     }
                 }
@@ -310,6 +345,22 @@
 
                     i {
                         margin-left: .2em;
+                    }
+                }
+
+                @include breakpoint(max-width $mobileBreakpoint) {
+                    flex-flow: column wrap;
+                    align-items: stretch;
+                    justify-content: center;
+
+                    .form-group {
+                        margin: 0 0 1em 0;
+                    }
+
+                    button {
+                        width: 50%;
+                        margin: auto;
+                        justify-content: space-around;
                     }
                 }
             }
@@ -413,6 +464,20 @@
             -webkit-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
             -moz-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
             box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+        }
+    }
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        padding: 2em 1em;
+        flex-flow: column wrap;
+        align-items: center;
+
+        .content {
+            margin-bottom: 1em;
+        }
+
+        button {
+            margin: auto;
         }
     }
 }
