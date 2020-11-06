@@ -1,7 +1,9 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
 @import "_variables";
+@import "./Breakpoint/breakpoint";
 @import "_boilerplate";
 @import "_normalize";
+@import "_site_breakpoints";
 @import "../../wwwroot/lib/line-awesome/dist/line-awesome/scss/line-awesome";
 @import "_mixins";
 @import "_helpers";

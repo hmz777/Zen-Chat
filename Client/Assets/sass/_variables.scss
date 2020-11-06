@@ -6,7 +6,6 @@ sans-serif;
 /* Colors
    ===================================
 */
-
 $color1: #009688;
 $color2: #00645A;
 $color3: #00423C;
@@ -17,5 +16,10 @@ $color6: #d4f8e8;
 /* Easings
    ===================================
 */
-
 $main-easing: cubic-bezier(0.65, 0, 0.35, 1);
+
+/* Breakpoints
+   ===================================
+*/
+$mobileBreakpoint : 768px;
+$mediumBreakpoint : 1024px;
