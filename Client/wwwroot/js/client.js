@@ -223,6 +223,17 @@ function SubscribeToNotifications() {
         return canSendNotifications;
     }
 
+    function checkNotificationPromise() {
+        try {
+            Notification.requestPermission().then();
+        } catch (e) {
+            return false;
+        }
+
+        return true;
+    }
+}
+
     function handlePermission(permission) {
         if (!('permission' in Notification)) {
             Notification.permission = permission;
@@ -235,15 +246,9 @@ function SubscribeToNotifications() {
         }
     }
 
-    function checkNotificationPromise() {
-        try {
-            Notification.requestPermission().then();
-        } catch (e) {
-            return false;
-        }
-
-        return true;
-    }
+function CheckNotificationPermission(){
+canSendNotifications = Notification.permission == "granted" ? true : false;
+return canSendNotifications;
 }
 
 function SendNotification(message) {

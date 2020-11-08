@@ -8,15 +8,36 @@
 
 @code {
     [Inject] public IJSRuntime JSRuntime { get; set; }
-    private string State { get; set; } = "";
+    private string State { get; set; } = "d-none";
+
+    protected async override Task OnInitializedAsync()
+    {
+        var PermissionAllowed = await CheckNotificationPermission();
+
+        if (!PermissionAllowed)
+            Show();
+    }
 
     private async Task Subscribe()
     {
         await JSRuntime.InvokeAsync<bool>("SubscribeToNotifications");
         Close();
     }
+
+    private async Task<bool> CheckNotificationPermission()
+    {
+        return await JSRuntime.InvokeAsync<bool>("CheckNotificationPermission");
+    }
+
+    private void Show()
+    {
+        State = "slideDown";
+        StateHasChanged();
+    }
+
     private void Close()
     {
         State = "slideUp";
+        StateHasChanged();
     }
 }
