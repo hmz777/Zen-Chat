@@ -69,7 +69,11 @@ namespace MVCBlazorChatApp.Server
 
             services.AddSignalR();
             services.AddControllersWithViews();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+
+            }).AddRazorRuntimeCompilation();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -87,6 +91,7 @@ namespace MVCBlazorChatApp.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
                 app.UseWebAssemblyDebugging();
             }
