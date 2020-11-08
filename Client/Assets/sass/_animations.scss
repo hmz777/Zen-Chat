@@ -28,10 +28,26 @@
     }
 }
 
+@keyframes slideDown {
+    from {
+        transform: translateY(-200%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
 .fadeOut {
     animation: fadeOut .5s ease-in-out forwards;
 }
 
 .slideUp {
+    display: flex;
     animation: slideUp .5s ease-in-out forwards;
+}
+
+.slideDown {
+    display: flex;
+    animation: slideDown .5s ease-in-out forwards;
 }
