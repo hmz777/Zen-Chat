@@ -1,4 +1,6 @@
-﻿<div id="NavSection">
+﻿@using Blazored.LocalStorage
+
+<div id="NavSection">
     <a href="authentication/login"><i class="las la-sign-in-alt"></i></a>
     <a href="authentication/register"><i class="las la-user-plus"></i></a>
     <button type="button" @onclick="@ToggleDarkMode"><i class="las la-@UIModeButton"></i></button>
@@ -7,12 +9,22 @@
 
 @code {
     [Parameter] public EventCallback DarkModeToggleCallback { get; set; }
+    [Inject] public ILocalStorageService LocalStorageService { get; set; }
     private string UIModeButton { get; set; } = "sun";
     public async Task ToggleDarkMode()
     {
-        UIModeButton = UIModeButton == "sun" ? "moon" : "sun";
+        var StoredVal = !(await LocalStorageService.GetItemAsync<bool>("DMode"));
 
-        await DarkModeToggleCallback.InvokeAsync(true);
+        await LocalStorageService.SetItemAsync("DMode", StoredVal);
+
+        ToggleDModeButton();
+
+        await DarkModeToggleCallback.InvokeAsync(StoredVal);
         StateHasChanged();
+    }
+
+    public void ToggleDModeButton()
+    {
+        UIModeButton = UIModeButton == "sun" ? "moon" : "sun";
     }
 }

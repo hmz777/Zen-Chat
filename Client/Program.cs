@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Blazored.LocalStorage;
 
 namespace MVCBlazorChatApp.Client
 {
@@ -24,20 +25,24 @@ namespace MVCBlazorChatApp.Client
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MVCBlazorChatApp.ServerAPI"));
 
-            builder.Services.AddApiAuthorization(options => {
+            builder.Services.AddApiAuthorization();
 
-                options.AuthenticationPaths.LogInPath = "Auth/login";
-                options.AuthenticationPaths.LogInCallbackPath = "Auth/login-callback";
-                options.AuthenticationPaths.LogInFailedPath = "Auth/login-failed";
-                options.AuthenticationPaths.LogOutPath = "Auth/logout";
-                options.AuthenticationPaths.LogOutCallbackPath = "Auth/logout-callback";
-                options.AuthenticationPaths.LogOutFailedPath = "Auth/logout-failed";
-                options.AuthenticationPaths.LogOutSucceededPath = "Auth/logged-out";
-                options.AuthenticationPaths.ProfilePath = "Auth/profile";
-                options.AuthenticationPaths.RegisterPath = "Auth/register";
+            //builder.Services.AddApiAuthorization(options =>
+            //{
+            //    options.AuthenticationPaths.LogInPath = "auth/login";
+            //    options.AuthenticationPaths.LogInCallbackPath = "auth/login-callback";
+            //    options.AuthenticationPaths.LogInFailedPath = "auth/login-failed";
+            //    options.AuthenticationPaths.LogOutPath = "auth/logout";
+            //    options.AuthenticationPaths.LogOutCallbackPath = "auth/logout-callback";
+            //    options.AuthenticationPaths.LogOutFailedPath = "auth/logout-failed";
+            //    options.AuthenticationPaths.LogOutSucceededPath = "auth/logged-out";
+            //    options.AuthenticationPaths.ProfilePath = "auth/profile";
+            //    options.AuthenticationPaths.RemoteRegisterPath = "/register";
+            //    options.AuthenticationPaths.RemoteRegisterPath = "/settings";
 
-            });
+            //});
 
+            builder.Services.AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
     }

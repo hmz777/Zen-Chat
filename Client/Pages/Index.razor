@@ -3,7 +3,7 @@
 @attribute [AllowAnonymous]
 
 <div class="@UIMode" id="client-main">
-    <NavSection DarkModeToggleCallback="@ToggleDarkMode" />
+    <NavSection @ref="@NavSection" DarkModeToggleCallback="@ToggleDarkMode" />
     <ChatSection @ref="@ChatSection" UIMode="@UIMode" Room="@Room" />
     <UserSection Room="@Room" Username="@Username" UIMode="@UIMode" />
     <NotificationBanner />
@@ -17,12 +17,15 @@
     private string Username { get; set; }
     private string UIMode { get; set; } = "W-Mode";
     private ChatSection ChatSection { get; set; }
+    private NavSection NavSection { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
             UsernamePrompt.Show();
+            NavSection.ToggleDModeButton();
+            ToggleDarkMode(null);
         }
     }
 
@@ -33,7 +36,7 @@
         await ChatSection.InitializeSignalR(Username);
     }
 
-    public void ToggleDarkMode(object arg)
+    public void ToggleDarkMode(object State)
     {
         UIMode = UIMode == "W-Mode" ? "D-Mode" : "W-Mode";
 
