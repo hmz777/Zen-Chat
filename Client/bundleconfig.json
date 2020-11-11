@@ -2,8 +2,13 @@
   {
     "outputFileName": "wwwroot/css/main.min.css",
     "inputFiles": [
-      "Assets/sass/main.scss"      
-    ],
-    "minify": { "enabled": true }
+      "Assets/sass/main.scss"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/client.min.js",
+    "inputFiles": [
+      "wwwroot/js/client.js"
+    ]
   }
 ]
