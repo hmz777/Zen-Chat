@@ -81,6 +81,7 @@ namespace MVCBlazorChatApp.Server
             });
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,7 +93,6 @@ namespace MVCBlazorChatApp.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
                 app.UseWebAssemblyDebugging();
             }
             else
