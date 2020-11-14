@@ -24,8 +24,6 @@
         if (firstRender)
         {
             UsernamePrompt.Show();
-            NavSection.ToggleDModeButton();
-            ToggleDarkMode(null);
         }
     }
 
@@ -36,11 +34,10 @@
         await ChatSection.InitializeSignalR(Username);
     }
 
-    public void ToggleDarkMode(object State)
+    public void ToggleDarkMode(object Source)
     {
         UIMode = UIMode == "W-Mode" ? "D-Mode" : "W-Mode";
 
         StateHasChanged();
     }
-
 }
