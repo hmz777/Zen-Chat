@@ -1,4 +1,5 @@
 using AutoMapper;
+using MessagePack;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -67,7 +68,12 @@ namespace MVCBlazorChatApp.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddSignalR();
+            services.AddSignalR().AddMessagePackProtocol(options =>
+            {
+                options.SerializerOptions = MessagePackSerializerOptions.Standard
+                .WithSecurity(MessagePackSecurity.UntrustedData);
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages(options =>
             {
