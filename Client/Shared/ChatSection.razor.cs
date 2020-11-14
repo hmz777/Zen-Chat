@@ -1,16 +1,17 @@
-using MVCBlazorChatApp.Client.Models;
-using Microsoft.AspNetCore.SignalR.Client;
-using MVCBlazorChatApp.Shared.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
+using MVCBlazorChatApp.Client.Models;
+using MVCBlazorChatApp.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
 namespace MVCBlazorChatApp.Client.Shared
 {
-    public partial class ChatSection : ComponentBase, IDisposable
+    public partial class ChatSection : ComponentBase, IAsyncDisposable
     {
         [Inject] private NavigationManager NavigationManager { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
@@ -71,6 +72,7 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
+                .AddMessagePackProtocol()
                 .Build();
 
             AttachCallbacks();
@@ -285,9 +287,13 @@ namespace MVCBlazorChatApp.Client.Shared
 
         #endregion
 
-        public void Dispose()
+        #region Cleanup
+
+        public async ValueTask DisposeAsync()
         {
-            _ = hubConnection.DisposeAsync();
+            await hubConnection.DisposeAsync();
         }
+
+        #endregion
     }
 }

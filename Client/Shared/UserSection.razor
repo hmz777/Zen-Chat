@@ -1,4 +1,4 @@
-﻿@implements IDisposable
+﻿@implements IAsyncDisposable
 
 <div id="UserSection">
     <div id="UserHeader">
@@ -36,8 +36,8 @@
         }
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        JSRuntime.InvokeVoidAsync("DestroyOS");
+        await JSRuntime.InvokeVoidAsync("DestroyOS");
     }
 }
