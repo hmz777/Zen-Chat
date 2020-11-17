@@ -185,6 +185,7 @@
                 flex-flow: row wrap;
                 justify-content: space-between;
                 padding: .3em;
+                animation: fadeIn .4s $main-easing;
 
                 .message-header {
                     display: flex;
