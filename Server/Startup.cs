@@ -1,5 +1,6 @@
 using AutoMapper;
 using MessagePack;
+using MessagePack.Resolvers;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -122,7 +123,7 @@ namespace MVCBlazorChatApp.Server
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/chathub");
-                endpoints.MapFallbackToFile("chat/{**Config}", "index.html");
+                endpoints.MapFallbackToFile("chat/{**Room}", "index.html");
             });
         }
     }
