@@ -181,14 +181,14 @@ function InitializeEmojis(id, chatRef) {
                 let tArea = $("#MessageTextArea");
                 let emoji = emojione.shortnameToUnicode(button.data("name"));
                 tArea.val(tArea.val() + emoji);
-                chatSectionReference.invokeMethodAsync("AddEmoji", emoji)
+                chatSectionReference.invokeMethodAsync("AddEmoji", emoji);
             }
         }
     });
 }
 
 function ScrollChatSec(id) {
-    overlayScrollbarsChatInstance.scroll({ y: "100%" }, 300, { y: "easeOutCubic" })
+    overlayScrollbarsChatInstance.scroll({ y: "100%" }, 300, { y: "easeOutCubic" });
 }
 
 function SetTitle(title) {
@@ -213,7 +213,7 @@ function SubscribeToNotifications() {
             Notification.requestPermission()
                 .then((permission) => {
                     handlePermission(permission);
-                })
+                });
         } else {
             Notification.requestPermission(function (permission) {
                 handlePermission(permission);
@@ -234,21 +234,21 @@ function SubscribeToNotifications() {
     }
 }
 
-    function handlePermission(permission) {
-        if (!('permission' in Notification)) {
-            Notification.permission = permission;
-        }
-
-        if (Notification.permission === 'denied' || Notification.permission === 'default') {
-            canSendNotifications = false;
-        } else {
-            canSendNotifications = true;
-        }
+function handlePermission(permission) {
+    if (!('permission' in Notification)) {
+        Notification.permission = permission;
     }
 
-function CheckNotificationPermission(){
-canSendNotifications = Notification.permission == "granted" ? true : false;
-return canSendNotifications;
+    if (Notification.permission === 'denied' || Notification.permission === 'default') {
+        canSendNotifications = false;
+    } else {
+        canSendNotifications = true;
+    }
+}
+
+function CheckNotificationPermission() {
+    canSendNotifications = Notification.permission == "granted" ? true : false;
+    return canSendNotifications;
 }
 
 function SendNotification(message) {
