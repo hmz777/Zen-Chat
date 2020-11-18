@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MVCBlazorChatApp.Shared.Models
+﻿namespace MVCBlazorChatApp.Shared.Models
 {
     public enum MessageStatus : int
     {
