@@ -9,7 +9,10 @@
     <NotificationBanner />
 </div>
 
-<UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" />
+@if (!UsernameSet)
+{
+    <UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" />
+}
 
 @code {
     [Parameter] public string Room { get; set; }
@@ -18,6 +21,7 @@
     private string UIMode { get; set; } = "W-Mode";
     private ChatSection ChatSection { get; set; }
     private NavSection NavSection { get; set; }
+    private bool UsernameSet { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -30,8 +34,9 @@
     public async Task SetUsername(string Username)
     {
         this.Username = Username;
-
         await ChatSection.InitializeSignalR(Username);
+        UsernameSet = true;
+        StateHasChanged();
     }
 
     public void ToggleDarkMode(object Source)

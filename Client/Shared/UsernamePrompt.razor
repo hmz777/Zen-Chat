@@ -26,7 +26,6 @@
     [Parameter] public EventCallback<string> IndexCallback { get; set; }
     [Inject] private IJSRuntime JSRuntime { get; set; }
     private string PromptState { get; set; } = "d-none";
-    private bool UserSet { get; set; }
     private UserModel UserModel { get; set; } = new UserModel();
     private EditContext editContext;
     protected override void OnInitialized()
@@ -41,21 +40,13 @@
 
     public async Task Close()
     {
-        await IndexCallback.InvokeAsync(UserModel.Username);
-        UserSet = true;
         PromptState = "d-none";
         StateHasChanged();
+        await IndexCallback.InvokeAsync(UserModel.Username);
     }
 
     public async Task ValidSubmit()
     {
-        if (!UserSet)
-        {
-            await Close();
-        }
-        else
-        {
-            await JSRuntime.InvokeVoidAsync("ShowNotification", "Username already set.", 0);
-        }
+        await Close();
     }
 }
