@@ -72,8 +72,11 @@ namespace MVCBlazorChatApp.Server
             services.AddSignalR().AddMessagePackProtocol(options =>
             {
                 options.SerializerOptions = MessagePackSerializerOptions.Standard
+                .WithCompression(MessagePackCompression.Lz4Block)
                 .WithSecurity(MessagePackSecurity.UntrustedData);
             });
+
+
 
             services.AddControllersWithViews();
             services.AddRazorPages(options =>

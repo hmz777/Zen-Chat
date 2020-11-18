@@ -1,3 +1,4 @@
+using MessagePack;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -55,8 +56,11 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             if (!IsConnected)
                 await ShowNotificationAsync(
-                    MessageStatus.Failure,
-                    "We're having trouble connecting you to our server. Try refreshing the page or wait for a reconnect.");
+                    new MessageModel
+                    {
+                        MessageStatus = MessageStatus.Failure,
+                        Message = "We're having trouble connecting you to our server. Try refreshing the page or wait for a reconnect."
+                    });
 
             await Send();
 
@@ -72,7 +76,12 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
-                .AddMessagePackProtocol()
+                .AddMessagePackProtocol(options =>
+                {
+                    options.SerializerOptions = MessagePackSerializerOptions.Standard
+                    .WithCompression(MessagePackCompression.Lz4Block)
+                    .WithSecurity(MessagePackSecurity.UntrustedData);
+                })
                 .Build();
 
             AttachCallbacks();
@@ -83,7 +92,7 @@ namespace MVCBlazorChatApp.Client.Shared
             hubConnection.On<UserModel, string>("ReceiveMessage", ReceiveMessageAsync);
             hubConnection.On<UserModel>("AddUser", AddUserAsync);
             hubConnection.On<UserModel>("RemoveUser", RemoveUserAsync);
-            hubConnection.On<MessageStatus, string>("ReceiveNotification", ShowNotificationAsync);
+            hubConnection.On<MessageModel>("ReceiveNotification", ShowNotificationAsync);
             hubConnection.Reconnecting += OnReconnectingAsync;
             hubConnection.Reconnected += OnReconnectedAsync;
             hubConnection.Closed += OnClosedAsync;
@@ -110,26 +119,41 @@ namespace MVCBlazorChatApp.Client.Shared
 
         public async Task OnReconnectingAsync(Exception exception)
         {
-            await ShowNotificationAsync(MessageStatus.Failure,
-                "Connection lost.");
-            await ShowNotificationAsync(MessageStatus.Warning,
-                "Reconnecting...");
+            await ShowNotificationAsync(new MessageModel
+            {
+                MessageStatus = MessageStatus.Failure,
+                Message = "Connection lost."
+            });
+            await ShowNotificationAsync(new MessageModel
+            {
+                MessageStatus = MessageStatus.Warning,
+                Message = "Reconnecting..."
+            });
         }
 
         public async Task OnReconnectedAsync(string connectionId)
         {
-            await ShowNotificationAsync(MessageStatus.Success,
-                "Reconnect successful.");
+            await ShowNotificationAsync(new MessageModel
+            {
+                MessageStatus = MessageStatus.Success,
+                Message = "Reconnect successful."
+            });
         }
 
         public async Task OnClosedAsync(Exception exception)
         {
             if (exception != null)
-                await ShowNotificationAsync(MessageStatus.Failure,
-                "Connection closed due to an error.");
+                await ShowNotificationAsync(new MessageModel
+                {
+                    MessageStatus = MessageStatus.Failure,
+                    Message = "Connection closed due to an error."
+                });
             else
-                await ShowNotificationAsync(MessageStatus.Failure,
-                "Connection closed.");
+                await ShowNotificationAsync(new MessageModel
+                {
+                    MessageStatus = MessageStatus.Failure,
+                    Message = "Connection closed."
+                });
         }
 
         #endregion
@@ -197,22 +221,18 @@ namespace MVCBlazorChatApp.Client.Shared
             await JSRuntime.InvokeVoidAsync("SendNotification", Message);
         }
 
-        #endregion
-
-        #region Admin Tools
-
         /// <summary>
         /// Add administrative message.
         /// </summary>
         /// <param name="MessageStatus"></param>
         /// <param name="Message"></param>
         /// <returns></returns>
-        public async Task AddMessageAsync(MessageStatus MessageStatus, string Message)
+        public async Task AddMessageAsync(MessageModel MessageModel)
         {
             await JSRuntime.InvokeVoidAsync("AddMessage",
                 RenderMessage(Username: "Z-Bot",
-                Message: Message,
-                MessageStatus: MessageStatus));
+                Message: MessageModel.Message,
+                MessageStatus: MessageModel.MessageStatus));
         }
 
         /// <summary>
@@ -221,11 +241,11 @@ namespace MVCBlazorChatApp.Client.Shared
         /// <param name="MessageStatus"></param>
         /// <param name="Message"></param>
         /// <returns></returns>
-        public async Task ShowNotificationAsync(MessageStatus MessageStatus, string Message)
+        public async Task ShowNotificationAsync(MessageModel MessageModel)
         {
             await JSRuntime.InvokeVoidAsync("ShowNotification",
-                    Message,
-                    (int)MessageStatus,
+                    MessageModel.Message,
+                    (int)MessageModel.MessageStatus,
                     5000,
                     new { x = "right", y = "top" },
                     true);
@@ -234,36 +254,39 @@ namespace MVCBlazorChatApp.Client.Shared
         #endregion
 
         #region Markup Methods
-        public string RenderMessage(string Username, string Message, string Color = null, MessageStatus MessageStatus = MessageStatus.None)
+
+        public static string RenderMessage(string Username, string Message, string Color = null, MessageStatus MessageStatus = MessageStatus.None)
         {
+            var Date = DateTime.UtcNow;
+
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><pre class=\"message\">{Message}</pre></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span class=\"date\">{Date}</span></div><pre class=\"message\">{Message}</pre></div>";
             }
             else
             {
                 switch (MessageStatus)
                 {
                     case MessageStatus.Success:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message message--success\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--success\">{Message}</p></div>";
                     case MessageStatus.Failure:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message message--failure\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--failure\">{Message}</p></div>";
                     case MessageStatus.Information:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message message--information\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--information\">{Message}</p></div>";
                     case MessageStatus.Warning:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message message--warning\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--warning\">{Message}</p></div>";
                     default:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span class=\"date\">{DateTime.UtcNow}</span></div><p class=\"message\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message\">{Message}</p></div>";
                 }
             }
         }
 
-        public string RenderUser(string Username, string Color)
+        public static string RenderUser(string Username, string Color)
         {
             return $"<li title=\"{Username}\" data-name=\"{Username}\" style=\"background:{Color}\">{Username}</li>";
         }
 
-        public string RenderUserList(IEnumerable<UserModel> UserList)
+        public static string RenderUserList(IEnumerable<UserModel> UserList)
         {
             string UserListMarkup = string.Empty;
 
