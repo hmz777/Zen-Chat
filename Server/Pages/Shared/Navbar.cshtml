@@ -9,7 +9,7 @@
     </div>
     <nav>
         <ul>
-            <li><a href="/chat/DemoRoom">Try It!</a></li>
+            <li><a href="/chat/DemoRoom">Try It</a></li>
             @if (User.Identity.IsAuthenticated)
             {
                 <li><a asp-area="Identity" asp-page="/Account/Settings">Hello @User.Identity.Name</a></li>
@@ -32,7 +32,6 @@
                 }
                 <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
             }
-            <li><button type="button" id="color-switch"><i class="las la-moon"></i></button></li>
         </ul>
     </nav>
 </div>
