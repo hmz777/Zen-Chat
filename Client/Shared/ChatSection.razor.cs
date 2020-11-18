@@ -76,6 +76,14 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
+                .WithAutomaticReconnect(new TimeSpan[] {
+                    TimeSpan.FromSeconds(0),
+                    TimeSpan.FromSeconds(2),
+                    TimeSpan.FromSeconds(10),
+                    TimeSpan.FromSeconds(30),
+                    TimeSpan.FromSeconds(60),
+                    TimeSpan.FromSeconds(90)
+                })
                 .AddMessagePackProtocol(options =>
                 {
                     options.SerializerOptions = MessagePackSerializerOptions.Standard
@@ -104,11 +112,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
             await hubConnection.StartAsync();
 
-            UserModel.ConnectionId = hubConnection.ConnectionId;
-
-            GroupUsers = await hubConnection.InvokeAsync<IEnumerable<UserModel>>("RegisterUser", UserModel, Room);
-
-            await AddUserListAsync(GroupUsers);
+            await RegisterUser(hubConnection.ConnectionId);
         }
 
         public bool IsConnected =>
@@ -121,18 +125,15 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             await ShowNotificationAsync(new MessageModel
             {
-                MessageStatus = MessageStatus.Failure,
-                Message = "Connection lost."
-            });
-            await ShowNotificationAsync(new MessageModel
-            {
                 MessageStatus = MessageStatus.Warning,
                 Message = "Reconnecting..."
             });
         }
 
-        public async Task OnReconnectedAsync(string connectionId)
+        public async Task OnReconnectedAsync(string ConnectionId)
         {
+            await RegisterUser(ConnectionId ?? hubConnection.ConnectionId);
+
             await ShowNotificationAsync(new MessageModel
             {
                 MessageStatus = MessageStatus.Success,
@@ -154,6 +155,15 @@ namespace MVCBlazorChatApp.Client.Shared
                     MessageStatus = MessageStatus.Failure,
                     Message = "Connection closed."
                 });
+        }
+
+        public async Task RegisterUser(string ConnectionId)
+        {
+            UserModel.ConnectionId = ConnectionId;
+
+            GroupUsers = await hubConnection.InvokeAsync<IEnumerable<UserModel>>("RegisterUser", UserModel, Room);
+
+            await AddUserListAsync(GroupUsers);
         }
 
         #endregion
@@ -261,7 +271,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span class=\"date\">{Date}</span></div><pre class=\"message\">{Message}</pre></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><pre class=\"message\">{Message}</pre></div>";
             }
             else
             {
