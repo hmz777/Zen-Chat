@@ -392,7 +392,9 @@
         width: 30em;
         padding: 2em;
         background: white;
-        box-shadow: inset 0px 5px 0px 0px rgba($color1, 0.75), 0px 4px 52px -18px rgba(0, 0, 0, 0.75);
+        border-top: 5px solid $color1;
+        transform: scale(1);
+        animation: pulse 2s ease-in-out forwards;
 
         .form-group {
             margin: 1.5em 0;
@@ -423,6 +425,17 @@
 
         .validation-message {
             display: block;
+        }
+    }
+
+    &.D-Mode {
+        #Prompt {
+            background: $color5;
+            color: white;
+
+            input {
+                color: white;
+            }
         }
     }
 }
