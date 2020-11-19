@@ -11,7 +11,7 @@
 
 @if (!UsernameSet)
 {
-    <UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" />
+    <UsernamePrompt @ref="@UsernamePrompt" IndexCallback="@SetUsername" UIMode="@UIMode" />
 }
 
 @code {

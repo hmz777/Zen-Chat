@@ -1,6 +1,6 @@
 @using MVCBlazorChatApp.Client.Models
 
-<div class="@PromptState" id="UsernamePrompt">
+<div class="@PromptState @UIMode" id="UsernamePrompt">
     <div id="Prompt">
         Enter your name
         <EditForm EditContext="@editContext" OnValidSubmit="@ValidSubmit">
@@ -24,6 +24,7 @@
 
 @code {
     [Parameter] public EventCallback<string> IndexCallback { get; set; }
+    [Parameter] public string UIMode { get; set; } = "";
     [Inject] private IJSRuntime JSRuntime { get; set; }
     private string PromptState { get; set; } = "d-none";
     private UserModel UserModel { get; set; } = new UserModel();
