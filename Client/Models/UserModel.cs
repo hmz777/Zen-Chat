@@ -15,6 +15,7 @@ namespace MVCBlazorChatApp.Client.Models
 
         [Required(ErrorMessage = "Please supply a username.")]
         [StringLength(15, MinimumLength = 1, ErrorMessage = "Username length must be between {2} and {1}.")]
+        [RegularExpression(@"^[A-Za-z0-9 _.-]*$", ErrorMessage = "Invalid username.")]
         public string Username { get; set; }
         public string Color { get; set; }
         public string Room { get; set; }
