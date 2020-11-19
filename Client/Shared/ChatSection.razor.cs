@@ -9,6 +9,7 @@ using MVCBlazorChatApp.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace MVCBlazorChatApp.Client.Shared
 {
@@ -179,7 +180,7 @@ namespace MVCBlazorChatApp.Client.Shared
         private async Task ReceiveMessageAsync(UserModel UserModel, string Message)
         {
             await JSRuntime.InvokeVoidAsync("AddMessage",
-             RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
+            RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
 
             await ScrollChatIntoView();
 
@@ -269,24 +270,26 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             var Date = DateTime.UtcNow;
 
+            string ValidMessage = WebUtility.HtmlEncode(Message);
+
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><pre class=\"message\">{Message}</pre></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><pre class=\"message\">{ValidMessage}</pre></div>";
             }
             else
             {
                 switch (MessageStatus)
                 {
                     case MessageStatus.Success:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--success\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--success\">{ValidMessage}</p></div>";
                     case MessageStatus.Failure:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--failure\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--failure\">{ValidMessage}</p></div>";
                     case MessageStatus.Information:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--information\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--information\">{ValidMessage}</p></div>";
                     case MessageStatus.Warning:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--warning\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--warning\">{ValidMessage}</p></div>";
                     default:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message\">{Message}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message\">{ValidMessage}</p></div>";
                 }
             }
         }
