@@ -164,7 +164,10 @@ namespace MVCBlazorChatApp.Client.Shared
 
             GroupUsers = await hubConnection.InvokeAsync<IEnumerable<UserModel>>("RegisterUser", UserModel, Room);
 
-            await AddUserListAsync(GroupUsers);
+            if (GroupUsers == null)
+                await hubConnection.StopAsync();
+            else
+                await AddUserListAsync(GroupUsers);
         }
 
         #endregion

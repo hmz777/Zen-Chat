@@ -23,7 +23,7 @@ namespace MVCBlazorChatApp.Server.Hubs
                     MessageStatus = MessageStatus.Failure,
                     Message = $"\"{User.Username}\" is already taken."
                 });
-                return Enumerable.Empty<UserModel>();
+                return null;
             }
 
             ConnectedUsers.Add(User);
