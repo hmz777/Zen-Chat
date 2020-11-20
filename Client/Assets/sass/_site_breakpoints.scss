@@ -1,0 +1,11 @@
+@include breakpoint(max-width $mobileBreakpoint) {
+    body {
+        font-size: .8em;
+    }
+}
+
+@include breakpoint(max-width $xsMobileBreakpoint) {
+    body {
+        font-size: .7em;
+    }
+}

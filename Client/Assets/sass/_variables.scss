@@ -1,6 +1,5 @@
 ﻿$la-font-path: "../../wwwroot/lib/line-awesome/dist/line-awesome/fonts";
-$font-family: 'Poppins',
-sans-serif;
+$font-family: 'Poppins', sans-serif;
 
 
 /* Colors
@@ -21,5 +20,6 @@ $main-easing: cubic-bezier(0.65, 0, 0.35, 1);
 /* Breakpoints
    ===================================
 */
-$mobileBreakpoint : 950px;
-$mediumBreakpoint : 1024px;
+$xsMobileBreakpoint: 320px;
+$mobileBreakpoint: 950px;
+$mediumBreakpoint: 1024px;
