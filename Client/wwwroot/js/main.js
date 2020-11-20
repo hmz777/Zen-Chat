@@ -1,4 +1,4 @@
-﻿var notyf;
+﻿var notyf, sideNav, roomLink, roomGo;
 
 $(document).ready(function () {
     $(document).click(function (e) {
