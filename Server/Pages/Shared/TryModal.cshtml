@@ -1,0 +1,24 @@
+﻿@model string
+
+<div class="modal-cont" id="try-it">
+    <div class="modal">
+        <div class="modal-header">
+            <h4>Enter a name for your room</h4>
+            <button type="button" data-modal-close="true"><i class="las la-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="input-wrapper input-wrapper--column input-wrapper--text">
+                    <div class="input">
+                        <label for="Room" class="icon"><i class="las la-tag"></i></label>
+                        <input type="text" name="RoomName" id="RoomName" placeholder="Room name" />
+                    </div>
+                </div>
+                <div class="link">
+                    <span>URL:</span><span id="RoomLink">@Model</span>
+                </div>
+                <a href="@Model" id="RoomGo">Go!</a>
+            </form>
+        </div>
+    </div>
+</div>

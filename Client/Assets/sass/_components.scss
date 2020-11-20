@@ -336,4 +336,79 @@ code {
     margin-right: 1em;
     border: none;
     background: none;
+}.modal-cont {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(black,.5);
+
+    .modal {
+        padding: 2em;
+        margin: auto;
+        -webkit-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+        border-top: 4px solid $color1;
+        flex-flow: column wrap;
+        background: white;
+        width: 40%;
+        transform: scale(1);
+        animation: pulse 1s ease-in-out forwards;
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            width: 95%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+
+            button {
+                font-size: 2em;
+                background: none;
+                margin-left: .5em;
+            }
+        }
+
+        .modal-body {
+            .link {
+                margin: 1em 0;
+
+                span:nth-child(2) {
+                    color: $color1;
+                    margin-left: .5em;
+                    max-width: 100%;
+                    word-break: break-word;
+                }
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                align-self: flex-end;
+                border-radius: 5em;
+                padding: .7em 3em;
+                color: white;
+                background: $color1;
+                transition: box-shadow .3s $main-easing;
+                -webkit-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+                -moz-box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+                box-shadow: 0px 10px 30px -10px rgba($color1, 0.75);
+
+                &:hover {
+                    -webkit-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+                    -moz-box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+                    box-shadow: 0px 10px 30px -3px rgba($color1, 0.75);
+                }
+            }
+        }
+    }
+
+    &.show {
+        display: flex;
+    }
 }
