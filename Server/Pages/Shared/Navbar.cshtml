@@ -9,7 +9,7 @@
     </div>
     <nav>
         <ul>
-            <li><a href="/chat/DemoRoom">Try It</a></li>
+            <li><button type="button" data-modal="try-it">Try It</button></li>
             @if (User.Identity.IsAuthenticated)
             {
                 <li><a asp-area="Identity" asp-page="/Account/Settings">Hello @User.Identity.Name</a></li>
@@ -34,4 +34,5 @@
             }
         </ul>
     </nav>
+    <button type="button" class="nav-toggler"><i class="las la-bars"></i></button>
 </div>

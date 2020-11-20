@@ -21,6 +21,30 @@ $(document).ready(function () {
             options.messages["mustbetrue"] = options.message;
         });
     }
+
+    sideNav = $(".sidenav").eq(0);
+
+    $(".nav-toggler").click(function () {
+        sideNav.toggleClass("show");
+    });
+
+    $("[data-modal]").click(function () {
+        let modalId = $(this).attr("data-modal");
+        $("#" + modalId).addClass("show");
+    });
+
+    $("[data-modal-close]").click(function () {
+        $(this).parents(".modal-cont").removeClass("show");
+    });
+
+    roomLink = $("#RoomLink").eq(0);
+    roomGo = $("#RoomGo").eq(0);
+
+    $("#RoomName").keyup(function () {
+        let url = Domain + $(this).val();
+        roomLink.text(url);
+        roomGo.attr("href", url);
+    });
 });
 
 function ToggleSubmitLoader(button) {
@@ -111,6 +135,6 @@ function FormAfterSubmit(response) {
             0,
             7000,
             { x: 'center', y: 'top' },
-            true)
+            true);
     }
 }
