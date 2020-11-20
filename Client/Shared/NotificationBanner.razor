@@ -1,9 +1,11 @@
 <div class="@State" id="Notification-Banner">
     <div class="content">
-        <button type="button" @onclick="@Close" class="close-btn"><i class="las la-times-circle la-2x"></i></button>
-        <p>Would you like to allow the use of notifications so we can send notifications to your desktop?</p>
+        <p>Would you like to allow us to send notifications regarding new messages to your device?</p>
     </div>
-    <button @onclick="@Subscribe" type="button" id="Sub-Btn">Subscribe</button>
+    <div class="flex-row">
+        <button type="button" @onclick="@Close" class="close-btn"><i class="las la-times-circle la-2x"></i></button>
+        <button @onclick="@Subscribe" type="button" id="Sub-Btn">Subscribe</button>
+    </div>
 </div>
 
 @code {
@@ -12,9 +14,9 @@
 
     protected async override Task OnInitializedAsync()
     {
-        var PermissionAllowed = await CheckNotificationPermission();
-
-        if (!PermissionAllowed)
+        var PermissionStatus = await CheckNotificationPermission();
+        Console.WriteLine(PermissionStatus);
+        if (PermissionStatus == "default")
             Show();
     }
 
@@ -24,9 +26,9 @@
         Close();
     }
 
-    private async Task<bool> CheckNotificationPermission()
+    private async Task<string> CheckNotificationPermission()
     {
-        return await JSRuntime.InvokeAsync<bool>("CheckNotificationPermission");
+        return await JSRuntime.InvokeAsync<string>("CheckNotificationPermission");
     }
 
     private void Show()

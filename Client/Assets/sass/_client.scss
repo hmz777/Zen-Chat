@@ -495,11 +495,13 @@
 
     @include breakpoint(max-width $mobileBreakpoint) {
         padding: 2em 1em;
+        padding: 1.5em;
         flex-flow: column wrap;
         align-items: center;
 
         .content {
             margin-bottom: 1em;
+            text-align: center;
         }
 
         button {

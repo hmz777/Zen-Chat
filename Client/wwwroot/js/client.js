@@ -247,8 +247,7 @@ function handlePermission(permission) {
 }
 
 function CheckNotificationPermission() {
-    canSendNotifications = Notification.permission == "granted" ? true : false;
-    return canSendNotifications;
+    return Notification.permission.toString();
 }
 
 function SendNotification(message) {
