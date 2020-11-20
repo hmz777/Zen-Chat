@@ -15,7 +15,6 @@
     protected async override Task OnInitializedAsync()
     {
         var PermissionStatus = await CheckNotificationPermission();
-        Console.WriteLine(PermissionStatus);
         if (PermissionStatus == "default")
             Show();
     }
