@@ -1,1 +1,86 @@
-﻿
+﻿.sidenav {
+    display: none;
+    flex-flow: column wrap;
+    padding: 1em 2em;
+    background: $color1;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: top 1s $main-easing;
+
+    .sidenav-header {
+        display: flex;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: auto;
+
+            i {
+                margin: 0 .2em;
+                font-size: 2em;
+                color: white;
+            }
+
+            a {
+                color: white;
+            }
+        }
+
+        .nav-toggler {
+            color: white;
+            background: none;
+            font-size: 2em;
+            margin-left: auto;
+            padding: 0;
+        }
+    }
+
+    nav {
+        ul {
+            list-style: none;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: stretch;
+            margin: 0;
+            padding: 1em 0;
+            height: 100%;
+
+            li {
+                display: flex;
+                flex-flow: column wrap;
+                align-items: stretch;
+                border-radius: 10em;
+                transition: background .5s ease-in-out;
+                text-align: center;
+                margin-bottom: .3em;
+
+                a, button {
+                    padding: .5em;
+                    color: white;
+                }
+
+                button {
+                    background: none;
+                    border: none;
+                }
+
+                &:hover {
+                    background: rgba(white,.4);
+                }
+            }
+        }
+    }
+
+    &.show {
+        top: 0;
+    }
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        display: flex;
+        top: -101%;
+    }
+}

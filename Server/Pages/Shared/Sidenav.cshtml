@@ -1,1 +1,40 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http.Extensions
+@{
+    bool IsAccount = ViewData["Account"] == null ? false : true;
+}
+
+<div class="sidenav">
+    <div class="sidenav-header">
+        <div class="logo">
+            <a href="/">Z<i class="las la-comment-dots"></i>Chat</a>
+        </div>
+        <button type="button" class="nav-toggler"><i class="las la-times"></i></button>
+    </div>
+    <nav class="content">
+        <ul>
+            <li><button type="button" data-modal="try-it">Try It</button></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-area="Identity" asp-page="/Account/Settings">Hello @User.Identity.Name</a></li>
+                <li>
+                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(Context.Request.GetEncodedUrl())" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+
+            }
+            else
+            {
+                @if (IsAccount)
+                {
+                    <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                }
+                else
+                {
+                    <li><a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@(Context.Request.GetEncodedUrl())">Login</a></li>
+                }
+                <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+            }
+        </ul>
+    </nav>
+</div>
