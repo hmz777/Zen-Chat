@@ -389,7 +389,7 @@
 
     #Prompt {
         margin: auto;
-        width: 30em;
+        width: 40%;
         padding: 2em;
         background: white;
         border-top: 5px solid $color1;
@@ -425,6 +425,10 @@
 
         .validation-message {
             display: block;
+        }
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            width: 95%;
         }
     }
 
