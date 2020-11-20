@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace MVCBlazorChatApp.Client.Shared
 {
@@ -51,6 +52,17 @@ namespace MVCBlazorChatApp.Client.Shared
             }
 
             await JSRuntime.InvokeVoidAsync("InitializeEmojis", "emoji", DotNetObjectReference.Create(this));
+        }
+
+        private async Task MessageOnEnter(KeyboardEventArgs keyboardEventArgs)
+        {
+            if (keyboardEventArgs.Code == "13")
+            {
+                if (editContext.Validate())
+                {
+                    await ValidSubmit();
+                }
+            }
         }
 
         private async Task ValidSubmit()

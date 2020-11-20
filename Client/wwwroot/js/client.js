@@ -6,7 +6,8 @@ var notyf,
     emojione = window.emojione,
     newMessageCount = 0,
     canSendNotifications = false,
-    newMessageNotificationCount = 1;
+    newMessageNotificationCount = 1,
+    keys = new Set();
 
 $.extend($.easing,
     {
@@ -31,22 +32,34 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("keyup", "#MessageTextArea", function () {
+    $(document).on("keydown", "#MessageTextArea", function (e) {
+        keys.add(e.which);
+
+        if (keys.has(13)) {
+            if (!keys.has(16)) {
+                e.preventDefault();
+                return false;
+            }
+        }
+
         if ($(this).val().length == 0) {
             $(this).css("height", "0px");
         }
 
         if ($(this).height() >= 150)
-            return;
+            return false;
 
         $(this).css("height", "0px");
         $(this).css("height", `${$(this)[0].scrollHeight}px`);
     });
 
+    $(document).on("keyup", "#MessageTextArea", function (e) {
+        keys.delete(e.which);
+    });
+
     $(document).on("focus", "#MessageTextArea", function () {
         SetTitle("Z-Chat");
     });
-
 });
 
 function ShowNotification(message, type, duration = 5000, position = { x: 'center', y: 'top' }, dismissible = true) {
