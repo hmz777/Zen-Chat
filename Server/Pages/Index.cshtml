@@ -2,13 +2,6 @@
 @model MVCBlazorChatApp.Server.Pages.IndexModel
 @{
     ViewBag.Title = "Home";
-    string Domain = string.Format("{0}://{1}/chat/", Request.Scheme, Request.Host);
-}
-
-@section Scripts {
-    <script>
-        var Domain = "@Domain";
-    </script>
 }
 
 <div class="wide-wrapper wide-wrapper--row main-back">
@@ -26,5 +19,3 @@
         this:<br /><br /><code>@string.Format("{0}://{1}/Chat/ChatRoom", Request.Scheme, Request.Host)</code>.
     </p>
 </div>
-
-<partial name="TryModal" model="@Domain" />

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string Domain = string.Format("{0}://{1}/chat/", Context.Request.Scheme, Context.Request.Host);
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <partial name="Seo" />
@@ -22,9 +26,15 @@
         <partial name="Footer" />
     </footer>
 
+    <partial name="TryModal" model="@Domain" />
+
     <partial name="Scripts" />
     @RenderSection("Scripts", false)
-    
+
+    <script>
+        var Domain = "@Domain";
+    </script>
+
     <partial name="StatusMessage" />
 </body>
 </html>
