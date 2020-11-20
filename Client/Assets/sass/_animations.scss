@@ -38,20 +38,30 @@
     }
 }
 
+@keyframes slideDown105 {
+    from {
+        transform: translateY(-105%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
 @keyframes pulse {
     0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba($color1, .7);
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(white, .7);
     }
 
     70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 20px rgba($color1, 0);
+        transform: scale(1.05);
+        box-shadow: 0 0 0 20px rgba(white, 0);
     }
 
     100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba($color1, 0);
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(white, 0);
     }
 }
 
