@@ -1,13 +1,6 @@
-﻿var notyf, sideNav, roomLink, roomGo;
+﻿var notyf, sideNav, roomLink, roomGo, sideNavToggled = false;
 
 $(document).ready(function () {
-    $(document).click(function (e) {
-        $(".input-wrapper--text").removeClass("focused");
-        var target = $(e.target);
-        if (target.parents(".input-wrapper--text").length > 0) {
-            target.parents(".input-wrapper--text").eq(0).addClass("focused");
-        }
-    });
 
     if ($.validator != null) {
 
@@ -26,6 +19,7 @@ $(document).ready(function () {
 
     $(".nav-toggler").click(function () {
         sideNav.toggleClass("show");
+        sideNavToggled = !sideNavToggled;
     });
 
     $("[data-modal]").click(function () {
@@ -44,6 +38,23 @@ $(document).ready(function () {
         let url = Domain + $(this).val();
         roomLink.text(url);
         roomGo.attr("href", url);
+    });
+
+    $(".modal-cont").click(function (e) {
+        if ($(e.target).hasClass("modal-cont")) {
+            $(".modal-cont").removeClass("show");
+        }
+    });
+
+    $(document).click(function (e) {
+        $(".input-wrapper--text").removeClass("focused");
+        var target = $(e.target);
+        if (target.parents(".input-wrapper--text").length > 0) {
+            target.parents(".input-wrapper--text").eq(0).addClass("focused");
+        }
+        else if ($(".sidenav").hasClass("show") && !target.hasClass("nav-toggler") && target.parents(".nav-toggler").length == 0) {
+            $(".sidenav").removeClass("show");
+        }
     });
 });
 
