@@ -3,6 +3,10 @@
     width: 100%;
     padding: 2em 4em;
 
+    @include breakpoint(max-width $mobileBreakpoint) {
+        padding: 2em;
+    }
+
     &--row {
         flex-flow: row wrap;
     }
@@ -223,6 +227,18 @@ form {
         width: 50%;
         padding: 4em 2em;
     }
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        width: 100%;
+
+        .content-card-banner {
+            display: none;
+        }
+
+        .content-card-content {
+            width: 100%;
+        }
+    }
 }
 
 .login-portal {
@@ -230,12 +246,24 @@ form {
         width: 50%;
         padding: 4em 2em;
     }
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        form {
+            width: 100%;
+        }
+    }
 }
 
 .register-portal {
     form {
         width: 50%;
         padding: .5em 2em;
+    }
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        form {
+            width: 100%;
+        }
     }
 }
 
@@ -281,6 +309,7 @@ code {
     -webkit-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 50px -20px rgba(0, 0, 0, 0.75);
+    word-break: break-word;
 
     .title {
         position: absolute;
@@ -328,7 +357,6 @@ code {
     position: fixed;
     top: -100%;
     width: 90%;
-
 }
 
 .close-btn {
@@ -336,7 +364,67 @@ code {
     margin-right: 1em;
     border: none;
     background: none;
-}.modal-cont {
+}
+
+.alert {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 1em;
+    width: 100%;
+    margin: 1em 0;
+    position: relative;
+    border-radius: .5em;
+
+    &:before {
+        position: relative;
+        @extend .las;
+        font-size: 2em;
+        margin-right: .2em;
+    }
+
+    &.error {
+        border: 2px solid #d0021b;
+
+        &:before {
+            color: #d0021b;
+            content: la-content($la-times-circle);
+        }
+    }
+
+    &.info {
+        border: 2px solid dodgerblue;
+
+        &:before {
+            color: dodgerblue;
+            content: la-content($la-info-circle);
+        }
+    }
+
+    &.warning {
+        border: 2px solid darkorange;
+
+        &:before {
+            color: darkorange;
+            content: la-content($la-exclamation-circle);
+        }
+    }
+
+    &.success {
+        border: 2px solid green;
+
+        &:before {
+            color: green;
+            content: la-content($la-check-circle);
+        }
+    }
+
+    p {
+        word-break: break-word;
+    }
+}
+
+.modal-cont {
     display: none;
     position: fixed;
     top: 0;

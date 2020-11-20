@@ -30,7 +30,7 @@
                 position: relative;
                 @extend .las;
                 content: la-content($la-chevron-right);
-                color: black;
+                color: white;
                 left: -.5em;
                 opacity: 0;
                 transition: opacity .3s ease-in-out;
@@ -41,6 +41,10 @@
                     opacity: 1;
                 }
             }
+        }
+
+        @include breakpoint(max-width $mobileBreakpoint) {
+            flex-basis: 100%;
         }
     }
 

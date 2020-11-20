@@ -16,7 +16,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: .3em;
 
         i {
             margin: 0 .2em;
@@ -64,6 +63,28 @@
                     box-shadow: none;
                 }
             }
+        }
+    }
+
+    .nav-toggler {
+        display: none;
+        margin: auto 0 auto auto;
+        background: none;
+        color: $color1;
+        font-size: 2em;
+        padding: 0;
+    }
+
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        padding: 0 2em;
+
+        nav {
+            display: none;
+        }
+
+        .nav-toggler {
+            display: block;
         }
     }
 }

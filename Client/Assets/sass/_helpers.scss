@@ -95,10 +95,18 @@ h6 {
 
 .display-1 {
     font-size: 6em;
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        font-size: 5em;
+    }
 }
 
 .display-2 {
     font-size: 4em;
+
+    @include breakpoint(max-width $mobileBreakpoint) {
+        font-size: 3em;
+    }
 }
 
 .d-none {
