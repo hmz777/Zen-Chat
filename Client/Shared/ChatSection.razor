@@ -8,7 +8,14 @@
                 <div class="input-wrapper input-wrapper--column">
                     <div class="input">
                         <label class="icon"><i class="las la-comment-medical"></i></label>
-                        <textarea rows="1" @bind-value="@MessageModel.Message" @bind-value:event="oninput" @onkeyup="MessageOnEnter" id="MessageTextArea"
+                        <textarea rows="1" 
+                                  @bind-value="@MessageModel.Message" 
+                                  @bind-value:event="oninput" 
+                                  @onkeydown="MessageOnDown" 
+                                  @onkeyup="MessageOnUp" 
+                                  @onfocus="InputFocus" 
+                                  @onkeypress:preventDefault
+                                  id="MessageTextArea"
                                   placeholder="Type a message..."></textarea>
                         <button id="emoji" type="button"></button>
                     </div>

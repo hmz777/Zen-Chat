@@ -25,6 +25,7 @@ namespace MVCBlazorChatApp.Client.Shared
         private UserModel UserModel { get; set; }
         public IEnumerable<UserModel> GroupUsers { get; set; }
         private HubConnection hubConnection;
+        readonly Dictionary<string, string> Keys = new Dictionary<string, string>();
 
         #region Component Methods
 
@@ -54,15 +55,27 @@ namespace MVCBlazorChatApp.Client.Shared
             await JSRuntime.InvokeVoidAsync("InitializeEmojis", "emoji", DotNetObjectReference.Create(this));
         }
 
-        private async Task MessageOnEnter(KeyboardEventArgs keyboardEventArgs)
+        private async Task MessageOnDown(KeyboardEventArgs keyboardEventArgs)
         {
-            if (keyboardEventArgs.Code == "13")
+            Keys[keyboardEventArgs.Key] = keyboardEventArgs.Key;
+
+            if (keyboardEventArgs.Key == "Enter" && Keys.Count == 1)
             {
                 if (editContext.Validate())
                 {
                     await ValidSubmit();
                 }
             }
+        }
+
+        private void MessageOnUp(KeyboardEventArgs keyboardEventArgs)
+        {
+            Keys.Remove(keyboardEventArgs.Key);
+        }
+
+        private async Task InputFocus()
+        {
+            await JSRuntime.InvokeVoidAsync("SetTitle", $"Zen Chat - {Room}");
         }
 
         private async Task ValidSubmit()
