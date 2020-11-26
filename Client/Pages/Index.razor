@@ -1,5 +1,6 @@
 ﻿@page "/chat/{Room}"
 @using Microsoft.AspNetCore.Authorization
+@using System.Net
 @attribute [AllowAnonymous]
 
 <div class="@UIMode" id="client-main">
@@ -16,6 +17,7 @@
 
 @code {
     [Parameter] public string Room { get; set; }
+    [Inject] private IJSRuntime JSRuntime { get; set; }
     private UsernamePrompt UsernamePrompt { get; set; }
     private string Username { get; set; }
     private string UIMode { get; set; } = "W-Mode";
@@ -23,10 +25,13 @@
     private NavSection NavSection { get; set; }
     private bool UsernameSet { get; set; }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            Room = WebUtility.HtmlEncode(Room);
+            await JSRuntime.InvokeVoidAsync("SetTitle", $"Zen Chat - {Room}");
+
             UsernamePrompt.Show();
         }
     }
