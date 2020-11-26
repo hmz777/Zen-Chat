@@ -9,7 +9,7 @@
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label class="icon"><i class="las la-user"></i></label>
-                        <InputText type="text" @bind-Value="@UserModel.Username" placeholder="Name" />
+                        <InputText dir="auto" type="text" @bind-Value="@UserModel.Username" placeholder="Name" />
                     </div>
                 </div>
                 <ValidationMessage For="@(() => UserModel.Username)" />
