@@ -187,8 +187,9 @@
 
             .message-box {
                 display: flex;
-                flex-flow: row wrap;
+                flex-flow: column wrap;
                 justify-content: space-between;
+                align-items: flex-end;
                 padding: .3em;
                 animation: fadeIn .4s $main-easing;
 
@@ -196,6 +197,7 @@
                     display: flex;
                     flex-flow: row wrap;
                     justify-content: space-between;
+                    align-items: center;
                     color: $color5;
                     padding: 0 .5em;
                     width: 100%;
@@ -232,11 +234,10 @@
                     flex-flow: column wrap;
                     justify-content: space-between;
                     background: $color6;
-                    padding: .5em;
+                    padding: .7em;
                     border-radius: .5em;
                     color: $color5;
                     position: relative;
-                    min-width: 30%;
                     white-space: pre-wrap;
                     /* Since CSS 2.1 */
                     white-space: -moz-pre-wrap;
@@ -253,7 +254,7 @@
                         content: '';
                         position: absolute;
                         top: 0;
-                        left: 2em;
+                        right: 1.2em;
                         width: 0;
                         height: 0;
                         border: 0.563em solid transparent;
