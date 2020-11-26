@@ -7,7 +7,7 @@ var notyf,
     newMessageCount = 0,
     canSendNotifications = false,
     newMessageNotificationCount = 1,
-    keys = new Set();
+    Keys = new Set();
 
 $.extend($.easing,
     {
@@ -33,13 +33,13 @@ $(document).ready(function () {
     });
 
     $(document).on("keydown", "#MessageTextArea", function (e) {
-        keys.add(e.which);
 
-        if (keys.has(13)) {
-            if (!keys.has(16)) {
-                e.preventDefault();
-                return false;
-            }
+        Keys.add(e.key);
+
+        if (e.key == "Enter" && Keys.size == 1) {
+            chatSectionReference.invokeMethodAsync("ValidateAndSubmit");
+            $("#ChatFooter form").trigger("reset");
+            e.preventDefault();
         }
 
         if ($(this).val().length == 0) {
@@ -54,11 +54,7 @@ $(document).ready(function () {
     });
 
     $(document).on("keyup", "#MessageTextArea", function (e) {
-        keys.delete(e.which);
-    });
-
-    $(document).on("focus", "#MessageTextArea", function () {
-        SetTitle("Z-Chat");
+        Keys.delete(e.key);
     });
 });
 

@@ -8,9 +8,8 @@ using MVCBlazorChatApp.Client.Models;
 using MVCBlazorChatApp.Shared.Models;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Net;
-using Microsoft.AspNetCore.Components.Web;
+using System.Threading.Tasks;
 
 namespace MVCBlazorChatApp.Client.Shared
 {
@@ -25,7 +24,6 @@ namespace MVCBlazorChatApp.Client.Shared
         private UserModel UserModel { get; set; }
         public IEnumerable<UserModel> GroupUsers { get; set; }
         private HubConnection hubConnection;
-        readonly Dictionary<string, string> Keys = new Dictionary<string, string>();
 
         #region Component Methods
 
@@ -55,30 +53,13 @@ namespace MVCBlazorChatApp.Client.Shared
             await JSRuntime.InvokeVoidAsync("InitializeEmojis", "emoji", DotNetObjectReference.Create(this));
         }
 
-        private async Task MessageOnDown(KeyboardEventArgs keyboardEventArgs)
-        {
-            Keys[keyboardEventArgs.Key] = keyboardEventArgs.Key;
-
-            if (keyboardEventArgs.Key == "Enter" && Keys.Count == 1)
-            {
-                if (editContext.Validate())
-                {
-                    await ValidSubmit();
-                }
-            }
-        }
-
-        private void MessageOnUp(KeyboardEventArgs keyboardEventArgs)
-        {
-            Keys.Remove(keyboardEventArgs.Key);
-        }
-
-        private async Task InputFocus()
-        {
-            await JSRuntime.InvokeVoidAsync("SetTitle", $"Zen Chat - {Room}");
-        }
-
         private async Task ValidSubmit()
+        {
+            await Submit();
+            ResetForm();
+        }
+
+        private async Task Submit()
         {
             if (!IsConnected)
                 await ShowNotificationAsync(
@@ -89,9 +70,17 @@ namespace MVCBlazorChatApp.Client.Shared
                     });
 
             await Send();
+        }
 
+        public void ResetForm()
+        {
             MessageModel = new MessageModel();
             editContext = new EditContext(MessageModel);
+        }
+
+        private async Task InputFocus()
+        {
+            await JSRuntime.InvokeVoidAsync("SetTitle", $"Zen Chat - {Room}");
         }
 
         #endregion
@@ -347,6 +336,15 @@ namespace MVCBlazorChatApp.Client.Shared
         public void AddEmoji(string emoji)
         {
             MessageModel.Message += emoji;
+        }
+
+        [JSInvokable]
+        public async Task ValidateAndSubmit()
+        {
+            if (editContext.Validate())
+            {
+                await Submit();
+            }
         }
 
         #endregion
