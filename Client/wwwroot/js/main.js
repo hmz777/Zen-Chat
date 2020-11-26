@@ -38,6 +38,7 @@ $(document).ready(function () {
         let url = Domain + $(this).val();
         roomLink.text(url);
         roomGo.attr("href", url);
+        $(this).parents("form").attr("action", url);
     });
 
     $(".modal-cont").click(function (e) {
