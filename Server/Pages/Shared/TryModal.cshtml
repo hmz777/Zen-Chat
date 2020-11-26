@@ -7,7 +7,7 @@
             <button type="button" data-modal-close="true"><i class="las la-times"></i></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form action="/" method="get">
                 <div class="input-wrapper input-wrapper--column input-wrapper--text">
                     <div class="input">
                         <label for="Room" class="icon"><i class="las la-tag"></i></label>
@@ -17,7 +17,7 @@
                 <div class="link">
                     <span>URL:</span><span id="RoomLink">@Model</span>
                 </div>
-                <a href="@Model" id="RoomGo">Go!</a>
+                <a class="ml-auto" href="@Model" id="RoomGo">Go!</a>
             </form>
         </div>
     </div>
