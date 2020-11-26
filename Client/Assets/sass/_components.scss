@@ -25,74 +25,6 @@ form {
         margin-bottom: 1em;
     }
 
-    .input-wrapper {
-        display: flex;
-        position: relative;
-        padding: .5em 0;
-        width: 100%;
-
-        &--row {
-            flex-flow: row wrap;
-        }
-
-        &--column {
-            flex-flow: column wrap;
-        }
-
-        input,
-        textarea,
-        select {
-            background: none;
-            border: none;
-            outline: none;
-            padding: .5em 0;
-            font-size: 1.1em;
-            width: 100%;
-
-            &[type='checkbox'] {
-                margin: auto 0 auto .4em;
-                width: initial;
-            }
-        }
-
-        .input {
-            display: flex;
-            flex-flow: row;
-
-            .icon {
-                display: flex;
-                align-items: center;
-                color: $color1;
-                margin-right: .3em;
-                font-size: 1.5em;
-            }
-        }
-
-        &--text {
-            -webkit-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
-            -moz-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
-            box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
-
-            &:after {
-                position: absolute;
-                content: "";
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: .15em;
-                background: $color1;
-                transition: transform .3s $main-easing;
-                transform: scaleX(0);
-            }
-
-            &.focused {
-                &:after {
-                    transform: scaleX(1);
-                }
-            }
-        }
-    }
-
     span[class^='field-validation'],
     .validation-message {
         position: absolute;
@@ -178,6 +110,74 @@ form {
             cursor: not-allowed;
             background: rgba($color1, .5);
             box-shadow: none;
+        }
+    }
+}
+
+.input-wrapper {
+    display: flex;
+    position: relative;
+    padding: .5em 0;
+    width: 100%;
+
+    &--row {
+        flex-flow: row wrap;
+    }
+
+    &--column {
+        flex-flow: column wrap;
+    }
+
+    input,
+    textarea,
+    select {
+        background: none;
+        border: none;
+        outline: none;
+        padding: .5em 0;
+        font-size: 1.1em;
+        width: 100%;
+
+        &[type='checkbox'] {
+            margin: auto 0 auto .4em;
+            width: initial;
+        }
+    }
+
+    .input {
+        display: flex;
+        flex-flow: row;
+
+        .icon {
+            display: flex;
+            align-items: center;
+            color: $color1;
+            margin-right: .3em;
+            font-size: 1.5em;
+        }
+    }
+
+    &--text {
+        -webkit-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
+        -moz-box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
+        box-shadow: inset 0px -2.5px 0px 0px rgba(lightgray, 0.75);
+
+        &:after {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: .15em;
+            background: $color1;
+            transition: transform .3s $main-easing;
+            transform: scaleX(0);
+        }
+
+        &.focused {
+            &:after {
+                transform: scaleX(1);
+            }
         }
     }
 }
@@ -432,6 +432,7 @@ code {
     bottom: 0;
     width: 100%;
     background: rgba(black,.5);
+    z-index: 10;
 
     .modal {
         padding: 2em;
@@ -462,6 +463,9 @@ code {
         }
 
         .modal-body {
+            display: flex;
+            flex-flow: column wrap;
+
             .link {
                 margin: 1em 0;
 
