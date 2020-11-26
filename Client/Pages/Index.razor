@@ -39,7 +39,7 @@
     public async Task SetUsername(string Username)
     {
         this.Username = Username;
-        await ChatSection.InitializeSignalR(Username);
+        await ChatSection.StartService(Username);
         UsernameSet = true;
         StateHasChanged();
     }

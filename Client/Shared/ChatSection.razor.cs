@@ -1,10 +1,8 @@
-using MessagePack;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using MVCBlazorChatApp.Client.Models;
+using MVCBlazorChatApp.Client.Services.ChatService;
 using MVCBlazorChatApp.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +13,7 @@ namespace MVCBlazorChatApp.Client.Shared
 {
     public partial class ChatSection : ComponentBase, IAsyncDisposable
     {
-        [Inject] private NavigationManager NavigationManager { get; set; }
+        [Inject] private IChatService ChatService { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Parameter] public string UIMode { get; set; }
         [Parameter] public string Room { get; set; }
@@ -23,7 +21,6 @@ namespace MVCBlazorChatApp.Client.Shared
         private MessageModel MessageModel { get; set; } = new MessageModel();
         private UserModel UserModel { get; set; }
         public IEnumerable<UserModel> GroupUsers { get; set; }
-        private HubConnection hubConnection;
 
         #region Component Methods
 
@@ -36,7 +33,9 @@ namespace MVCBlazorChatApp.Client.Shared
 
             editContext = new EditContext(MessageModel);
 
-            SetupSignalR();
+            ChatService.InitializeService("/chathub");
+
+            AttachCallbacks();
         }
 
         protected async override Task OnAfterRenderAsync(bool firstRender)
@@ -61,7 +60,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
         private async Task Submit()
         {
-            if (!IsConnected)
+            if (!ChatService.IsConnected())
                 await ShowNotificationAsync(
                     new MessageModel
                     {
@@ -69,7 +68,7 @@ namespace MVCBlazorChatApp.Client.Shared
                         Message = "We're having trouble connecting you to our server. Try refreshing the page or wait for a reconnect."
                     });
 
-            await Send();
+            await ChatService.SendAsync(UserModel, MessageModel);
         }
 
         public void ResetForm()
@@ -87,54 +86,30 @@ namespace MVCBlazorChatApp.Client.Shared
 
         #region SignalR Methods
 
-        public void SetupSignalR()
-        {
-            hubConnection = new HubConnectionBuilder()
-                .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
-                .WithAutomaticReconnect(new TimeSpan[] {
-                    TimeSpan.FromSeconds(0),
-                    TimeSpan.FromSeconds(2),
-                    TimeSpan.FromSeconds(10),
-                    TimeSpan.FromSeconds(30),
-                    TimeSpan.FromSeconds(60),
-                    TimeSpan.FromSeconds(90)
-                })
-                .AddMessagePackProtocol(options =>
-                {
-                    options.SerializerOptions = MessagePackSerializerOptions.Standard
-                    .WithCompression(MessagePackCompression.Lz4Block)
-                    .WithSecurity(MessagePackSecurity.UntrustedData);
-                })
-                .Build();
-
-            AttachCallbacks();
-        }
-
         public void AttachCallbacks()
         {
-            hubConnection.On<UserModel, string>("ReceiveMessage", ReceiveMessageAsync);
-            hubConnection.On<UserModel>("AddUser", AddUserAsync);
-            hubConnection.On<UserModel>("RemoveUser", RemoveUserAsync);
-            hubConnection.On<MessageModel>("ReceiveNotification", ShowNotificationAsync);
-            hubConnection.Reconnecting += OnReconnectingAsync;
-            hubConnection.Reconnected += OnReconnectedAsync;
-            hubConnection.Closed += OnClosedAsync;
+            ChatService.RegisterHandler<UserModel, string>("ReceiveMessage", ReceiveMessageAsync);
+            ChatService.RegisterHandler<UserModel>("AddUser", AddUserAsync);
+            ChatService.RegisterHandler<UserModel>("RemoveUser", RemoveUserAsync);
+            ChatService.RegisterHandler<MessageModel>("ReceiveNotification", ShowNotificationAsync);
+            ChatService.OnReconnecting(OnReconnectingAsync);
+            ChatService.OnReconnected(OnReconnectedAsync);
+            ChatService.OnClosed(OnClosedAsync);
         }
 
-        public async Task InitializeSignalR(string Username)
+        public async Task StartService(string Username)
         {
             UserModel.Username = Username;
 
-            await hubConnection.StartAsync();
+            await ChatService.StartAsync();
 
-            await RegisterUser(hubConnection.ConnectionId);
+            GroupUsers = await ChatService.RegisterUserAsync(UserModel, Room);
+
+            if (GroupUsers == null)
+                await ChatService.StopAsync();
+            else
+                await AddUserListAsync(GroupUsers);
         }
-
-        public bool IsConnected =>
-            hubConnection.State == HubConnectionState.Connected;
-
-        Task Send() =>
-                    hubConnection.SendAsync("SendGroupMessage", UserModel, MessageModel.Message);
 
         public async Task OnReconnectingAsync(Exception exception)
         {
@@ -147,7 +122,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
         public async Task OnReconnectedAsync(string ConnectionId)
         {
-            await RegisterUser(ConnectionId ?? hubConnection.ConnectionId);
+            await ChatService.RegisterUserAsync(UserModel, Room, ConnectionId);
 
             await ShowNotificationAsync(new MessageModel
             {
@@ -170,18 +145,6 @@ namespace MVCBlazorChatApp.Client.Shared
                     MessageStatus = MessageStatus.Failure,
                     Message = "Connection closed."
                 });
-        }
-
-        public async Task RegisterUser(string ConnectionId)
-        {
-            UserModel.ConnectionId = ConnectionId;
-
-            GroupUsers = await hubConnection.InvokeAsync<IEnumerable<UserModel>>("RegisterUser", UserModel, Room);
-
-            if (GroupUsers == null)
-                await hubConnection.StopAsync();
-            else
-                await AddUserListAsync(GroupUsers);
         }
 
         #endregion
@@ -291,22 +254,22 @@ namespace MVCBlazorChatApp.Client.Shared
 
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><pre class=\"message\">{ValidMessage}</pre></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message\">{ValidMessage}</p></div>";
             }
             else
             {
                 switch (MessageStatus)
                 {
                     case MessageStatus.Success:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--success\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--success\">{ValidMessage}</p></div>";
                     case MessageStatus.Failure:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--failure\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--failure\">{ValidMessage}</p></div>";
                     case MessageStatus.Information:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--information\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--information\">{ValidMessage}</p></div>";
                     case MessageStatus.Warning:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message message--warning\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--warning\">{ValidMessage}</p></div>";
                     default:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><div class=\"name\" title=\"{Username}\"><i class=\"las la-shield-alt\"></i> {Username}</div><span title=\"{Date}\" class=\"date\">{Date}</span></div><p class=\"message\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message\">{ValidMessage}</p></div>";
                 }
             }
         }
@@ -353,7 +316,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
         public async ValueTask DisposeAsync()
         {
-            await hubConnection.DisposeAsync();
+            await ChatService.DisposeAsync();
         }
 
         #endregion

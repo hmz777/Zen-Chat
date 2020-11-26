@@ -1,14 +1,11 @@
-using System;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Blazored.LocalStorage;
+using MVCBlazorChatApp.Client.Services.ChatService;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace MVCBlazorChatApp.Client
 {
@@ -24,7 +21,7 @@ namespace MVCBlazorChatApp.Client
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MVCBlazorChatApp.ServerAPI"));
-
+            builder.Services.AddSingleton<IChatService, SignalRService>();
             builder.Services.AddApiAuthorization();
 
             //builder.Services.AddApiAuthorization(options =>
