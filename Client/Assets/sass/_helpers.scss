@@ -26,8 +26,25 @@ h6 {
     justify-content: space-between;
 }
 
+.align-self-end {
+    align-self: end;
+}
+
+.align-self-start {
+    align-self: start;
+}
+
+
 .m-auto {
     margin: auto;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.mr-auto {
+    margin-right: auto;
 }
 
 .mx-1 {
