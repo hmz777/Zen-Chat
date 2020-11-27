@@ -6,9 +6,7 @@ var notyf,
     emojione = window.emojione,
     newMessageCount = 0,
     canSendNotifications = false,
-    newMessageNotificationCount = 1,
-    Keys = new Set();
-
+    newMessageNotificationCount = 1;
 $.extend($.easing,
     {
         easeInCubic: function (x, t, b, c, d) {
@@ -32,11 +30,9 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("keydown", "#MessageTextArea", function (e) {
+    $(document).on("keypress", "#MessageTextArea", function (e) {
 
-        Keys.add(e.key);
-
-        if (e.key == "Enter" && Keys.size == 1) {
+        if (e.which == 13 && !e.shiftKey) {
             chatSectionReference.invokeMethodAsync("ValidateAndSubmit");
             $("#ChatFooter form").trigger("reset");
             e.preventDefault();
@@ -51,10 +47,6 @@ $(document).ready(function () {
 
         $(this).css("height", "0px");
         $(this).css("height", `${$(this)[0].scrollHeight}px`);
-    });
-
-    $(document).on("keyup", "#MessageTextArea", function (e) {
-        Keys.delete(e.key);
     });
 });
 
