@@ -13,6 +13,7 @@ namespace MVCBlazorChatApp.Client.Services.ChatService
         Task StopAsync();
 
         bool IsConnected();
+        string CompileMarkdown(string Text);
         Task SendAsync(UserModel UserModel, MessageModel MessageModel);
         Task<IEnumerable<UserModel>> RegisterUserAsync(UserModel UserModel, string Room, string ConnectionId = null);
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using MVCBlazorChatApp.Client.Models;
+using MVCBlazorChatApp.Client.Services.MarkdownCompilerService;
 using MVCBlazorChatApp.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,15 @@ namespace MVCBlazorChatApp.Client.Services.ChatService
     public class SignalRService : IChatService
     {
         private readonly NavigationManager NavigationManager;
+        private readonly IMarkdownCompilerService markdownCompilerService;
         private HubConnection HubConnection;
         private bool ServiceInitialized;
         private bool ServiceStarted;
 
-        public SignalRService(NavigationManager navigationManager)
+        public SignalRService(NavigationManager navigationManager, IMarkdownCompilerService markdownCompilerService)
         {
             this.NavigationManager = navigationManager;
+            this.markdownCompilerService = markdownCompilerService;
         }
 
         public ValueTask DisposeAsync()
@@ -146,9 +149,15 @@ namespace MVCBlazorChatApp.Client.Services.ChatService
             return HubConnection.InvokeAsync<IEnumerable<UserModel>>("RegisterUser", UserModel, Room);
         }
 
+        public string CompileMarkdown(string Text)
+        {
+            return markdownCompilerService.CompileMarkdown(Text);
+        }
+
+        //Also, try the compilation on message receive.
         public Task SendAsync(UserModel UserModel, MessageModel MessageModel)
         {
-            return HubConnection.SendAsync("SendGroupMessage", UserModel, MessageModel.Message);
+            return HubConnection.SendAsync("SendGroupMessage", UserModel, CompileMarkdown(MessageModel.Message.Trim()));
         }
     }
 }

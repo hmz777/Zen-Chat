@@ -250,26 +250,24 @@ namespace MVCBlazorChatApp.Client.Shared
         {
             var Date = DateTime.UtcNow;
 
-            string ValidMessage = WebUtility.HtmlEncode(Message);
-
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message\">{ValidMessage}</p></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><pre class=\"message\">{Message}</pre></div>";
             }
             else
             {
                 switch (MessageStatus)
                 {
                     case MessageStatus.Success:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--success\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--success\">{Message}</p></div>";
                     case MessageStatus.Failure:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--failure\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--failure\">{Message}</p></div>";
                     case MessageStatus.Information:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--information\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--information\">{Message}</p></div>";
                     case MessageStatus.Warning:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--warning\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message message--warning\">{Message}</p></div>";
                     default:
-                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message\">{ValidMessage}</p></div>";
+                        return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><p class=\"message\">{Message}</p></div>";
                 }
             }
         }
