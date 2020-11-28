@@ -206,6 +206,12 @@
                         padding: .2em .5em;
                         border-radius: .3em;
                         color: white;
+                        bottom: -1.7em;
+                        right: 1em;
+                        z-index: 2;
+                        -webkit-box-shadow: 0px 0px 25px -4px rgba($color1,0.75);
+                        -moz-box-shadow: 0px 0px 25px -4px rgba($color1,0.75);
+                        box-shadow: 0px 0px 25px -4px rgba($color1,0.75);
 
                         i {
                             margin: 0 .3em;
@@ -233,10 +239,11 @@
                     flex-flow: column wrap;
                     justify-content: space-between;
                     background: $color6;
-                    padding: .7em 1em;
+                    padding: 1.2em .7em 1em;
                     border-radius: .5em;
                     color: $color5;
                     position: relative;
+                    width: 100%;
                     white-space: pre-wrap;
                     /* Since CSS 2.1 */
                     white-space: -moz-pre-wrap;
@@ -248,6 +255,8 @@
                     word-wrap: break-word;
                     word-break: break-word;
                     font-family: $font-family;
+                    max-width: 100%;
+                    overflow-x: auto;
 
                     p {
                         display: flex;
@@ -260,6 +269,44 @@
                         max-width: 20em;
                         margin: .4em 0;
                         object-fit: contain;
+                    }
+
+                    .blockquote {
+                        margin: 0;
+                        border-left: $color2 solid 4px;
+                        padding: .4em;
+                    }
+
+                    ul, ol {
+                        padding: 0;
+                    }
+
+                    table {
+                        border-collapse: collapse;
+                        border: 1px solid gray;
+
+                        th, td {
+                            padding: 1em 2em 1em 0;
+                            text-align: left !important;
+                            white-space: nowrap;
+
+                            &:nth-child(1) {
+                                padding-left: 2em;
+                            }
+                        }
+
+                        thead {
+                            tr {
+                                background: $color3;
+                                color: white;
+                            }
+                        }
+
+                        tbody {
+                            tr:nth-child(odd) {
+                                background: rgba($color1,.3);
+                            }
+                        }
                     }
 
                     &:after {
