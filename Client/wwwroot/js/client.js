@@ -6,7 +6,9 @@ var notyf,
     emojione = window.emojione,
     newMessageCount = 0,
     canSendNotifications = false,
-    newMessageNotificationCount = 1;
+    newMessageNotificationCount = 1,
+    soundEnabled = true;
+
 $.extend($.easing,
     {
         easeInCubic: function (x, t, b, c, d) {
@@ -252,11 +254,26 @@ function CheckNotificationPermission() {
 }
 
 function SendNotification(message) {
-    if (canSendNotifications && !document.hasFocus()) {
+    if (canSendNotifications) {
         let notification = new Notification("New Message", { body: message, tag: `newMessage${newMessageNotificationCount}` });
         ++newMessageNotificationCount;
 
         if (newMessageNotificationCount > 3)
             newMessageNotificationCount = 1;
+
+        if (soundEnabled)
+            PlayNotificationSound();
     }
+}
+
+function AppHasFocus() {
+    return document.hasFocus();
+}
+
+function PlayNotificationSound() {
+    document.getElementById("notify").play();
+}
+
+function PauseNotificationSound() {
+    document.getElementById("notify").pause();
 }

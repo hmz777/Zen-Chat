@@ -1,0 +1,17 @@
+﻿<audio style="display:none" id="notify" src="/media/audio/notify.mp3" preload="auto">
+    <source src="/media/audio/notify.mp3" type="audio/mp3" />
+</audio>
+
+@code {
+    [Inject] IJSRuntime JSRuntime { get; set; }
+
+    public async Task Play()
+    {
+        await JSRuntime.InvokeVoidAsync("PlayNotificationSound");
+    }
+
+    public async Task Pause()
+    {
+        await JSRuntime.InvokeVoidAsync("PauseNotificationSound");
+    }
+}

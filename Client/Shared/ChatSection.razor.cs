@@ -17,6 +17,7 @@ namespace MVCBlazorChatApp.Client.Shared
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Parameter] public string UIMode { get; set; }
         [Parameter] public string Room { get; set; }
+        private RingtoneComponent RingtoneComponent { get; set; }
         private EditContext editContext;
         private MessageModel MessageModel { get; set; } = new MessageModel();
         private UserModel UserModel { get; set; }
@@ -166,7 +167,11 @@ namespace MVCBlazorChatApp.Client.Shared
 
             await UpdateTitle();
 
-            await CheckPermissionAndTryPublishNotification(Message);
+            if (!(await JSRuntime.InvokeAsync<bool>("AppHasFocus")))
+            {
+                await CheckPermissionAndTryPublishNotification(Message);
+                await RingtoneComponent.Play();
+            }
         }
 
         /// <summary>
