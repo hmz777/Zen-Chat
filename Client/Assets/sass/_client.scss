@@ -199,7 +199,6 @@
                     justify-content: space-between;
                     align-items: center;
                     color: $color5;
-                    padding: 0 .5em;
                     width: 100%;
 
                     .name {
@@ -234,7 +233,7 @@
                     flex-flow: column wrap;
                     justify-content: space-between;
                     background: $color6;
-                    padding: .7em;
+                    padding: .7em 1em;
                     border-radius: .5em;
                     color: $color5;
                     position: relative;
@@ -265,14 +264,14 @@
                         content: '';
                         position: absolute;
                         top: 0;
-                        right: 1.2em;
+                        right: .8em;
                         width: 0;
                         height: 0;
-                        border: 0.563em solid transparent;
+                        border: 0.5em solid transparent;
                         border-bottom-color: $color6;
                         border-top: 0;
-                        margin-left: -0.562em;
-                        margin-top: -0.562em;
+                        margin-left: -0.5em;
+                        margin-top: -0.5em;
                     }
 
                     &--success {
