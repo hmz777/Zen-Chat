@@ -257,7 +257,9 @@
 
                     img {
                         max-height: 20em;
-                        max-width: 100%;
+                        max-width: 20em;
+                        margin: .4em 0;
+                        object-fit: contain;
                     }
 
                     &:after {
