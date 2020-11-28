@@ -17,7 +17,7 @@ namespace MVCBlazorChatApp.Client.Services.MarkdownCompilerService
                 .UseTaskLists()
                 .UseListExtras()
                 .UseMediaLinks()
-                .UseGridTables()
+                .UsePipeTables()
                 .UseMathematics()
                 .DisableHtml()
                 .UseEmojiAndSmiley()
