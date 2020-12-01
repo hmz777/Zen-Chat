@@ -185,6 +185,30 @@
             max-width: 100%;
             padding: 1em;
 
+            .os-content {
+                display: flex;
+                flex-flow: column wrap;
+
+                #NoMessages {
+                    display: flex;
+                    flex-flow: column wrap;
+                    margin: auto;
+
+                    img {
+                        max-width: 65%;
+                        height: auto;
+                        margin: 3em auto auto;
+                    }
+
+                    p {
+                        margin-top: 2em;
+                        word-break: break-word;
+                        text-align: center;
+                        font-weight: 500;
+                    }
+                }
+            }
+
             .message-box {
                 display: flex;
                 flex-flow: column wrap;
@@ -192,6 +216,7 @@
                 align-items: flex-end;
                 padding: .3em;
                 animation: fadeIn .4s $main-easing;
+                flex: 1;
 
                 .message-header {
                     display: flex;
@@ -260,7 +285,7 @@
 
                     p {
                         display: flex;
-                        flex-flow: column wrap;
+                        flex-flow: row wrap;
                         margin: 0;
                     }
 
@@ -269,6 +294,7 @@
                         max-width: 20em;
                         margin: .4em 0;
                         object-fit: contain;
+                        margin-right: unquote("calc(100% - 20em)");
                     }
 
                     .blockquote {
