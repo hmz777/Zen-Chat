@@ -257,7 +257,7 @@ namespace MVCBlazorChatApp.Client.Shared
 
             if (MessageStatus == MessageStatus.None && Color != null)
             {
-                return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><pre class=\"message\">{Message}</pre></div>";
+                return $"<div class=\"message-box\"><div class=\"message-header\"><span title=\"{Date}\" class=\"date\">{Date}</span><div style=\"background:{Color};box-shadow: 0px 0px 25px -4px {Color}\" class=\"name\" title=\"{Username}\">{Username}</div></div><pre class=\"message\">{Message}</pre></div>";
             }
             else
             {
