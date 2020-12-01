@@ -22,6 +22,8 @@ namespace MVCBlazorChatApp.Client.Shared
         private MessageModel MessageModel { get; set; } = new MessageModel();
         private UserModel UserModel { get; set; }
         public IEnumerable<UserModel> GroupUsers { get; set; }
+        private bool SectionHasMessages { get; set; }
+        private bool CanSendNotifications { get; set; }
 
         #region Component Methods
 
@@ -160,6 +162,12 @@ namespace MVCBlazorChatApp.Client.Shared
         /// <returns></returns>
         private async Task ReceiveMessageAsync(UserModel UserModel, string Message)
         {
+            if (!SectionHasMessages)
+            {
+                SectionHasMessages = true;
+                StateHasChanged();
+            }
+
             await JSRuntime.InvokeVoidAsync("AddMessage",
             RenderMessage(Username: UserModel.Username, Color: UserModel.Color, Message: Message));
 
@@ -214,7 +222,15 @@ namespace MVCBlazorChatApp.Client.Shared
 
         public async Task CheckPermissionAndTryPublishNotification(string Message)
         {
-            await JSRuntime.InvokeVoidAsync("SendNotification", Message);
+            if (!CanSendNotifications)
+            {
+                CanSendNotifications = await JSRuntime.InvokeAsync<string>("CheckNotificationPermission") == "granted";
+
+                if (!CanSendNotifications)
+                    return;
+            }
+
+            await JSRuntime.InvokeVoidAsync("SendNotification");
         }
 
         /// <summary>

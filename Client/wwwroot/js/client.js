@@ -253,17 +253,18 @@ function CheckNotificationPermission() {
     return Notification.permission.toString();
 }
 
-function SendNotification(message) {
-    if (canSendNotifications) {
-        let notification = new Notification("New Message", { body: message, tag: `newMessage${newMessageNotificationCount}` });
-        ++newMessageNotificationCount;
+function SendNotification() {
+    let notification = new Notification("Zen Chat",
+        {
+            body: "You have a new message!",
+            tag: `newMessage${newMessageNotificationCount}`,
+            image: "/media/imgassets/new_message.svg"
+        });
 
-        if (newMessageNotificationCount > 3)
-            newMessageNotificationCount = 1;
+    ++newMessageNotificationCount;
 
-        if (soundEnabled)
-            PlayNotificationSound();
-    }
+    if (newMessageNotificationCount > 3)
+        newMessageNotificationCount = 1;
 }
 
 function AppHasFocus() {
