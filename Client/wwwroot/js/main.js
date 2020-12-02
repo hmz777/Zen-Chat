@@ -23,8 +23,9 @@ $(document).ready(function () {
     });
 
     $("[data-modal]").click(function () {
-        let modalId = $(this).attr("data-modal");
-        $("#" + modalId).addClass("show");
+        let modalId = "#" + $(this).attr("data-modal");
+        $(modalId).addClass("show");
+        $(modalId).find("input").focus();
     });
 
     $("[data-modal-close]").click(function () {
