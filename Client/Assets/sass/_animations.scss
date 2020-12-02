@@ -109,6 +109,18 @@
     }
 }
 
+@keyframes slideRight {
+    from {
+        transform: translateX(-.5em);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .fadeOut {
     animation: fadeOut .5s ease-in-out forwards;
 }

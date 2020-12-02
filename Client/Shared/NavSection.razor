@@ -1,10 +1,10 @@
 ﻿@using Blazored.LocalStorage
 
 <div id="NavSection">
-    <a href="authentication/login"><i class="las la-sign-in-alt"></i></a>
-    <a href="authentication/register"><i class="las la-user-plus"></i></a>
-    <button type="button" @onclick="@ToggleDarkMode"><i class="las la-@UIModeButton"></i></button>
-    <a href="/"><i class="las la-comment-dots"></i></a>
+    <a href="authentication/login"><i class="las la-sign-in-alt"></i><div class="arrow_box">Sign in (coming soon)</div></a>
+    <a href="authentication/register"><i class="las la-user-plus"></i><div class="arrow_box">Sign up (coming soon)</div></a>
+    <button type="button" @onclick="@ToggleDarkMode"><i class="las la-@UIModeButton"></i><div class="arrow_box">Toggle display mode</div></button>
+    <a href="/"><i class="las la-comment-dots"></i><div class="arrow_box">Zen Chat</div></a>
 </div>
 
 @code {
@@ -13,15 +13,12 @@
     private string UIModeButton { get; set; } = "sun";
     private bool DModeState { get; set; }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
-        {
-            DModeState = await GetOrSetDModeState();
+        DModeState = await GetOrSetDModeState();
 
-            if (DModeState)
-                await ChangeMode();
-        }
+        if (DModeState)
+            await ChangeMode();
     }
 
     public async Task ChangeMode()

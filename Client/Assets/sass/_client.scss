@@ -5,6 +5,7 @@
     width: 100%;
     min-height: 100vh;
     animation: fadeIn .5s ease-in-out forwards;
+    transition: background .5s ease-in-out;
 
     @include breakpoint(max-width $mobileBreakpoint) {
         flex-flow: column wrap;
@@ -17,7 +18,6 @@
         #UserSection,
         #ChatSection {
             color: white;
-            background: $color5;
 
             #ChatContent {
                 .message-box {
@@ -28,8 +28,6 @@
             }
 
             #ChatFooter {
-                background: $color5;
-
                 input,
                 textarea {
                     color: white;
@@ -45,15 +43,16 @@
         width: 5%;
         padding: 0;
         background: $color1;
+        justify-content: flex-end;
 
         a,
         button {
+            position: relative;
             display: flex;
             color: white;
             text-align: center;
-            font-size: 2em;
             width: 100%;
-            height: 2em;
+            height: 4em;
             transition: background .3s ease-in-out;
             border: none;
             background: none;
@@ -63,7 +62,16 @@
             }
 
             i {
+                font-size: 2em;
                 margin: auto;
+            }
+
+            @include breakpoint(min-width $mediumBreakpoint + 1) {
+                &:hover {
+                    .arrow_box {
+                        display: flex;
+                    }
+                }
             }
         }
 
@@ -91,6 +99,7 @@
         flex-flow: column wrap;
         width: 30%;
         border-left: 1px solid $color1;
+        background: none;
 
         @include breakpoint(max-width $mobileBreakpoint) {
             width: 100%;
@@ -169,6 +178,7 @@
             margin-top: auto;
             border-top: 1px $color1 solid;
             height: 10%;
+            text-align: center;
         }
     }
 
@@ -178,6 +188,7 @@
         width: 65%;
         height: 100vh;
         position: relative;
+        background: none;
 
         #ChatContent {
             display: flex;
@@ -301,6 +312,14 @@
                         margin-right: unquote("calc(100% - 20em)");
                     }
 
+                    iframe {
+                        max-height: 20em;
+                        max-width: 20em;
+                        margin: .4em 0;
+                        object-fit: contain;
+                        margin-right: unquote("calc(100% - 20em)");
+                    }
+
                     .blockquote {
                         margin: 0;
                         border-left: $color2 solid 4px;
@@ -381,7 +400,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background: none;
             -webkit-box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
             box-shadow: 0px -8px 22px -16px rgba(0, 0, 0, 0.75);
@@ -484,7 +503,7 @@
 
     #Prompt {
         margin: 5em auto auto;
-        width: 40%;
+        width: 35em;
         padding: 2em;
         background: white;
         border-top: 5px solid $color1;
@@ -523,10 +542,6 @@
 
         .validation-message {
             display: block;
-        }
-
-        @include breakpoint(max-width $mobileBreakpoint) {
-            width: 95%;
         }
     }
 

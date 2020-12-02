@@ -562,3 +562,42 @@ code {
         background-color: $color5;
     }
 }
+
+.arrow_box {
+    display: none;
+    position: absolute;
+    background: #009688;
+    border: 3px solid #00645a;
+    margin-left: 5em;
+    z-index: 3;
+    padding: .3em .6em;
+    white-space: nowrap;
+    padding: .8em;
+    top: .5em;
+    animation: slideRight .5s ease-in-out forwards;
+}
+
+.arrow_box:after, .arrow_box:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: transparent;
+    border-right-color: #009688;
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+.arrow_box:before {
+    border-color: transparent;
+    border-right-color: #00645a;
+    border-width: 10px;
+    margin-top: -10px;
+}
