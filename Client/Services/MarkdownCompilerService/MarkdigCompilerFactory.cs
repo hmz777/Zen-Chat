@@ -25,8 +25,6 @@ namespace MVCBlazorChatApp.Client.Services.MarkdownCompilerService
                 .UseAbbreviations()
                 .UseFigures()
                 .UseSoftlineBreakAsHardlineBreak()
-                .UseBootstrap()
-                .UseDiagrams()
                 .UseAdvancedExtensions()
                 .Build();
 
