@@ -514,6 +514,7 @@ code {
     background: $color3;
     display: flex;
     flex-flow: column;
+    animation: fadeIn 1s ease-in-out forwards;
 
     .message {
         color: white;

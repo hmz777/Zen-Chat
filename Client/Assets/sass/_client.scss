@@ -4,6 +4,7 @@
     align-items: stretch;
     width: 100%;
     min-height: 100vh;
+    animation: fadeIn .5s ease-in-out forwards;
 
     @include breakpoint(max-width $mobileBreakpoint) {
         flex-flow: column wrap;
@@ -193,6 +194,8 @@
                     display: flex;
                     flex-flow: column wrap;
                     margin: auto;
+                    opacity: 0;
+                    animation: fadeIn .7s ease-in-out forwards;
 
                     img {
                         max-width: 65%;
@@ -217,6 +220,7 @@
                 padding: .3em;
                 animation: fadeIn .4s $main-easing;
                 flex: 1;
+                width: 100%;
 
                 .message-header {
                     display: flex;
@@ -474,18 +478,21 @@
     left: 0;
     width: 100%;
     bottom: 0;
-    background: rgba(black, .4);
+    background: rgba(black, .2);
     display: flex;
     z-index: 3;
 
     #Prompt {
-        margin: auto;
+        margin: 5em auto auto;
         width: 40%;
         padding: 2em;
         background: white;
         border-top: 5px solid $color1;
-        transform: scale(1);
-        animation: pulse 2s ease-in-out forwards;
+        -webkit-box-shadow: 0px 10px 80px -10px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 10px 80px -10px rgba(0,0,0,0.75);
+        box-shadow: 0px 10px 80px -10px rgba(0,0,0,0.75);
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
 
         .form-group {
             margin: 1.5em 0;
