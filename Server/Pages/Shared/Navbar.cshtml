@@ -5,17 +5,17 @@
 
 <div class="navbar">
     <div class="logo">
-        <a href="/">Zen<i class="las la-comment-dots"></i>Chat</a>
+        <a data-aos="custom-ani-down" href="/">Zen<i class="las la-comment-dots"></i>Chat</a>
     </div>
     <nav>
         <ul>
-            <li><button type="button" data-modal="try-it">Try It</button></li>
+            <li><button data-aos="custom-ani-down" type="button" data-modal="try-it">Try It</button></li>
             @if (User.Identity.IsAuthenticated)
             {
-                <li><a asp-area="Identity" asp-page="/Account/Settings">Hello @User.Identity.Name</a></li>
+                <li><a data-aos="custom-ani-down" data-aos-delay="50" asp-area="Identity" asp-page="/Account/Settings">Hello @User.Identity.Name</a></li>
                 <li>
                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(Context.Request.GetEncodedUrl())" method="post">
-                        <button type="submit">Logout</button>
+                        <button data-aos="custom-ani-down" data-aos-delay="100" type="submit">Logout</button>
                     </form>
                 </li>
 
@@ -24,13 +24,13 @@
             {
                 @if (IsAccount)
                 {
-                    <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                    <li><a data-aos="custom-ani-down" data-aos-delay="50" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
                 }
                 else
                 {
-                    <li><a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@(Context.Request.GetEncodedUrl())">Login</a></li>
+                    <li><a data-aos="custom-ani-down" data-aos-delay="50" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@(Context.Request.GetEncodedUrl())">Login</a></li>
                 }
-                <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                <li><a data-aos="custom-ani-down" data-aos-delay="100" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
             }
         </ul>
     </nav>
