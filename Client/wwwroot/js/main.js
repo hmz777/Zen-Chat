@@ -32,6 +32,10 @@ $(document).ready(function () {
         $(this).parents(".modal-cont").removeClass("show");
     });
 
+    $("[data-dismiss='alert']").click(function () {
+        $(this).parent().remove();
+    });
+
     roomLink = $("#RoomLink").eq(0);
     roomGo = $("#RoomGo").eq(0);
 

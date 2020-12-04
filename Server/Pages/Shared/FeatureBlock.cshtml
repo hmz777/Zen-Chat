@@ -1,0 +1,13 @@
+﻿@using MVCBlazorChatApp.Server.Models
+@model FeatureBlockModel
+
+<div class="feature-block @(Model.IsRight ? "right" : "")" data-aos="@Model.Animation">
+    @Model.Text
+    <div class="code">
+        Markdown:<br />
+        <code>@Html.Raw(Model.Markdown)</code>
+    </div>
+    <div class="img" data-aos="@Model.Animation" data-aos-delay="200">
+        <img src="@Model.ImageUrl" alt="@Model.ImageAlt" />
+    </div>
+</div>

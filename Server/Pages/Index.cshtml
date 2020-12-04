@@ -1,21 +1,164 @@
 ﻿@page
+@using MVCBlazorChatApp.Server.Models
 @model MVCBlazorChatApp.Server.Pages.IndexModel
 @{
     ViewBag.Title = "Home";
 }
 
+@section Styles {
+    <link href="~/lib/aos/dist/aos.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/aos/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            startEvent: 'DOMContentLoaded',
+            once: true,
+            duration: 700
+        });
+    </script>
+}
+
 <div class="wide-wrapper wide-wrapper--row main-back">
-    <h1 class="display display-2">Zen Chat<br />No registration<br />No chat history<br />Totally anonymous</h1>
+    <div class="display display-2">
+        <div data-aos="custom-ani-right">Zen Chat</div>
+        <div data-aos="custom-ani-right" data-aos-delay="100">No registration</div>
+        <div data-aos="custom-ani-right" data-aos-delay="200">No chat history</div>
+        <div data-aos="custom-ani-right" data-aos-delay="300">Totally anonymous</div>
+    </div>
 </div>
 <div class="wide-wrapper wide-wrapper--row">
-    <p class="show-text">
+    <p data-aos="custom-ani-down" class="show-text">
         <span class="title">Start</span>
         Create a chat room using this URL: <code>@string.Format("{0}://{1}/Chat", Request.Scheme, Request.Host)</code>
         followed by the room name.
     </p>
-    <p class="show-text">
+    <p data-aos="custom-ani-down" class="show-text">
         <span class="title">Example</span>
         A room with the name <code>ChatRoom</code> would be accessed like
         this:<br /><br /><code>@string.Format("{0}://{1}/Chat/ChatRoom", Request.Scheme, Request.Host)</code>.
     </p>
+</div>
+<div class="wide-wrapper wide-wrapper--row">
+    <h1 data-aos="custom-ani-right" class="display display-2">Features</h1>
+</div>
+<div class="wide-wrapper wide-wrapper--row justify-content-between">
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/images.png",
+                        ImageAlt = "Using images in chat",
+                        Text = "Add images in chat from any link using Markdown syntax.",
+                        Markdown = "![](https://ImageUrl)",
+                        Animation = "custom-ani-right"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/media.png",
+                        ImageAlt = "Using media links in chat",
+                        Text = "Include media links from famous sites like YouTube, Vimeo and others.",
+                        Markdown = "![](https://MediaUrl)",
+                        IsRight = true,
+                        Animation = "custom-ani-left"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/tables.png",
+                        ImageAlt = "Using data tables in chat",
+                        Text = "Represent data using pipe tables.",
+                        Markdown = " a | b<br />"
+                                 + " - | -<br />"
+                                 + " 0 | 1",
+                        Animation = "custom-ani-right"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/autolinks.png",
+                        ImageAlt = "Using auto links in chat",
+                        Text = "Links are automatically recognized and placed as anchor tags.",
+                        Markdown = "https://www.google.com",
+                        IsRight = true,
+                        Animation = "custom-ani-left"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/tasklist.png",
+                        ImageAlt = "Using task lists in chat",
+                        Text = "You can draw task lists to represent to-do list or a check list.",
+                        Markdown = "- [ ] My task 1<br />"
+                                 + "- [x] My task 2<br />",
+                        Animation = "custom-ani-right"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/figure.png",
+                        ImageAlt = "Using figures in chat",
+                        Text = "You can add figures with captions.",
+                        Markdown = "^^^<br />"
+                                 + "![](https://ImageUrl)<br />"
+                                 + "^^^Figure Caption",
+                        IsRight = true,
+                        Animation = "custom-ani-left"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/other.png",
+                        ImageAlt = "Other features",
+                        Text = "And many more features.",
+                        Markdown = "~~Strikethrough text~~<br />"
+                                 + "**Bold text**<br />"
+                                 + "*Italics*<br />"
+                                 + "==Marked text==",
+                        Animation = "custom-ani-right"
+
+                    })" />
+    <partial name="FeatureBlock"
+             model="@(new FeatureBlockModel
+                    {
+                        ImageUrl = "/media/imgassets/figure.png",
+                        ImageAlt = "Using mathematics in chat",
+                        Text = "You can draw math equations using the LaTex syntax.",
+                        Markdown = "$$<br />"
+                                 + "\\begin{equation}"
+                                 + "\\int_0^\\infty \\frac{x^3}{e^x-1}\\,dx = \\frac{\\pi^4}{15}"
+                                 + "\\label{eq:sample}"
+                                 + "\\end{equation}<br />"
+                                 + "$$",
+                        IsRight = true,
+                        Animation = "custom-ani-left"
+
+                    })" />
+</div>
+<div class="wide-wrapper wide-wrapper--row bg-1 lin-grad text-black">
+    <h1 data-aos="custom-ani-right" class="display display-2">More features to come...</h1>
+</div>
+<div class="separator">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#009688" fill-opacity="1" d="M0,224L34.3,224C68.6,224,137,224,206,192C274.3,160,343,96,411,96C480,96,549,160,617,165.3C685.7,171,754,117,823,128C891.4,139,960,213,1029,208C1097.1,203,1166,117,1234,117.3C1302.9,117,1371,203,1406,245.3L1440,288L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
+    </svg>
+</div>
+<div class="wide-wrapper wide-wrapper--row">
+    <h1 data-aos="custom-ani-right" class="display display-2">Built using</h1>
+</div>
+<div class="wide-wrapper wide-wrapper--row zen-stack">
+    <img data-aos="custom-ani-up" src="/media/imgassets/blazor.png" alt="Blazor WebAssembly" />
+    <img data-aos="custom-ani-up" data-aos-delay="50" src="/media/imgassets/dotnet5.svg" alt="Dot Net 5" />
+    <img data-aos="custom-ani-up" data-aos-delay="100" src="/media/imgassets/signalr.png" alt="SignalR" />
+    <img data-aos="custom-ani-up" data-aos-delay="150" src="/media/imgassets/sass.svg" alt="Sass" />
+    <img data-aos="custom-ani-up" data-aos-delay="200" src="/media/imgassets/markdig.png" alt="Markdig" />
+    <img data-aos="custom-ani-up" data-aos-delay="250" src="/media/imgassets/jquery.svg" alt="jQuery" />
+    <img data-aos="custom-ani-up" data-aos-delay="300" src="/media/imgassets/icons8.png" alt="Icons8" />
 </div>

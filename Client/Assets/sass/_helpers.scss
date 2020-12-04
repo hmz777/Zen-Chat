@@ -149,3 +149,16 @@ h6 {
 .w-100 {
     width: 100%;
 }
+
+.bg-1 {
+    background: $color1;
+    color: white;
+}
+
+.lin-grad {
+    background: linear-gradient(to top, $color1, white);
+}
+
+.text-black {
+    color: black;
+}

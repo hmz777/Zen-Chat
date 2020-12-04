@@ -1632,6 +1632,14 @@
         "dist/emojionearea.min.css",
         "dist/emojionearea.min.js"
       ]
+    },
+    {
+      "library": "aos@2.3.4",
+      "destination": "wwwroot/lib/aos/",
+      "files": [
+        "dist/aos.css",
+        "dist/aos.js"
+      ]
     }
   ]
 }
