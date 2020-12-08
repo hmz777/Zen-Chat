@@ -7,7 +7,26 @@ var notyf,
     newMessageCount = 0,
     canSendNotifications = false,
     newMessageNotificationCount = 1,
-    soundEnabled = true;
+    soundEnabled = true,
+    MathJax;
+
+MathJax = {
+    options: {
+        skipHtmlTags: [
+            'script', 'noscript', 'style', 'textarea',
+            'code', 'annotation', 'annotation-xml'
+        ],
+        includeHtmlTags: {
+            br: '\n', wbr: '', '#comment': ''
+        },
+    },
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+        fontCache: 'global'
+    }
+};
 
 $.extend($.easing,
     {
@@ -45,7 +64,7 @@ $(document).ready(function () {
         }
 
         if ($(this).height() >= 150)
-            return false;
+            return true;
 
         $(this).css("height", "0px");
         $(this).css("height", `${$(this)[0].scrollHeight}px`);
@@ -150,6 +169,7 @@ function DestroyOS(section) {
 
 function AddMessage(message) {
     $("#ChatContent .os-content").append(message);
+    MathJax.typeset();
 }
 
 function AddUser(user) {
