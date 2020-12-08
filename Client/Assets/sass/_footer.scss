@@ -25,6 +25,7 @@
             margin-bottom: 1.5em;
             position: relative;
             font-size: 1.2em;
+            transition: transform .3s ease-in-out;
 
             &:before {
                 position: relative;
@@ -37,6 +38,8 @@
             }
 
             &:hover {
+                transform: translateX(.5em);
+
                 &:before {
                     opacity: 1;
                 }
@@ -65,19 +68,86 @@
         display: flex;
         flex-flow: column wrap;
         width: 100%;
-        padding: 1em 1em 0;
+        padding: 1em 1em 4em;
         background: $color2;
         align-items: center;
         justify-content: center;
         text-align: center;
         overflow: hidden;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
 
-        div {
+        &:before {
+            content: '';
+            background: white;
+            z-index: 2;
+            transform: scale(0);
+            transition: transform 1s ease-in-out;
+            width: 1em;
+            height: 1em;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            border-radius: 100%;
+        }
+
+        &:hover {
+            &:before {
+                transform: scale(95);
+            }
+
+            .footer-overlay {
+                display: flex;
+                animation: fadeIn 1.7s ease-in-out forwards;
+            }
+        }
+
+        .footer-info {
+            position: absolute;
+            bottom: 0;
             background: white;
             color: $color1;
             padding: 1em;
             border-radius: .5em .5em 0 0;
             flex: 1;
+        }
+
+        .footer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            bottom: 0;
+            z-index: 3;
+            display: none;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            color: $color1;
+            align-items: center;
+            padding: 0 2em;
+
+            span {
+                font-size: 2em;
+                font-weight: bold;
+                font-style: italic;
+                padding: 1em;
+                color: $color1;
+            }
+
+            .links {
+                display: flex;
+                flex-flow: row wrap;
+
+                a {
+                    margin-right: 1em;
+                    color: $color1;
+
+                    i {
+                        font-size: 2em;
+                    }
+                }
+            }
         }
     }
 }
