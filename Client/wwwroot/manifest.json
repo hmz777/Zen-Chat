@@ -1,10 +1,10 @@
 {
-  "name": "MVCBlazorChatApp",
-  "short_name": "MVCBlazorChatApp",
+  "name": "Zen Chat by Hamzi Alsheikh",
+  "short_name": "Zen Chat",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#03173d",
+  "theme_color": "#009688",
   "icons": [
     {
       "src": "icon-512.png",
