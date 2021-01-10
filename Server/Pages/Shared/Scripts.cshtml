@@ -1,3 +1,8 @@
-﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/notyf/notyf.min.js"></script>
-<script src="~/js/main.js" asp-append-version="true"></script>
+﻿<environment include="">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/notyf/notyf.min.js"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+</environment>
+<environment include="Production">
+    <script src="~/js/production/main.min.js" asp-append-version="true"></script>
+</environment>

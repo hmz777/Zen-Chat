@@ -1,3 +1,46 @@
-﻿<meta charset="utf-8" />
+﻿@using System.Web;
+@using Microsoft.AspNetCore.Http.Extensions
+
+@{
+    var encodedUrl = Context.Request.GetEncodedUrl();
+    var encodedDesc = HttpUtility.HtmlEncode("Anonymous chatting with no registration, no history, and alot of cool features, including markdown message formatting.");
+}
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>@ViewBag.Title | Zen Chat - No registration, no chat history, totally anonymous</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="description" content="@encodedDesc" />
+<meta name="Slurp" content="noodp" />
+<meta name="Slurp" content="noydir" />
+<meta name="robots" content="noydir" />
+<meta name="robots" content="noodp" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#009688">
+<meta name="msapplication-TileColor" content="#d5f8e9">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="keywords" content="pwa,chat,private,im,instant messaging,blazor,blazor wasm,web assembly,zen,zen chat" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="canonical" href="@string.Format("https://{0}/{1}",Context.Request.Host,Context.Request.Path)" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link href="manifest.json" rel="manifest" />
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="alternate" href="@encodedUrl" />
+<meta property="og:type" content="website" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image" content="@string.Format("{0}://{1}/icon-512.png",Context.Request.Scheme,Context.Request.Host)" />
+<meta property="og:site_name" content="Zen Chat" />
+<meta property="og:title" content="@ViewBag.Title" />
+<meta property="og:url" content="@ViewBag.PageCanonical" />
+<meta property="og:description" content="@encodedDesc" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:site" content="@@zenchat" />
+<meta property="twitter:title" content="@ViewBag.Title" />
+<meta property="twitter:description" content="@encodedDesc" />
+<meta property="og:locale" content="en_US" />

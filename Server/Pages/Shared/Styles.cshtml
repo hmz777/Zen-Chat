@@ -1,2 +1,7 @@
-﻿<link href="~/lib/notyf/notyf.min.css" rel="stylesheet" />
-<link href="~/css/main.min.css" asp-append-version="true" rel="stylesheet" />
+﻿<environment include="Development">
+    <link href="~/lib/notyf/notyf.min.css" rel="stylesheet" />
+    <link href="~/css/main.min.css" asp-append-version="true" rel="stylesheet" />
+</environment>
+<environment include="Production">
+    <link href="~/css/production/main.min.css" asp-append-version="true" rel="stylesheet" />
+</environment>
