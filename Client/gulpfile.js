@@ -34,9 +34,8 @@ gulp.task('min:js', async function () {
 gulp.task('min:css', async function () {
     merge(getBundles(regex.css).map(bundle => {
         return gulp.src(bundle.inputFiles, { base: '.' })
-            .pipe(wait(200)) 
-            .pipe(sass({ outputStyle: "compressed" }))
-            .pipe(concat(bundle.outputFileName))                       
+            .pipe(wait(200))             
+            .pipe(concat(bundle.outputFileName))//.pipe(sass({ outputStyle: "compressed" }))             
             .pipe(postcss([autoprefixer()]))
             .pipe(cleancss({ compatibility: 'ie8' }))
             .pipe(gulp.dest('.'));

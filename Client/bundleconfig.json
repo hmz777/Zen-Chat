@@ -10,5 +10,60 @@
     "inputFiles": [
       "wwwroot/js/client.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/production/client.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/lib/notyf/notyf.min.js",
+      "wwwroot/lib/overlayscrollbars/js/jquery.overlayScrollbars.min.js",
+      "wwwroot/lib/emojionearea/dist/emojionearea.min.js",
+      "wwwroot/js/client.js"
+    ],
+    "sourceMap": false,
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/production/client.min.css",
+    "inputFiles": [
+      "wwwroot/lib/notyf/notyf.min.css",
+      "wwwroot/lib/overlayscrollbars/css/OverlayScrollbars.min.css",
+      "wwwroot/lib/emojionearea/dist/emojionearea.min.css",
+      "wwwroot/css/main.min.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "outputMode": "singleLine"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/production/main.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/lib/notyf/notyf.min.js",
+      "wwwroot/js/main.js"
+    ],
+    "sourceMap": false,
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/production/main.min.css",
+    "inputFiles": [
+      "wwwroot/lib/notyf/notyf.min.css",
+      "wwwroot/css/main.min.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "outputMode": "singleLine"
+    }
   }
+
 ]
