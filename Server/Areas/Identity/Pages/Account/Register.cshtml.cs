@@ -34,6 +34,9 @@ namespace MVCBlazorChatApp.Server.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(RegisterDTO registerDTO)
         {
+            //Short circuit the process temporarily
+            return new OkObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Accounts feature is not available yet." });
+
             if (!ModelState.IsValid)
                 return new BadRequestObjectResult(new StatusMessage { MessageStatus = MessageStatus.Failure, Message = "Invalid login." });
 
