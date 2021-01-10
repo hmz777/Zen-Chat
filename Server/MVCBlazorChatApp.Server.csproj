@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\Attributes\" />
+    <Folder Include="Helpers\MPResolvers\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
